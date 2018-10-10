@@ -1,0 +1,5 @@
+const LOAD_FRIENDS_LIST = "LOAD_FRIENDS_LIST";
+
+export {
+  LOAD_FRIENDS_LIST
+};
