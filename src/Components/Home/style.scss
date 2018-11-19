@@ -1,0 +1,70 @@
+.ui-home {
+  // Parent Header
+  .home-parent-header {
+    background-color: #ffffff;
+    box-shadow: none;
+    .toolbar {
+      min-height: 84px;
+    }
+    .header-badge {
+      .badge-info {
+        .info-holder {
+          font-family: Roboto;
+          font-size: 14px;
+          font-weight: 600;
+          margin: 5px;
+        }
+        .info-label {
+          color: #ababab;
+          font-family: Roboto;
+          font-size: 14px;
+          font-weight: 400;
+          margin: 5px;
+        }
+      }
+    }
+    .badge-divider {
+      background-color: #ababab;
+      height: 100%;
+      width: 1px;
+    }
+    .get-quote-container {
+      min-height: 100%;
+    }
+  }
+  //Child Header
+  .home-child-header {
+    .search-input {
+      .search-icon {
+        color: #ffffff;
+      }
+      input {
+        &:focus {
+          &:before {
+            border-bottom-color: #ffffff !important;
+          }
+        }
+      }
+      &:before {
+        border-bottom-color: #ffffff !important;
+      }
+    }
+  }
+  // Home Image
+  .home-image {
+    width: 100%;
+  }
+  // Home Services
+  .home-services {
+    .services-heading {
+      font-size: 36px;
+      margin: 20px 0;
+    }
+    .services-card {
+      max-width: 345px;
+    }
+    .card-image {
+      height: 140px;
+    }
+  }
+}
