@@ -1,15 +1,18 @@
-import {LOAD_FRIENDS_LIST} from "../Constants/ActionTypes";
+import _ from "underscore";
+import {User} from "../Constants/ActionTypes";
 
 const initialState = {
-  friends: []
+  route: ""
 };
 
 const friendsReducer = (state = initialState, action) => {
   switch(action.type) {
-    case LOAD_FRIENDS_LIST:
+    case User.LOAD_USER_PRIVILEGES:
       return {
         ...state,
-        friends: action.data
+        route: _.findWhere(action.privileges, {
+          type: "ROUTE"
+        }).description
       };
     default:
       return state;

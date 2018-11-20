@@ -1,0 +1,3 @@
+export default {
+  LOAD_USER_PRIVILEGES: "LOAD_USER_PRIVILEGES"
+};

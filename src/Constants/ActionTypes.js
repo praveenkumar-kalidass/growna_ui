@@ -1,5 +1,5 @@
-const LOAD_FRIENDS_LIST = "LOAD_FRIENDS_LIST";
+import UserActionTypes from "./User";
 
 export {
-  LOAD_FRIENDS_LIST
+  UserActionTypes as User
 };
