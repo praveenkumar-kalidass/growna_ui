@@ -1,0 +1,20 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-home-header {
+  box-shadow: none !important;
+  background-color: transparent !important;
+  top: 30px !important;
+  .gis-logo {
+    height: 50px;
+  }
+  .home-toolbar {
+    min-height: 75px;
+  }
+  .home-link {
+    text-decoration: none;
+    .home-link-button {
+      color: $white;
+      font-weight: 500;
+    }
+  }
+}
