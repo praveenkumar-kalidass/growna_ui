@@ -1,0 +1,24 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-service {
+  margin-top: 50px;
+  .gis-service-container {
+    .service-logo-paper {
+      border-radius: 50%;
+      .service-logo {
+        height: 100px;
+        width: 100px;
+      }
+    }
+    .service-text {
+      margin-bottom: 0;
+      &.service-label {
+        color: $white;
+        font-weight: 500;
+      }
+      &.service-info {
+        font-weight: 700;
+      }
+    }
+  }
+}
