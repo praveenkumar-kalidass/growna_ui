@@ -2,6 +2,9 @@ import React, {Component} from "react";
 import {Grid, Paper, Tab, Tabs} from "@material-ui/core";
 import {DirectionsBike, DirectionsCar, LocalHospital, Flight, Timer} from "@material-ui/icons";
 import Bike from "../Bike";
+import Car from "../Car";
+import TermLife from "../TermLife";
+import Health from "../Health";
 import "./style.scss";
 
 class Quote extends Component {
@@ -24,7 +27,7 @@ class Quote extends Component {
     return (
       <div className="gis-home-quote">
         <Grid container justify="center">
-          <Grid item md={10} sm={12}>
+          <Grid item md={10} sm={11} xs={11}>
             <Paper elevation={1}
               className="quote-paper">
               <Tabs
@@ -41,6 +44,9 @@ class Quote extends Component {
               </Tabs>
               <div className="quote-container">
                 {quoteIndex === 0 && <Bike />}
+                {quoteIndex === 1 && <Car />}
+                {quoteIndex === 2 && <TermLife />}
+                {quoteIndex === 3 && <Health />}
               </div>
             </Paper>
           </Grid>

@@ -15,6 +15,8 @@ class Home extends Component {
           <Grid item md={10} sm={10} xs={12}>
             <Quote />
           </Grid>
+          <Grid item md={10} sm={10} xs={12}>
+          </Grid>
         </Grid>
       </div>
     );

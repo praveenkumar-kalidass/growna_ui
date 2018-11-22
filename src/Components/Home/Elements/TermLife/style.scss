@@ -1,0 +1,10 @@
+.gis-term-life {
+  min-height: 250px;
+  .gender-group {
+    label {
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}

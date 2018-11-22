@@ -2,11 +2,11 @@ import React, {Component} from "react";
 import {Button, FormControl, Grid, Input, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import "./style.scss";
 
-class Bike extends Component {
+class Car extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bikeNumber: "",
+      carNumber: "",
       isExpired: ""
     };
   }
@@ -19,12 +19,12 @@ class Bike extends Component {
 
   render() {
     const {
-      bikeNumber,
+      carNumber,
       isExpired
     } = this.state;
 
     return (
-      <Grid className="gis-bike"
+      <Grid className="gis-car"
         container
         justify="center"
         alignItems="center"
@@ -32,10 +32,10 @@ class Bike extends Component {
         <Grid item md={5} sm={6} xs={10}>
           <TextField
             fullWidth
-            className="bike-number"
-            value={bikeNumber}
-            onChange={(event) => this.handleFieldChange(event, "bikeNumber")}
-            label="Enter your Bike Number"
+            className="car-number"
+            value={carNumber}
+            onChange={(event) => this.handleFieldChange(event, "carNumber")}
+            label="Enter your Car Number"
             margin="normal" />
         </Grid>
         <Grid item md={4} sm={5} xs={10}>
@@ -63,4 +63,4 @@ class Bike extends Component {
   }
 }
 
-export default Bike;
+export default Car;
