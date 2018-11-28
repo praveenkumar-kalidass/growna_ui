@@ -1,0 +1,37 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-rating {
+  margin-top: 50px;
+  .gis-rating-container {
+    .rating-logo-paper {
+      border-radius: 50%;
+      .rating-logo {
+        height: 100px;
+        width: 100px;
+      }
+    }
+    .social-logo-paper {
+      border-radius: 50%;
+      height: 100px;
+      width: 100px;
+      .logo-container {
+        height: 100%;
+        padding-right: 10px;
+        .logo-avatar {
+          height: 30px;
+          width: 30px;
+        }
+      }
+    }
+    .rating-text {
+      margin-bottom: 0;
+      &.rating-label {
+        color: $white;
+        font-weight: 500;
+      }
+      &.rating-info {
+        font-weight: 700;
+      }
+    }
+  }
+}

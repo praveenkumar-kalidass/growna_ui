@@ -1,22 +1,22 @@
-@import "../../../../Utils/Colors.scss";
-
 .gis-service {
-  margin-top: 50px;
-  .gis-service-container {
-    .service-logo-paper {
-      border-radius: 50%;
-      .service-logo {
-        height: 100px;
-        width: 100px;
+  .service-head-title {
+    color: #ffffff;
+    margin-top: 120px;
+  }
+  .service-head-text {
+    color: #ffffff;
+    margin-bottom: 30px;
+  }
+  .service-container {
+    height: 190px;
+    text-align: center;
+    .service-items {
+      min-height: 100%;
+      .service-icon {
+        color: #3f51b5;
+        font-size: 95px;
       }
-    }
-    .service-text {
-      margin-bottom: 0;
-      &.service-label {
-        color: $white;
-        font-weight: 500;
-      }
-      &.service-info {
+      .service-label {
         font-weight: 700;
       }
     }
