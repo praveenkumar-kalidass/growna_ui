@@ -1,0 +1,33 @@
+.gis-review {
+  .review-head-title {
+    color: #ffffff;
+    margin-top: 120px;
+  }
+  .review-head-text {
+    color: #ffffff;
+    margin-bottom: 30px;
+  }
+  .review-container {
+    .review-paper {
+      padding: 10px;
+    }
+    .review-avatar {
+      min-height: 120px;
+      min-width: 120px;
+    }
+    .review-comment {
+      text-align: center;
+    }
+  }
+  .navigation-item {
+    text-align: center;
+    .review-navigation-icon {
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 30px;
+      &:hover {
+        font-size: 40px;
+      }
+    }
+  }
+}

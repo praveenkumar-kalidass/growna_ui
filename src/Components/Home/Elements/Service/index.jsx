@@ -56,24 +56,26 @@ class Service extends Component {
           </Grid>
           <Grid container justify="space-around" spacing={16}>
           {
-            _.map(services, (service, index) => <Grid key={index} item md={4}>
-              <Paper elevation={2} className="service-container">
-                <Grid className="service-items" container
-                  direction="column" justify="space-around" alignItems="stretch">
-                  <Grid item>
-                    <service.icon className="service-icon" />
+            _.map(services, (service, index) => (
+              <Grid key={index} item md={4}>
+                <Paper elevation={2} className="service-container">
+                  <Grid className="service-items" container
+                    direction="column" justify="space-around" alignItems="stretch">
+                    <Grid item>
+                      <service.icon className="service-icon" />
+                    </Grid>
+                    <Grid item>
+                      <Typography className="service-label" variant="subtitle2" gutterBottom>
+                        {service.title}
+                      </Typography>
+                      <Typography className="service-info" variant="body2" gutterBottom>
+                        {service.body}
+                      </Typography>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <Typography className="service-label" variant="subtitle2" gutterBottom>
-                      {service.title}
-                    </Typography>
-                    <Typography className="service-info" variant="body2" gutterBottom>
-                      {service.body}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Grid>)
+                </Paper>
+              </Grid>
+            ))
           }
           </Grid>
         </Grid>
