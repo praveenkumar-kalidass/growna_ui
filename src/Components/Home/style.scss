@@ -16,11 +16,19 @@
     min-height: 100vh;
   }
   .gis-home-part-1 {
-    background-image: linear-gradient(to right, rgba(255, 74, 74, 0.25), #f32121);
+    background-image: linear-gradient(to right, #ff373754, #ff0000);
     min-height: 100vh;
   }
   .gis-home-part-2 {
-    background-image: linear-gradient(to right, rgba(0, 255, 90, 0.25), #03e055);
+    background-image: linear-gradient(to right, #03e0034d, #03e003);
+    min-height: 100vh;
+  }
+  .gis-home-part-3 {
+    background-image: linear-gradient(to right, #900C3F40, #900C3F);
+    min-height: 100vh;
+  }
+  .gis-home-part-4 {
+    background-image: linear-gradient(to right, #ff8d006e, #ff8d00);
     min-height: 100vh;
   }
 }

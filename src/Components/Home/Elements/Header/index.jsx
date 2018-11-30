@@ -9,27 +9,31 @@ class Header extends Component {
     return (
       <AppBar className="gis-home-header" position="fixed">
         <Toolbar className="home-toolbar" variant="dense">
-          <Grid container justify="space-around" alignItems="center">
-            <Grid item>
-              <img src={GisLogo} className="gis-logo" />
-            </Grid>
-            <Grid item>
-              <Grid container justify="flex-end" spacing={16}>
-                <NavLink to="/" className="home-link">
-                  <Button className="home-link-button">
-                    Clients
-                  </Button>
-                </NavLink>
-                <NavLink to="/" className="home-link">
-                  <Button className="home-link-button">
-                    Insurance
-                  </Button>
-                </NavLink>
-                <NavLink to="/" className="home-link">
-                  <Button className="home-link-button">
-                    Contact Us
-                  </Button>
-                </NavLink>
+          <Grid container justify="center">
+            <Grid item md={8} sm={10} xs={12}>
+              <Grid container justify="space-between" alignItems="center">
+                <Grid item>
+                  <img src={GisLogo} className="gis-logo" />
+                </Grid>
+                <Grid item>
+                  <Grid container justify="flex-end" spacing={16}>
+                    <NavLink to="/" className="home-link">
+                      <Button className="home-link-button">
+                        Clients
+                      </Button>
+                    </NavLink>
+                    <NavLink to="/" className="home-link">
+                      <Button className="home-link-button">
+                        Insurance
+                      </Button>
+                    </NavLink>
+                    <NavLink to="/" className="home-link">
+                      <Button className="home-link-button">
+                        Contact Us
+                      </Button>
+                    </NavLink>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>

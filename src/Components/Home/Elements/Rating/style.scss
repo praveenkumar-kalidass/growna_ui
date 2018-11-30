@@ -1,19 +1,19 @@
 @import "../../../../Utils/Colors.scss";
 
 .gis-rating {
-  margin-top: 50px;
+  min-height: 160px;
   .gis-rating-container {
     .rating-logo-paper {
       border-radius: 50%;
       .rating-logo {
-        height: 100px;
-        width: 100px;
+        height: 80px;
+        width: 80px;
       }
     }
     .social-logo-paper {
       border-radius: 50%;
-      height: 100px;
-      width: 100px;
+      height: 80px;
+      width: 80px;
       .logo-container {
         height: 100%;
         padding-right: 10px;

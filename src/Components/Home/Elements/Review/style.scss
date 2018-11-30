@@ -1,11 +1,15 @@
 .gis-review {
+  min-height: 100vh;
   .review-head-title {
     color: #ffffff;
-    margin-top: 120px;
+    margin-top: 20vh;
   }
   .review-head-text {
     color: #ffffff;
     margin-bottom: 30px;
+  }
+  .review-navigation-container {
+    margin-bottom: 12vh;
   }
   .review-container {
     .review-paper {

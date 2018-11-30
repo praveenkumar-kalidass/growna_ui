@@ -25,9 +25,8 @@ class Quote extends Component {
     const {quoteIndex} = this.state;
 
     return (
-      <div className="gis-home-quote">
-        <Grid container justify="center">
-          <Grid item md={10} sm={11} xs={11}>
+        <Grid className="gis-home-quote" container justify="center">
+          <Grid item md={8} sm={10} xs={12}>
             <Paper elevation={1}
               className="quote-paper">
               <Tabs
@@ -51,7 +50,6 @@ class Quote extends Component {
             </Paper>
           </Grid>
         </Grid>
-      </div>
     );
   }
 }

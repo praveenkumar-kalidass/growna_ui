@@ -37,8 +37,10 @@ class Service extends Component {
   }
   render() {
     const {services} = this.state;
+
     return (
-      <Grid className="gis-service" container justify="center">
+      <Grid className="gis-service" container direction="column"
+        justify="space-around" alignItems="center">
         <Grid item md={10} sm={11} xs={11}>
           <Grid container justify="center">
             <Grid item>
@@ -54,11 +56,13 @@ class Service extends Component {
               </Typography>
             </Grid>
           </Grid>
-          <Grid container justify="space-around" spacing={16}>
+        </Grid>
+        <Grid item md={10} sm={11} xs={11}>
+          <Grid container className="service-container" justify="space-around" spacing={16}>
           {
             _.map(services, (service, index) => (
-              <Grid key={index} item md={4}>
-                <Paper elevation={2} className="service-container">
+              <Grid key={index} item md={4} sm={5} xs={12}>
+                <Paper elevation={2} className="service-paper">
                   <Grid className="service-items" container
                     direction="column" justify="space-around" alignItems="stretch">
                     <Grid item>

@@ -9,8 +9,9 @@ import "./style.scss";
 class Rating extends Component {
   render() {
     return (
-      <Grid className="gis-rating" container justify="center">
-        <Grid item md={10} sm={11} xs={11}>
+      <Grid className="gis-rating" container
+        justify="center" alignItems="center">
+        <Grid item md={8} sm={10} xs={12}>
           <Grid container justify="space-between">
             <Grid item md={4} xs={12}>
               <Grid className="gis-rating-container" container

@@ -1,13 +1,16 @@
 .gis-service {
+  min-height: 100vh;
   .service-head-title {
     color: #ffffff;
-    margin-top: 120px;
+    margin-top: 20vh;
   }
   .service-head-text {
     color: #ffffff;
-    margin-bottom: 30px;
   }
   .service-container {
+    margin-bottom: 2vh;
+  }
+  .service-paper {
     height: 190px;
     text-align: center;
     .service-items {

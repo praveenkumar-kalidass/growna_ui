@@ -1,0 +1,25 @@
+.gis-partner {
+  min-height: 100vh;
+  .partner-head-title {
+    color: #ffffff;
+    margin-top: 20vh;
+  }
+  .partner-head-text {
+    color: #ffffff;
+    margin-bottom: 30px;
+  }
+  .partner-logo-container {
+    margin-bottom: 10vh;
+  }
+  .partner-logo-paper {
+    height: 140px;
+    width: 140px;
+    .logo-container {
+      min-height: 100%;
+      .partner-logo {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+}

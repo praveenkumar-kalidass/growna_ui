@@ -66,7 +66,8 @@ class Review extends Component {
     const {reviewIndex, reviews} = this.state;
 
     return (
-      <Grid className="gis-review" container justify="center">
+      <Grid className="gis-review" container direction="column"
+        justify="space-around" alignItems="center">
         <Grid item md={10} sm={11} xs={11}>
           <Grid container justify="center">
             <Grid item>
@@ -82,7 +83,10 @@ class Review extends Component {
               </Typography>
             </Grid>
           </Grid>
-          <Grid container justify="center" alignItems="center" spacing={8}>
+        </Grid>
+        <Grid item md={10} sm={11} xs={11}>
+          <Grid className="review-navigation-container" container
+            justify="center" alignItems="center" spacing={8}>
             <Grid item md={1} sm={1} xs={1} className="navigation-item">
               <KeyboardArrowLeft onClick={() => this.handleIndexChange(37)}
                 className="review-navigation-icon" />

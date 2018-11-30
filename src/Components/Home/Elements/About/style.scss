@@ -1,0 +1,16 @@
+.gis-about {
+  min-height: 100vh;
+  .about-head-title {
+    color: #ffffff;
+    margin-top: 20vh;
+  }
+  .about-content {
+    color: #ffffff;
+    text-align: left;
+    margin-bottom: 100px;
+    text-indent: 50px;
+    &.index-paragraph {
+      margin-bottom: 0;
+    }
+  }
+}
