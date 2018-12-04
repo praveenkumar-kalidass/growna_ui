@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Avatar, IconButton, Grid, Paper, Slide, Typography} from "@material-ui/core";
 import {KeyboardArrowLeft, KeyboardArrowRight} from "@material-ui/icons";
-import Facebook from "../../Assets/facebook-logo.png";
+import Facebook from "../../../../Assets/facebook-logo.png";
 import _ from "underscore";
 import "./style.scss";
 

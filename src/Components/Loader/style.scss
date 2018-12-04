@@ -1,0 +1,16 @@
+.gis-loader {
+  min-height: 100vh;
+  min-width: 100vw;
+  .logo {
+    position: absolute;
+    margin-left: 12px;
+    margin-top: -4px;
+    img {
+      background: url("../../Assets/growna-logo.png") -26px 20px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 48px;
+      height: 66px;
+    }
+  }
+}

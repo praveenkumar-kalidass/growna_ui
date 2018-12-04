@@ -30,7 +30,8 @@ const config = {
           babelrc: false,
           plugins: [
             "transform-object-rest-spread",
-            "transform-class-properties"
+            "transform-class-properties",
+            "syntax-dynamic-import"
           ],
           presets: [
             "env",

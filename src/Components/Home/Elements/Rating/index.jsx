@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {Avatar, Badge, Grid, Paper, Typography} from "@material-ui/core";
-import Certified from "../../Assets/gis-certified.jpg";
-import Trust from "../../Assets/gis-trust.jpg";
-import Google from "../../Assets/google-logo.png";
-import Facebook from "../../Assets/facebook-logo.png";
+import Certified from "../../../../Assets/gis-certified.jpg";
+import Trust from "../../../../Assets/gis-trust.jpg";
+import Google from "../../../../Assets/google-logo.png";
+import Facebook from "../../../../Assets/facebook-logo.png";
 import "./style.scss";
 
 class Rating extends Component {

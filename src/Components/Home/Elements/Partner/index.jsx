@@ -1,16 +1,16 @@
 import React, {Component} from "react";
 import {Grid, Paper, Typography} from "@material-ui/core";
 import _ from "underscore";
-import ApolloMunich from "../../Assets/apollo-munich-logo.png";
-import BajajAlliance from "../../Assets/bajaj-alliance-logo.jpg";
-import BharatiInsurance from "../../Assets/bharati-insurance-logo.png";
-import FutureGenerali from "../../Assets/future-generali-logo.png";
-import HdfcErgo from "../../Assets/hdfc-ergo-logo.png";
-import IffcoTokio from "../../Assets/iffco-tokio-logo.jpg";
-import Kotak from "../../Assets/kotak-insurance-logo.png";
-import LibertyVideocon from "../../Assets/liberty-videocon-logo.jpg";
-import Reliance from "../../Assets/reliance-insurance-logo.png";
-import Star from "../../Assets/star-insurance-logo.png";
+import ApolloMunich from "../../../../Assets/apollo-munich-logo.png";
+import BajajAlliance from "../../../../Assets/bajaj-alliance-logo.jpg";
+import BharatiInsurance from "../../../../Assets/bharati-insurance-logo.png";
+import FutureGenerali from "../../../../Assets/future-generali-logo.png";
+import HdfcErgo from "../../../../Assets/hdfc-ergo-logo.png";
+import IffcoTokio from "../../../../Assets/iffco-tokio-logo.jpg";
+import Kotak from "../../../../Assets/kotak-insurance-logo.png";
+import LibertyVideocon from "../../../../Assets/liberty-videocon-logo.jpg";
+import Reliance from "../../../../Assets/reliance-insurance-logo.png";
+import Star from "../../../../Assets/star-insurance-logo.png";
 import "./style.scss";
 
 class Partner extends Component {

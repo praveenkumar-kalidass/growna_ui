@@ -7,6 +7,7 @@ import Service from "./Elements/Service";
 import Review from "./Elements/Review";
 import Partner from "./Elements/Partner";
 import About from "./Elements/About";
+import Contact from "./Elements/Contact";
 import "./style.scss";
 
 class Home extends Component {
@@ -29,7 +30,7 @@ class Home extends Component {
     if (index && keyCode === 38) {
       index = index - 1;
     }
-    if (index < 4 && keyCode === 40) {
+    if (index < 5 && keyCode === 40) {
       index = index + 1;
     }
     this.setState({
@@ -90,6 +91,14 @@ class Home extends Component {
             justify="center" alignItems="flex-start">
             <Grid item md={10} sm={10} xs={12}>
               <About />
+            </Grid>
+          </Grid>
+        </Collapse>
+        <Collapse in={index === 5}>
+          <Grid className="gis-home-part-5" container
+            justify="center" alignItems="stretch">
+            <Grid item>
+              <Contact />
             </Grid>
           </Grid>
         </Collapse>
