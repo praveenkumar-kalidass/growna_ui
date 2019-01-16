@@ -38,6 +38,12 @@ class Home extends Component {
     });
   }
 
+  handleRouteChange = (index) => {
+    this.setState({
+      index: index
+    });
+  }
+
   render() {
     const {index} = this.state;
 
@@ -48,7 +54,7 @@ class Home extends Component {
             <Typography className="home-phone" variant="body1">
               Toll Free: <span className="phone-number">1800 266 6868</span>
             </Typography>
-            <Header />
+            <Header handleRoute={this.handleRouteChange} />
           </Grid>
         </Grid>
         <Collapse in={index === 0}>
