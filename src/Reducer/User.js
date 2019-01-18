@@ -2,21 +2,25 @@ import _ from "underscore";
 import {User} from "../Constants/ActionTypes";
 
 const initialState = {
-  route: ""
+  role: {},
+  privileges: []
 };
 
-const friendsReducer = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch(action.type) {
-    case User.LOAD_USER_PRIVILEGES:
+    case User.LOAD_PRIVILEGES:
+      const {
+        auth,
+        privileges,
+        id,
+        name
+      } = action.data;
       return {
         ...state,
-        route: _.findWhere(action.privileges, {
-          type: "ROUTE"
-        }).description
+        privileges,
+        role: {id, name}
       };
     default:
       return state;
   }
 };
-
-export default friendsReducer;

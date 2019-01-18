@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {AppBar, Button, Divider, Grid, Modal, Paper, TextField, Toolbar, Typography} from "@material-ui/core";
+import {Link} from "react-router-dom";
+import Routes from "../../../../Utils/Routes";
 import GisLogo from "../../../../Assets/growna-logo.png";
 import "./style.scss";
 
@@ -58,6 +60,9 @@ class Header extends Component {
                     <Button onClick={() => this.props.handleRoute(4)}
                       className="home-link-button">
                       About Us
+                    </Button>
+                    <Button href={`#${Routes.LOGIN}`} className="home-link-button">
+                      Login
                     </Button>
                   </Grid>
                 </Grid>

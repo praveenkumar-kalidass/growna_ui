@@ -1,0 +1,53 @@
+@import "../../Utils/Colors.scss";
+
+.gis-login {
+  height: 100vh;
+  .login-container {
+    background-color: $theme-blue;
+    height: 100%;
+    .login-message-container {
+      z-index: 20;
+      .login-message-grid {
+        background-color: $theme-blue-light;
+        height: 80vh;
+        .message-grid-container {
+          height: 100%;
+        }
+      }
+    }
+    .login-form-grid {
+      height: 80vh;
+      .login-form {
+        height: calc(100% - 50px);
+        .login-form-container {
+          height: calc(100% - 40px);
+          margin-left: -5px;
+          padding: 20px 30px;
+          .login-header {
+            &:after {
+              border-bottom: 4px solid $theme-blue;
+              display: block;
+              content: "";
+              margin-top: 10px;
+              position: absolute;
+              width: 40px;
+            }
+          }
+          .login-button {
+            background-color: $theme-blue;
+            color: $white;
+            margin-top: 20px;
+            min-width: 105px;
+            .button-icon {
+              font-size: 20px;
+              margin-left: 5px;
+            }
+            .button-progress {
+              color: $white;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,18 +1,17 @@
 import Api from "../Api/User";
 import {User} from "../Constants/ActionTypes";
 
-const getUserPrivileges = (userId) => (dispatch) => {
-  Api.getUserPrivileges(userId).then((response) => {
-    dispatch(loadUserPrivileges(response.data.privileges));
+const login = (credentials) => (dispatch) => {
+  Api.authLogin(credentials).then((response) => {
+    dispatch(loadAuthorization(response.data));
   });
 };
 
-const loadUserPrivileges = (privileges) => ({
-  type: User.LOAD_USER_PRIVILEGES,
-  privileges
+const loadAuthorization = (data) => ({
+  type: User.LOAD_PRIVILEGES,
+  data
 });
 
 export {
-  getUserPrivileges,
-  loadUserPrivileges
+  login
 };
