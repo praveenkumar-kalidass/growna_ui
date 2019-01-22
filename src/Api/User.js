@@ -1,6 +1,5 @@
-import axios from "axios";
+import axios from "./index";
 import _ from "underscore";
-const api = "http://localhost:3000";
 
 export default {
   authLogin: (credentials) => {
@@ -15,6 +14,6 @@ export default {
     _.each(_.keys(credentials), (key) => {
       data.append(key, credentials[key]);
     });
-    return axios.post(`${api}/api/auth/login`, data);
+    return axios.post(`/api/auth/login`, data);
   }
 };

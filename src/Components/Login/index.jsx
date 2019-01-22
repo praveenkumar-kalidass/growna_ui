@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 import {
   Button,
   CircularProgress,
@@ -10,13 +11,16 @@ import {
   Typography
 } from "@material-ui/core";
 import {ArrowForward} from "@material-ui/icons";
+import Cookies from "universal-cookie";
 import _ from "underscore";
 import Routes from "../../Utils/Routes";
 import {login} from "../../Actions/User";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
-  privileges: state.user.privileges
+  auth: state.user.auth,
+  privileges: state.user.privileges,
+  role: state.user.role
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -42,8 +46,16 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const cookies = new Cookies();
     const route = _.findWhere(nextProps.privileges, {
       type: "ROUTE"
+    });
+    cookies.set("gis", {
+      ..._.pick(nextProps.auth, "accessToken", "refreshToken", "userId"),
+      role: nextProps.role.name,
+      route: route.description
+    }, {
+      expires: new Date(nextProps.auth.refreshTokenExpiresAt)
     });
     this.props.history.push(Routes[route.description]);
   }
@@ -158,4 +170,4 @@ class Login extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

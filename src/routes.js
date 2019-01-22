@@ -1,6 +1,7 @@
 import React from "react";
 import Loadable from "react-loadable";
-import {HashRouter as Router, Route, Switch} from "react-router-dom";
+import {HashRouter as Router, Route, Redirect} from "react-router-dom";
+import Cookies from "universal-cookie";
 import Routes from "./Utils/Routes";
 import Admin from "./Components/Admin";
 import App from "./Components/App";
@@ -13,18 +14,67 @@ const LoadableHome = Loadable({
   loading: Loader
 });
 
-const AppRouter = () => (
+const AppRouter = (props) => {
+  const cookies = new Cookies();
+  const gis = cookies.get("gis");
+  return (
+    <Route
+      {...props}
+      render={(props) => (
+        gis && gis.accessToken ?
+        (
+          <App>
+            <Route path={Routes.ADMIN} component={Admin}></Route>
+            <Route path={Routes.USER} component={User}></Route>
+          </App>
+        ) :
+        (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: {
+                from: props.location
+              }
+            }}
+          />
+        )
+      )}
+    />
+  );
+};
+
+const LoginRouter = (props) => {
+  const cookies = new Cookies();
+  const gis = cookies.get("gis");
+  return (
+    <Route
+      {...props}
+      render={(props) => (
+        !gis || !gis.accessToken ?
+        (
+          <Login />
+        ) :
+        (
+          <Redirect
+            to={{
+              pathname: Routes[cookies.get("gis").route],
+              state: {
+                from: props.location
+              }
+            }}
+          />
+        )
+      )}
+    />
+  );
+};
+
+export default () => (
   <Router basename="/">
     <div className="ui-route">
-      <Switch>
-        <Route exact path={Routes.HOME} component={LoadableHome}></Route>
-        <Route path={Routes.LOGIN} component={Login}></Route>
-        <App>
-          <Route exact path={Routes.ADMIN} component={Admin}></Route>
-          <Route exact path={Routes.USER} component={User}></Route>
-        </App>
-      </Switch>
+      <Route exact path={Routes.HOME} component={LoadableHome}></Route>
+      <LoginRouter path={Routes.LOGIN}></LoginRouter>
+      <AppRouter path="/app/"></AppRouter>
     </div>
   </Router>
 );
-export default AppRouter;

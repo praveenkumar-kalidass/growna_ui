@@ -2,6 +2,7 @@ import _ from "underscore";
 import {User} from "../Constants/ActionTypes";
 
 const initialState = {
+  auth: {},
   role: {},
   privileges: []
 };
@@ -17,6 +18,7 @@ export default (state = initialState, action) => {
       } = action.data;
       return {
         ...state,
+        auth,
         privileges,
         role: {id, name}
       };
