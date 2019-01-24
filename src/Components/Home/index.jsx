@@ -19,18 +19,20 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", (event) => {
-      this.handleIndexChange(event.keyCode);
-    });
+    document.addEventListener("keydown", this.handleIndexChange);
   }
 
-  handleIndexChange = (keyCode) => {
+  componentDidMount() {
+    document.removeEventListener("keydown", this.handleIndexChange);
+  }
+
+  handleIndexChange = (event) => {
     let {index} = this.state;
 
-    if (index && keyCode === 38) {
+    if (index && event.keyCode === 38) {
       index = index - 1;
     }
-    if (index < 5 && keyCode === 40) {
+    if (index < 5 && event.keyCode === 40) {
       index = index + 1;
     }
     this.setState({

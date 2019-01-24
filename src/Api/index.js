@@ -45,7 +45,7 @@ api.interceptors.request.use((config) => {
  */
 api.interceptors.response.use((response) => {
   return response;
-}, (error, res) => {
+}, (error) => {
   if (error.response.status === 401 &&
     error.response.data.name === "invalid_token") {
     const cookies = new Cookies();

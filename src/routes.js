@@ -1,6 +1,10 @@
 import React from "react";
 import Loadable from "react-loadable";
-import {HashRouter as Router, Route, Redirect} from "react-router-dom";
+import {
+  HashRouter as Router,
+  Route,
+  Redirect
+} from "react-router-dom";
 import Cookies from "universal-cookie";
 import Routes from "./Utils/Routes";
 import Admin from "./Components/Admin";
@@ -14,62 +18,56 @@ const LoadableHome = Loadable({
   loading: Loader
 });
 
-const AppRouter = (props) => {
+const AppRouter = (rest) => {
   const cookies = new Cookies();
   const gis = cookies.get("gis");
   return (
     <Route
-      {...props}
-      render={(props) => (
+      {...rest}
+      render={() => (
         gis && gis.accessToken ?
-        (
-          <App>
-            <Route path={Routes.ADMIN} component={Admin}></Route>
-            <Route path={Routes.USER} component={User}></Route>
-          </App>
-        ) :
-        (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: {
-                from: props.location
-              }
-            }}
-          />
-        )
+          (
+            <App>
+              <Route path={Routes.ADMIN} component={Admin}></Route>
+              <Route path={Routes.USER} component={User}></Route>
+            </App>
+          ) :
+          (
+            <Redirect
+              to={{
+                pathname: Routes.LOGIN
+              }}
+            />
+          )
       )}
     />
   );
 };
 
-const LoginRouter = (props) => {
+const LoginRouter = (rest) => {
   const cookies = new Cookies();
   const gis = cookies.get("gis");
   return (
     <Route
-      {...props}
-      render={(props) => (
+      {...rest}
+      render={() => (
         !gis || !gis.accessToken ?
-        (
-          <Login />
-        ) :
-        (
-          <Redirect
-            to={{
-              pathname: Routes[cookies.get("gis").route],
-              state: {
-                from: props.location
-              }
-            }}
-          />
-        )
+          (
+            <Login />
+          ) :
+          (
+            <Redirect
+              to={{
+                pathname: Routes[cookies.get("gis").route]
+              }}
+            />
+          )
       )}
     />
   );
 };
 
-export default () => (
+const routes = () => (
   <Router basename="/">
     <div className="ui-route">
       <Route exact path={Routes.HOME} component={LoadableHome}></Route>
@@ -78,3 +76,5 @@ export default () => (
     </div>
   </Router>
 );
+
+export default routes;

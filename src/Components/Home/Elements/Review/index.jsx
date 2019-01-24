@@ -43,18 +43,20 @@ class Review extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", (event) => {
-      this.handleIndexChange(event.keyCode);
-    });
+    document.addEventListener("keydown", this.handleIndexChange);
   }
 
-  handleIndexChange = (keyCode) => {
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleIndexChange);
+  }
+
+  handleIndexChange = (event) => {
     let {reviewIndex} = this.state;
 
-    if (reviewIndex && keyCode === 37) {
+    if (reviewIndex && event.keyCode === 37) {
       reviewIndex = reviewIndex - 1;
     }
-    if (reviewIndex < 1 && keyCode === 39) {
+    if (reviewIndex < 1 && event.keyCode === 39) {
       reviewIndex = reviewIndex + 1;
     }
     this.setState({

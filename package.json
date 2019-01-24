@@ -7,7 +7,8 @@
     "webpack-dev-server": "webpack-dev-server",
     "webpack": "webpack --config production.config.babel.js",
     "dev": "grunt dev",
-    "build": "grunt build"
+    "build": "grunt build",
+    "lint": "eslint ."
   },
   "repository": "git+https://gitlab.com/ramakavanan/insurance_ui.git",
   "keywords": [
@@ -24,6 +25,7 @@
   },
   "homepage": "https://gitlab.com/ramakavanan/insurance_ui#readme",
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^7.1.5",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -32,6 +34,8 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "css-loader": "^1.0.0",
+    "eslint": "^5.12.1",
+    "eslint-plugin-react": "^7.12.4",
     "file-loader": "^2.0.0",
     "grunt": "^1.0.3",
     "grunt-contrib-clean": "^1.1.0",
