@@ -19,7 +19,6 @@ import "./style.scss";
 
 const mapStateToProps = (state) => ({
   auth: state.user.auth,
-  privileges: state.user.privileges,
   role: state.user.role
 });
 
@@ -47,17 +46,17 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     const cookies = new Cookies();
-    const route = _.findWhere(nextProps.privileges, {
-      type: "ROUTE"
-    });
     cookies.set("gis", {
-      ..._.pick(nextProps.auth, "accessToken", "refreshToken", "userId"),
-      role: nextProps.role.name,
-      route: route.description
+      ..._.pick(nextProps.auth,
+        "accessToken",
+        "refreshToken",
+        "userId"
+      ),
+      role: nextProps.role.name
     }, {
       expires: new Date(nextProps.auth.refreshTokenExpiresAt)
     });
-    this.props.history.push(Routes[route.description]);
+    this.props.history.push(Routes.APP);
   }
 
   handleFieldChange = (event, field) => {

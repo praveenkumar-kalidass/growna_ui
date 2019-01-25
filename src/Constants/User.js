@@ -1,3 +1,4 @@
 export default {
+  LOAD_AUTH: "LOAD_AUTH",
   LOAD_PRIVILEGES: "LOAD_PRIVILEGES"
 };

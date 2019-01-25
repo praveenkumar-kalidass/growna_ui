@@ -15,5 +15,8 @@ export default {
       data.append(key, credentials[key]);
     });
     return axios.post("/api/auth/login", data);
+  },
+  getRolePrivileges: (role) => {
+    return axios.get(`/api/role/privileges/${role}`);
   }
 };

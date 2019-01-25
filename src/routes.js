@@ -7,10 +7,9 @@ import {
 } from "react-router-dom";
 import Cookies from "universal-cookie";
 import Routes from "./Utils/Routes";
-import Admin from "./Components/Admin";
+import Dashboard from "./Components/Dashboard";
 import App from "./Components/App";
 import Login from "./Components/Login";
-import User from "./Components/User";
 import Loader from "./Components/Loader";
 
 const LoadableHome = Loadable({
@@ -28,8 +27,7 @@ const AppRouter = (rest) => {
         gis && gis.accessToken ?
           (
             <App>
-              <Route path={Routes.ADMIN} component={Admin}></Route>
-              <Route path={Routes.USER} component={User}></Route>
+              <Route exact path={Routes.APP} component={Dashboard} />
             </App>
           ) :
           (
@@ -58,7 +56,7 @@ const LoginRouter = (rest) => {
           (
             <Redirect
               to={{
-                pathname: Routes[cookies.get("gis").route]
+                pathname: Routes.APP
               }}
             />
           )
@@ -72,7 +70,7 @@ const routes = () => (
     <div className="ui-route">
       <Route exact path={Routes.HOME} component={LoadableHome}></Route>
       <LoginRouter path={Routes.LOGIN}></LoginRouter>
-      <AppRouter path="/app/"></AppRouter>
+      <AppRouter path={Routes.APP}></AppRouter>
     </div>
   </Router>
 );

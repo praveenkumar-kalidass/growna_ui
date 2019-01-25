@@ -51,13 +51,13 @@ api.interceptors.response.use((response) => {
     const cookies = new Cookies();
     const gis = cookies.get("gis");
     return refreshToken(gis.refreshToken).then((response) => {
-      const route = _.findWhere(response.data.privileges, {
-        type: "ROUTE"
-      });
       cookies.set("gis", {
-        ..._.pick(response.data.auth, "accessToken", "refreshToken", "userId"),
-        role: response.data.name,
-        route: route.description
+        ..._.pick(response.data.auth,
+          "accessToken",
+          "refreshToken",
+          "userId"
+        ),
+        role: response.data.role.name
       }, {
         expires: new Date(response.data.auth.refreshTokenExpiresAt)
       });

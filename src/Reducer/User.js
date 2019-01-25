@@ -1,4 +1,5 @@
 import {User} from "../Constants/ActionTypes";
+import _ from "underscore";
 
 const initialState = {
   auth: {},
@@ -8,18 +9,21 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch(action.type) {
-  case User.LOAD_PRIVILEGES: {
+  case User.LOAD_AUTH: {
     const {
       auth,
-      privileges,
-      id,
-      name
+      role
     } = action.data;
     return {
       ...state,
       auth,
-      privileges,
-      role: {id, name}
+      role
+    };
+  }
+  case User.LOAD_PRIVILEGES: {
+    return {
+      ...state,
+      privileges: action.data
     };
   }
   default: {

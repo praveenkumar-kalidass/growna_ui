@@ -1,6 +1,9 @@
 export default {
   HOME: "/",
   LOGIN: "/login",
-  USER: "/app/user",
-  ADMIN: "/app/admin"
+  APP: "/app",
+  USER_FORM: {
+    name: "User Form",
+    path: "/app/user-form"
+  }
 };
