@@ -1,28 +1,45 @@
 import React, {Component} from "react";
 import {
   AppBar,
+  Grid,
   IconButton,
   Toolbar,
   Typography
 } from "@material-ui/core";
-import {Menu} from "@material-ui/icons";
+import {
+  PowerSettingsNew
+} from "@material-ui/icons";
+import {withRouter} from "react-router-dom";
+import Cookies from "universal-cookie";
 import "./style.scss";
 
 class Header extends Component {
+  logout = () => {
+    const cookies = new Cookies();
+    cookies.set("gis", {});
+    this.props.history.push("/login");
+  }
+
   render() {
     return (
       <AppBar className="gis-app-header" position="sticky">
         <Toolbar variant="dense">
-          <IconButton color="inherit">
-            <Menu />
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            GIS
-          </Typography>
+          <Grid container justify="space-between">
+            <Grid item>
+              <Typography variant="h6" color="inherit">
+                GIS
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <IconButton color="inherit" onClick={this.logout}>
+              <PowerSettingsNew />
+            </IconButton>
+          </Grid>
         </Toolbar>
       </AppBar>
     );
   }
 }
 
-export default Header;
+export default withRouter(Header);
