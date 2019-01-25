@@ -1,0 +1,34 @@
+@import "../../Utils/Colors.scss";
+
+.gis-user-form {
+  padding: 15px;
+  .form-header {
+    margin: 0px 15px 30px 15px;
+    padding-top: 15px;
+    &:after {
+      border-bottom: 4px solid $theme-blue;
+      display: block;
+      content: "";
+      margin-top: 10px;
+      position: absolute;
+      width: 40px;
+    }
+  }
+  .form-container {
+    background-color: $grey-pale;
+    border-radius: 4px;
+    padding: 10px;
+    .user-form {
+      padding: 10px;
+      .submit-button {
+        background-color: $theme-blue;
+        color: $white;
+        margin-top: 10px;
+        margin-right: 10px;
+      }
+      .reset-button {
+        margin-top: 10px;
+      }
+    }
+  }
+}

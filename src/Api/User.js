@@ -18,5 +18,8 @@ export default {
   },
   getRolePrivileges: (role) => {
     return axios.get(`/api/role/privileges/${role}`);
+  },
+  addUser: (user) => {
+    return axios.post("/api/user/add", user);
   }
 };

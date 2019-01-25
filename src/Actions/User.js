@@ -1,4 +1,5 @@
 import Api from "../Api/User";
+import {enableAppSuccess} from "./App";
 import {User} from "../Constants/ActionTypes";
 
 const login = (credentials) => (dispatch) => {
@@ -23,7 +24,14 @@ const loadPrivileges = (data) => ({
   data
 });
 
+const addUser = (user) => (dispatch) => {
+  Api.addUser(user).then((response) => {
+    dispatch(enableAppSuccess("User added successfully"));
+  });
+};
+
 export {
   login,
-  getPrivileges
+  getPrivileges,
+  addUser
 };

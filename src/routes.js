@@ -10,6 +10,7 @@ import Routes from "./Utils/Routes";
 import Dashboard from "./Components/Dashboard";
 import App from "./Components/App";
 import Login from "./Components/Login";
+import UserForm from "./Components/UserForm";
 import Loader from "./Components/Loader";
 
 const LoadableHome = Loadable({
@@ -28,6 +29,7 @@ const AppRouter = (rest) => {
           (
             <App>
               <Route exact path={Routes.APP} component={Dashboard} />
+              <Route exact path={Routes.USER_FORM.path} component={UserForm} />
             </App>
           ) :
           (

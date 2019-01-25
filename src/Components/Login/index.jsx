@@ -112,7 +112,7 @@ class Login extends Component {
                             </Typography>
                           </Grid>
                         </Grid>
-                        <form noValidate autoComplete="off" onSubmit={this.login}>
+                        <form autoComplete="off" onSubmit={this.login}>
                           <Grid container direction="column">
                             <Grid item xs sm md>
                                 <TextField
