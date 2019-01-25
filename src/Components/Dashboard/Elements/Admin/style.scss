@@ -1,0 +1,16 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-admin-dashboard {
+  .sales-header {
+    margin: 0px 15px 40px 15px;
+    padding-top: 15px;
+    &:after {
+      border-bottom: 4px solid $theme-blue;
+      display: block;
+      content: "";
+      margin-top: 10px;
+      position: absolute;
+      width: 40px;
+    }
+  }
+}

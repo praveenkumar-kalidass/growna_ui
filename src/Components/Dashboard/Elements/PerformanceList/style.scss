@@ -1,0 +1,50 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-performance-list {
+  height: 100%;
+  padding: 0px 20px;
+  .list-header {
+    border-bottom: 1px solid $grey-light;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+  .performance-list {
+    background-color: $grey-pale;
+    border-radius: 4px;
+    height: calc(100% - 95px);
+    padding: 10px;
+    .performance-badge {
+      .badge-label {
+        margin-bottom: 10px;
+      }
+      .badge-pipe {
+        background-color: $grey-pale;
+        &.blue {
+          div {
+            background-color: $theme-blue;
+          }
+        }
+        &.green {
+          div {
+            background-color: $green-dark;
+          }
+        }
+        &.purple {
+          div {
+            background-color: $purple;
+          }
+        }
+        &.pink {
+          div {
+            background-color: $pink;
+          }
+        }
+        &.yellow {
+          div {
+            background-color: $yellow;
+          }
+        }
+      }
+    }
+  }
+}

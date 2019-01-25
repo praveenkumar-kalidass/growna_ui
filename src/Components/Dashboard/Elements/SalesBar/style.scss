@@ -1,0 +1,28 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-sales-bar {
+  .sales-badge {
+    .badge-icon {
+      height: 50px;
+      width: 50px;
+      &.pink {
+        background-color: $pink;
+      }
+      &.purple {
+        background-color: $purple;
+      }
+      &.green {
+        background-color: $green-dark;
+      }
+      &.blue {
+        background-color: $theme-blue;
+      }
+    }
+    .badge-info {
+      font-weight: 500;
+    }
+    .badge-label {
+      color: $grey-light;
+    }
+  }
+}
