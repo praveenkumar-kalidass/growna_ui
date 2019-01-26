@@ -16,10 +16,13 @@ export default {
     });
     return axios.post("/api/auth/login", data);
   },
-  getRolePrivileges: (role) => {
-    return axios.get(`/api/role/privileges/${role}`);
-  },
-  addUser: (user) => {
-    return axios.post("/api/user/add", user);
-  }
+  getRolePrivileges: (role) => (
+    axios.get(`/api/role/privileges/${role}`)
+  ),
+  addUser: (user) => (
+    axios.post("/api/user/add", user)
+  ),
+  getUser: (userId) => (
+    axios.get(`/api/user/${userId}`)
+  )
 };

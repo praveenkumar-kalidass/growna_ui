@@ -13,17 +13,26 @@ import {
 import Cookies from "universal-cookie";
 import Header from "./Elements/Header";
 import Menu from "./Elements/Menu";
-import {getPrivileges} from "../../Actions/User";
-import {disableAppSuccess} from "../../Actions/App";
+import {
+  getPrivileges,
+  getUserDetails
+} from "../../Actions/User";
+import {
+  disableAppSuccess,
+  disableAppError
+} from "../../Actions/App";
 import "./style.scss";
 
 const mapDispatchToProps = (dispatch) => ({
   getPrivileges: (role) => { dispatch(getPrivileges(role)) },
-  disableAppSuccess: () => { dispatch(disableAppSuccess()) }
+  disableAppSuccess: () => { dispatch(disableAppSuccess()) },
+  disableAppError: () => { dispatch(disableAppError()) },
+  getUserDetails: (userId) => { dispatch(getUserDetails(userId)) }
 });
 
 const mapStateToProps = (state) => ({
   message: state.app.message,
+  error: state.app.error,
   success: state.app.success
 });
 
@@ -32,23 +41,27 @@ class App extends Component {
     super(props);
     this.state = {
       message: "",
+      error: false,
       success: false
     };
   }
 
   componentDidMount() {
     const cookies = new Cookies();
+    this.props.getUserDetails(cookies.get("gis").userId);
     this.props.getPrivileges(cookies.get("gis").role);
   }
 
   componentWillReceiveProps(nextProps) {
     const {
       message,
+      error,
       success
     } = nextProps;
 
     this.setState({
       message,
+      error,
       success
     });
   }
@@ -57,9 +70,14 @@ class App extends Component {
     this.props.disableAppSuccess();
   }
 
+  handleErrorClose = () => {
+    this.props.disableAppError();
+  }
+
   render() {
     const {
       message,
+      error,
       success
     } = this.state;
 
@@ -92,6 +110,25 @@ class App extends Component {
               <IconButton
                 color="inherit"
                 onClick={this.handleSuccessClose}>
+                <Close />
+              </IconButton>
+            } />
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          open={error}
+          autoHideDuration={5000}
+          onClose={this.handleErrorClose}>
+          <SnackbarContent
+            className="app-error-bar"
+            message={<span className="message">{message}</span>}
+            action={
+              <IconButton
+                color="inherit"
+                onClick={this.handleErrorClose}>
                 <Close />
               </IconButton>
             } />

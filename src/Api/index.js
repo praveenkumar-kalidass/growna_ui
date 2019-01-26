@@ -1,6 +1,8 @@
 import axios from "axios";
 import _ from "underscore";
 import Cookies from "universal-cookie";
+import {enableAppError} from "../Actions/App";
+import Store from "../Store/store";
 
 /**
  * Axios to register Base url of Service
@@ -64,6 +66,12 @@ api.interceptors.response.use((response) => {
       return api.request(error.config);
     });
   }
+  Store.dispatch(
+    enableAppError(
+      error.response.data.message ||
+      error.response.data.name
+    )
+  );
   return Promise.reject(error);
 });
 

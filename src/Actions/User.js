@@ -30,8 +30,20 @@ const addUser = (user) => (dispatch) => {
   });
 };
 
+const getUserDetails = (userId) => (dispatch) => {
+  Api.getUser(userId).then((response) => {
+    dispatch(loadUser(response.data));
+  });
+};
+
+const loadUser = (data) => ({
+  type: User.LOAD_USER,
+  data
+});
+
 export {
   login,
   getPrivileges,
-  addUser
+  addUser,
+  getUserDetails
 };

@@ -6,8 +6,8 @@ export default {
     name: "User Form",
     path: "/app/user-form"
   },
-  USER: {
+  INSURANCE: {
     name: "Insurance",
-    path: "/insurance"
+    path: "/app/insurance"
   }
 };

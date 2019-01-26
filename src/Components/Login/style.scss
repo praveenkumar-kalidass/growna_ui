@@ -50,4 +50,11 @@
       }
     }
   }
+  .app-error-bar {
+    background-color: $red;
+    .message {
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+  }
 }

@@ -22,7 +22,7 @@ class Home extends Component {
     document.addEventListener("keydown", this.handleIndexChange);
   }
 
-  componentDidMount() {
+  componentWillUnmount() {
     document.removeEventListener("keydown", this.handleIndexChange);
   }
 

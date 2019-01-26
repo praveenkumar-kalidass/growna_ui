@@ -4,7 +4,8 @@ import _ from "underscore";
 const initialState = {
   auth: {},
   role: {},
-  privileges: []
+  privileges: [],
+  user: {}
 };
 
 export default (state = initialState, action) => {
@@ -24,6 +25,12 @@ export default (state = initialState, action) => {
     return {
       ...state,
       privileges: action.data
+    };
+  }
+  case User.LOAD_USER: {
+    return {
+      ...state,
+      user: action.data
     };
   }
   default: {

@@ -6,24 +6,34 @@ import {
   CircularProgress,
   Grid,
   Hidden,
+  IconButton,
   Paper,
+  Snackbar,
+  SnackbarContent,
   TextField,
   Typography
 } from "@material-ui/core";
-import {ArrowForward} from "@material-ui/icons";
+import {
+  ArrowForward,
+  Close
+} from "@material-ui/icons";
 import Cookies from "universal-cookie";
 import _ from "underscore";
 import Routes from "../../Utils/Routes";
+import {disableAppError} from "../../Actions/App";
 import {login} from "../../Actions/User";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
   auth: state.user.auth,
-  role: state.user.role
+  role: state.user.role,
+  error: state.app.error,
+  message: state.app.message
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (credentials) => { dispatch(login(credentials)) }
+  login: (credentials) => { dispatch(login(credentials)) },
+  disableAppError: () => { dispatch(disableAppError()) }
 });
 
 class Login extends Component {
@@ -32,7 +42,9 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      login: false
+      login: false,
+      error: false,
+      message: ""
     };
   }
 
@@ -45,18 +57,25 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const cookies = new Cookies();
-    cookies.set("gis", {
-      ..._.pick(nextProps.auth,
-        "accessToken",
-        "refreshToken",
-        "userId"
-      ),
-      role: nextProps.role.name
-    }, {
-      expires: new Date(nextProps.auth.refreshTokenExpiresAt)
+    this.setState({
+      error: nextProps.error,
+      message: nextProps.message,
+      login: false
     });
-    this.props.history.push(Routes.APP);
+    if (!_.isEmpty(nextProps.auth)) {
+      const cookies = new Cookies();
+      cookies.set("gis", {
+        ..._.pick(nextProps.auth,
+          "accessToken",
+          "refreshToken",
+          "userId"
+        ),
+        role: nextProps.role.name
+      }, {
+        expires: new Date(nextProps.auth.refreshTokenExpiresAt)
+      });
+      this.props.history.push(Routes.APP);
+    }
   }
 
   handleFieldChange = (event, field) => {
@@ -65,11 +84,17 @@ class Login extends Component {
     this.setState(state);
   }
 
+  handleErrorClose = () => {
+    this.props.disableAppError();
+  }
+
   render() {
     const {
       username,
       password,
-      login
+      login,
+      error,
+      message
     } = this.state;
 
     return (
@@ -163,6 +188,25 @@ class Login extends Component {
               </Grid>
             </Grid>
           </Grid>
+          <Snackbar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            open={error}
+            autoHideDuration={5000}
+            onClose={this.handleErrorClose}>
+            <SnackbarContent
+              className="app-error-bar"
+              message={<span className="message">{message}</span>}
+              action={
+                <IconButton
+                  color="inherit"
+                  onClick={this.handleErrorClose}>
+                  <Close />
+                </IconButton>
+              } />
+          </Snackbar>
         </Grid>
       </Grid>
     );

@@ -9,32 +9,45 @@ import {
   ListItemText
 } from "@material-ui/core";
 import {
-  Image,
   Inbox,
   KeyboardArrowDown
 } from "@material-ui/icons";
+import Cookies from "universal-cookie";
 import {withRouter} from "react-router-dom";
 import _ from "underscore";
 import Routes from "../../../../Utils/Routes";
+import DemoAdmin from "../../../../Assets/demo-admin.jpg";
+import DemoUser from "../../../../Assets/demo-user.png";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
-  privileges: state.user.privileges
+  privileges: state.user.privileges,
+  user: state.user.user
 });
 
 class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      privileges: []
+      privileges: [],
+      role: "",
+      user: {}
     };
+  }
+
+  componentDidMount() {
+    const cookies = new Cookies();
+    this.setState({
+      role: cookies.get("gis").role
+    });
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       privileges: _.map(nextProps.privileges, (privilege) => (
         Routes[privilege.description]
-      ))
+      )),
+      user: nextProps.user
     });
   }
 
@@ -43,20 +56,29 @@ class Menu extends Component {
   }
 
   render() {
-    const {privileges} = this.state;
+    const {
+      privileges,
+      role,
+      user
+    } = this.state;
     const {location} = this.props;
+    const roleName = {
+      GIS_ADMIN: "Administrator",
+      GIS_USER: "User"
+    };
 
     return (
       <div className="gis-app-menu">
         <List component="nav">
           <ListItem>
-            <ListItemText primary="Growna" />
+            <ListItemText className="app-name" primary="Growna Insurance" />
           </ListItem>
           <ListItem className="menu-user-content">
-            <Avatar className="user-picture">
-              <Image />
-            </Avatar>
-            <ListItemText primary="Demo Admin" secondary="Administrator" />
+            <Avatar className="user-picture"
+              src={role === "GIS_ADMIN" ? DemoAdmin : DemoUser} />
+            <ListItemText className="user-name"
+              primary={`${user.firstName} ${user.lastName}`}
+              secondary={roleName[role]} />
           </ListItem>
           <ListItem className="menu-item"
             selected={location.pathname === Routes.APP}
