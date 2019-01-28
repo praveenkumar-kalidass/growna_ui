@@ -81,8 +81,8 @@ class Menu extends Component {
               secondary={roleName[role]} />
           </ListItem>
           <ListItem className="menu-item"
-            selected={location.pathname === Routes.APP}
-            onClick={(event) => this.handleChange(Routes.APP)}>
+            selected={location.pathname === Routes.APP.path}
+            onClick={(event) => this.handleChange(Routes.APP.path)}>
             <ListItemIcon>
               <Inbox />
             </ListItemIcon>

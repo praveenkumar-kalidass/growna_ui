@@ -61,7 +61,7 @@ class Header extends Component {
                       className="home-link-button">
                       About Us
                     </Button>
-                    <Button href={`#${Routes.LOGIN}`} className="home-link-button">
+                    <Button href={`#${Routes.LOGIN.path}`} className="home-link-button">
                       Login
                     </Button>
                   </Grid>

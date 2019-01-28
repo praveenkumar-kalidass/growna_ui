@@ -41,9 +41,22 @@ const loadUser = (data) => ({
   data
 });
 
+const validateRoute = (role, privilege) => (dispatch) => {
+  Api.validateRoute(role, privilege).then((response) => {
+    dispatch(setRouteValidity(response.data));
+  });
+};
+
+const setRouteValidity = (data) => ({
+  type: User.SET_ROUTE_VALIDITY,
+  data
+});
+
 export {
   login,
   getPrivileges,
   addUser,
-  getUserDetails
+  getUserDetails,
+  validateRoute,
+  setRouteValidity
 };

@@ -10,30 +10,38 @@ import {
 import {
   Close
 } from "@material-ui/icons";
+import {withRouter} from "react-router-dom";
 import Cookies from "universal-cookie";
+import _ from "underscore";
 import Header from "./Elements/Header";
 import Menu from "./Elements/Menu";
 import {
   getPrivileges,
-  getUserDetails
+  getUserDetails,
+  validateRoute,
+  setRouteValidity
 } from "../../Actions/User";
 import {
   disableAppSuccess,
   disableAppError
 } from "../../Actions/App";
+import Routes from "../../Utils/Routes";
 import "./style.scss";
 
 const mapDispatchToProps = (dispatch) => ({
   getPrivileges: (role) => { dispatch(getPrivileges(role)) },
   disableAppSuccess: () => { dispatch(disableAppSuccess()) },
   disableAppError: () => { dispatch(disableAppError()) },
-  getUserDetails: (userId) => { dispatch(getUserDetails(userId)) }
+  getUserDetails: (userId) => { dispatch(getUserDetails(userId)) },
+  validateRoute: (role, privilege) => { dispatch(validateRoute(role, privilege)) },
+  setRouteValidity: (data) => { dispatch(setRouteValidity(data)) }
 });
 
 const mapStateToProps = (state) => ({
   message: state.app.message,
   error: state.app.error,
-  success: state.app.success
+  success: state.app.success,
+  validRoute: state.user.validRoute
 });
 
 class App extends Component {
@@ -50,6 +58,7 @@ class App extends Component {
     const cookies = new Cookies();
     this.props.getUserDetails(cookies.get("gis").userId);
     this.props.getPrivileges(cookies.get("gis").role);
+    this.checkRouteValidity();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,6 +73,29 @@ class App extends Component {
       error,
       success
     });
+    if (!nextProps.validRoute) {
+      this.props.setRouteValidity({valid: true});
+      this.props.history.goBack();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      this.checkRouteValidity();
+    }
+  }
+
+  checkRouteValidity = () => {
+    const privilege = _.findKey(Routes, (route) => {
+      return route.path === this.props.location.pathname
+    });
+    if (privilege !== "APP") {
+      const cookies = new Cookies();
+      this.props.validateRoute(
+        cookies.get("gis").role,
+        privilege
+      );
+    }
   }
 
   handleSuccessClose = () => {
@@ -138,4 +170,4 @@ class App extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

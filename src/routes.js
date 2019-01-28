@@ -28,14 +28,14 @@ const AppRouter = (rest) => {
         gis && gis.accessToken ?
           (
             <App>
-              <Route exact path={Routes.APP} component={Dashboard} />
+              <Route exact path={Routes.APP.path} component={Dashboard} />
               <Route exact path={Routes.USER_FORM.path} component={UserForm} />
             </App>
           ) :
           (
             <Redirect
               to={{
-                pathname: Routes.LOGIN
+                pathname: Routes.LOGIN.path
               }}
             />
           )
@@ -58,7 +58,7 @@ const LoginRouter = (rest) => {
           (
             <Redirect
               to={{
-                pathname: Routes.APP
+                pathname: Routes.APP.path
               }}
             />
           )
@@ -70,9 +70,9 @@ const LoginRouter = (rest) => {
 const routes = () => (
   <Router basename="/">
     <div className="ui-route">
-      <Route exact path={Routes.HOME} component={LoadableHome}></Route>
-      <LoginRouter path={Routes.LOGIN}></LoginRouter>
-      <AppRouter path={Routes.APP}></AppRouter>
+      <Route exact path={Routes.HOME.path} component={LoadableHome}></Route>
+      <LoginRouter path={Routes.LOGIN.path}></LoginRouter>
+      <AppRouter path={Routes.APP.path}></AppRouter>
     </div>
   </Router>
 );

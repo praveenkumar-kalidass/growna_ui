@@ -4,7 +4,8 @@ const initialState = {
   auth: {},
   role: {},
   privileges: [],
-  user: {}
+  user: {},
+  validRoute: true
 };
 
 export default (state = initialState, action) => {
@@ -30,6 +31,12 @@ export default (state = initialState, action) => {
     return {
       ...state,
       user: action.data
+    };
+  }
+  case User.SET_ROUTE_VALIDITY: {
+    return {
+      ...state,
+      validRoute: action.data.valid
     };
   }
   default: {

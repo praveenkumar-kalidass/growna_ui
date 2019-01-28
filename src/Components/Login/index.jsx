@@ -73,7 +73,7 @@ class Login extends Component {
       }, {
         expires: new Date(nextProps.auth.refreshTokenExpiresAt)
       });
-      this.props.history.push(Routes.APP);
+      this.props.history.push(Routes.APP.path);
     }
   }
 

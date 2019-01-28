@@ -24,5 +24,8 @@ export default {
   ),
   getUser: (userId) => (
     axios.get(`/api/user/${userId}`)
+  ),
+  validateRoute: (role, privilege) => (
+    axios.get(`/api/role/validate/${role}/${privilege}`)
   )
 };
