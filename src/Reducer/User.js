@@ -1,5 +1,4 @@
 import {User} from "../Constants/ActionTypes";
-import _ from "underscore";
 
 const initialState = {
   auth: {},

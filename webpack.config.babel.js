@@ -75,6 +75,9 @@ const config = {
         "file-loader"
       ]
     }]
+  },
+  node: {
+    net: "mock"
   }
 };
 

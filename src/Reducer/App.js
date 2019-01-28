@@ -18,8 +18,6 @@ export default (state = initialState, action) => {
     };
   }
   case App.DISABLE_APP_SUCCESS: {
-    const {message} = action;
-
     return {
       ...state,
       success: false,
@@ -36,8 +34,6 @@ export default (state = initialState, action) => {
     };
   }
   case App.DISABLE_APP_ERROR: {
-    const {message} = action;
-
     return {
       ...state,
       error: false,

@@ -19,6 +19,9 @@ import {
 } from "@material-ui/icons";
 import Cookies from "universal-cookie";
 import _ from "underscore";
+import Strategy from "joi-validation-strategy";
+import Validation from "react-validation-mixin";
+import Schema from "./schema";
 import Routes from "../../Utils/Routes";
 import {disableAppError} from "../../Actions/App";
 import {login} from "../../Actions/User";
@@ -39,21 +42,17 @@ const mapDispatchToProps = (dispatch) => ({
 class Login extends Component {
   constructor(props) {
     super(props);
+    this.validatorTypes = {
+      email: Schema.email,
+      password: Schema.password
+    };
     this.state = {
-      username: "",
+      email: "",
       password: "",
       login: false,
       error: false,
       message: ""
     };
-  }
-
-  login = (event) => {
-    event.preventDefault();
-    this.setState({
-      login: true
-    });
-    this.props.login(_.pick(this.state, "username", "password"));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -78,6 +77,23 @@ class Login extends Component {
     }
   }
 
+  getValidatorData = () => (this.state)
+
+  login = (event) => {
+    event.preventDefault();
+    this.props.validate((error) => {
+      if (!error) {
+        this.setState({
+          login: true
+        });
+        this.props.login({
+          username: this.state.email,
+          password: this.state.password
+        });
+      }
+    });
+  }
+
   handleFieldChange = (event, field) => {
     let state = this.state;
     state[field] = event.target.value;
@@ -90,7 +106,7 @@ class Login extends Component {
 
   render() {
     const {
-      username,
+      email,
       password,
       login,
       error,
@@ -137,26 +153,32 @@ class Login extends Component {
                             </Typography>
                           </Grid>
                         </Grid>
-                        <form autoComplete="off" onSubmit={this.login}>
+                        <form autoComplete="off" noValidate onSubmit={this.login}>
                           <Grid container direction="column">
                             <Grid item xs sm md>
                                 <TextField
                                   required
                                   label="Email"
                                   type="email"
-                                  onChange={(event) => this.handleFieldChange(event, "username")}
-                                  value={username}
+                                  onChange={(event) => this.handleFieldChange(event, "email")}
+                                  onBlur={this.props.handleValidation("email")}
+                                  value={email}
                                   margin="normal"
                                   fullWidth
+                                  error={!this.props.isValid("email")}
+                                  helperText={this.props.getValidationMessages("email")[0]}
                                   />
                                 <TextField
                                   required
                                   label="Password"
                                   type="password"
                                   onChange={(event) => this.handleFieldChange(event, "password")}
+                                  onBlur={this.props.handleValidation("password")}
                                   value={password}
                                   margin="normal"
                                   fullWidth
+                                  error={!this.props.isValid("password")}
+                                  helperText={this.props.getValidationMessages("password")[0]}
                                   />
                             </Grid>
                             <Grid item xs sm md>
@@ -213,4 +235,4 @@ class Login extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Validation(Strategy)(Login)));

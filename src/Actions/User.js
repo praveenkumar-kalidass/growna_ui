@@ -25,7 +25,7 @@ const loadPrivileges = (data) => ({
 });
 
 const addUser = (user) => (dispatch) => {
-  Api.addUser(user).then((response) => {
+  Api.addUser(user).then(() => {
     dispatch(enableAppSuccess("User added successfully"));
   });
 };

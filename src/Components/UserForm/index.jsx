@@ -8,6 +8,9 @@ import {
   TextField,
   Typography
 } from "@material-ui/core";
+import Strategy from "joi-validation-strategy";
+import Validation from "react-validation-mixin";
+import Schema from "./schema";
 import {addUser} from "../../Actions/User";
 import "./style.scss";
 
@@ -18,6 +21,13 @@ const mapDispatchToProps = (dispatch) => ({
 class UserForm extends Component {
   constructor(props) {
     super(props);
+    this.validatorTypes = {
+      firstName: Schema.firstName,
+      lastName: Schema.lastName,
+      email: Schema.email,
+      password: Schema.password,
+      roleId: Schema.roleId
+    };
     this.state = {
       firstName: "",
       lastName: "",
@@ -27,6 +37,8 @@ class UserForm extends Component {
     };
   }
 
+  getValidatorData = () => (this.state)
+
   handleChange = (event, field) => {
     this.setState({
       [field]: event.target.value
@@ -35,7 +47,11 @@ class UserForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.addUser(this.state);
+    this.props.validate((error) => {
+      if (!error) {
+        this.props.addUser(this.state);
+      }
+    });
   }
 
   resetForm = () => {
@@ -65,16 +81,19 @@ class UserForm extends Component {
         <Grid container justify="center" className="form-container">
           <Grid item xs={12} sm={10} md={6}>
             <Paper elevation={1} className="user-form">
-              <form onSubmit={this.handleSubmit} autoComplete="off">
+              <form onSubmit={this.handleSubmit} noValidate autoComplete="off">
                 <Grid container spacing={16}>
                   <Grid item xs={12} sm={12} md={6}>
                     <TextField
                       label="First Name"
                       value={firstName}
                       onChange={(event) => this.handleChange(event, "firstName")}
+                      onBlur={this.props.handleValidation("firstName")}
                       margin="normal"
                       fullWidth
                       required
+                      error={!this.props.isValid("firstName")}
+                      helperText={this.props.getValidationMessages("firstName")[0]}
                     />
                   </Grid>
                   <Grid item xs={12} sm={12} md={6}>
@@ -82,9 +101,12 @@ class UserForm extends Component {
                       label="Last Name"
                       value={lastName}
                       onChange={(event) => this.handleChange(event, "lastName")}
+                      onBlur={this.props.handleValidation("lastName")}
                       margin="normal"
                       fullWidth
                       required
+                      error={!this.props.isValid("lastName")}
+                      helperText={this.props.getValidationMessages("lastName")[0]}
                     />
                   </Grid>
                 </Grid>
@@ -93,18 +115,24 @@ class UserForm extends Component {
                   value={email}
                   type="email"
                   onChange={(event) => this.handleChange(event, "email")}
+                  onBlur={this.props.handleValidation("email")}
                   margin="normal"
                   fullWidth
                   required
+                  error={!this.props.isValid("email")}
+                  helperText={this.props.getValidationMessages("email")[0]}
                 />
                 <TextField
                   label="Password"
                   value={password}
                   type="password"
                   onChange={(event) => this.handleChange(event, "password")}
+                  onBlur={this.props.handleValidation("password")}
                   margin="normal"
                   fullWidth
                   required
+                  error={!this.props.isValid("password")}
+                  helperText={this.props.getValidationMessages("password")[0]}
                 />
                 <TextField
                   required
@@ -112,8 +140,11 @@ class UserForm extends Component {
                   label="Select a role"
                   value={roleId}
                   onChange={(event) => this.handleChange(event, "roleId")}
+                  onBlur={this.props.handleValidation("roleId")}
                   margin="normal"
-                  fullWidth>
+                  fullWidth
+                  error={!this.props.isValid("roleId")}
+                  helperText={this.props.getValidationMessages("roleId")[0]}>
                   <MenuItem value={"108243ae-d3ff-40db-b4e7-efc2390b5827"}>
                     Administrator
                   </MenuItem>
@@ -136,4 +167,4 @@ class UserForm extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(UserForm);
+export default connect(null, mapDispatchToProps)(Validation(Strategy)(UserForm));
