@@ -1,9 +1,6 @@
-import React from "react";
-import Loadable from "react-loadable";
 import AddUser from "../Components/AddUser";
 import AddTenant from "../Components/AddTenant";
 import Dashboard from "../Components/Dashboard";
-import Loader from "../Components/Loader";
 
 export default {
   HOME: {

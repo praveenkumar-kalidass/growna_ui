@@ -67,9 +67,9 @@ class Login extends Component {
         ..._.pick(nextProps.auth,
           "accessToken",
           "refreshToken",
-          "userId",
-          "tenantId"
+          "userId"
         ),
+        tenantId: nextProps.role.tenantId,
         role: nextProps.role.name
       }, {
         expires: new Date(nextProps.auth.refreshTokenExpiresAt)
@@ -187,7 +187,8 @@ class Login extends Component {
                                 <Grid item>
                                   {
                                     login &&
-                                    <Button variant="contained" className="login-button">
+                                    <Button variant="contained" color="primary"
+                                      className="login-button">
                                       <CircularProgress size={16} className="button-progress" />
                                     </Button>
                                   }

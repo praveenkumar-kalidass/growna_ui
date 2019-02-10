@@ -2,7 +2,9 @@ import {Tenant} from "../Constants/ActionTypes";
 
 const initialState = {
   loading: false,
-  tenant: {}
+  tenant: {},
+  roles: [],
+  managers: []
 };
 
 export default (state = initialState, action) => {
@@ -11,7 +13,21 @@ export default (state = initialState, action) => {
     return {
       ...state,
       loading: false,
-      tenant: state.data
+      tenant: action.data
+    };
+  }
+  case Tenant.LOAD_ROLES: {
+    return {
+      ...state,
+      loading: false,
+      roles: action.data
+    };
+  }
+  case Tenant.LOAD_MANAGERS: {
+    return {
+      ...state,
+      loading: false,
+      managers: action.data
     };
   }
   case Tenant.LOADING_TENANT: {

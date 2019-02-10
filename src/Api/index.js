@@ -57,9 +57,9 @@ api.interceptors.response.use((response) => {
         ..._.pick(response.data.auth,
           "accessToken",
           "refreshToken",
-          "userId",
-          "tenantId"
+          "userId"
         ),
+        tenantId: response.data.role.tenantId,
         role: response.data.role.name
       }, {
         expires: new Date(response.data.auth.refreshTokenExpiresAt)

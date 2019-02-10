@@ -75,7 +75,17 @@ export default {
     .options({
       language: {
         any: {
-          empty: "!!You missed a role here"
+          empty: "!!You missed to select role here"
+        }
+      }
+    }),
+  parentId: Joi.string()
+    .required()
+    .label("Manager")
+    .options({
+      language: {
+        any: {
+          empty: "!!You missed to select manager here"
         }
       }
     })

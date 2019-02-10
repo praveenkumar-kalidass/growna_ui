@@ -1,6 +1,7 @@
 @import "../../Utils/Colors.scss";
 
 .gis-user-form {
+  min-height: calc(100% - 30px);
   padding: 15px;
   .form-header {
     margin: 0px 15px 30px 15px;
@@ -17,15 +18,20 @@
   .form-container {
     background-color: $grey-pale;
     border-radius: 4px;
+    min-height: calc(100% - 80px);
     padding: 10px;
     .user-form {
       padding: 10px;
       .submit-button {
         margin-top: 10px;
         margin-right: 10px;
+        min-width: 100px;
       }
       .reset-button {
         margin-top: 10px;
+      }
+      .submit-progress {
+        color: $white;
       }
     }
   }
