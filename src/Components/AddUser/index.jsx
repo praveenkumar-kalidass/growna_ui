@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
   addUser: (user) => { dispatch(addUser(user)) }
 });
 
-class UserForm extends Component {
+class AddUser extends Component {
   constructor(props) {
     super(props);
     this.validatorTypes = {
@@ -152,7 +152,8 @@ class UserForm extends Component {
                     User
                   </MenuItem>
                 </TextField>
-                <Button type="submit" className="submit-button">
+                <Button type="submit" className="submit-button"
+                  variant="contained" color="primary">
                   Submit
                 </Button>
                 <Button className="reset-button" onClick={this.resetForm}>
@@ -167,4 +168,4 @@ class UserForm extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Validation(Strategy)(UserForm));
+export default connect(null, mapDispatchToProps)(Validation(Strategy)(AddUser));

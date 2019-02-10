@@ -3,7 +3,9 @@
 .gis-login {
   height: 100vh;
   .login-container {
+    background: url("../../Assets/material_bg.svg") no-repeat left bottom;
     background-color: $theme-blue;
+    background-size: cover;
     height: 100%;
     .login-message-container {
       z-index: 20;

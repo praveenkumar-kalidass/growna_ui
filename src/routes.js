@@ -6,11 +6,10 @@ import {
   Redirect
 } from "react-router-dom";
 import Cookies from "universal-cookie";
+import _ from "underscore";
 import Routes from "./Utils/Routes";
-import Dashboard from "./Components/Dashboard";
 import App from "./Components/App";
 import Login from "./Components/Login";
-import UserForm from "./Components/UserForm";
 import Loader from "./Components/Loader";
 
 const LoadableHome = Loadable({
@@ -28,8 +27,19 @@ const AppRouter = (rest) => {
         gis && gis.accessToken ?
           (
             <App>
-              <Route exact path={Routes.APP.path} component={Dashboard} />
-              <Route exact path={Routes.USER_FORM.path} component={UserForm} />
+              {
+                _.compact(_.map(Routes, (route, key) => {
+                  if (new RegExp("app").test(route.path)) {
+                    return (
+                      <Route
+                        key={key}
+                        exact
+                        path={route.path}
+                        component={route.component} />
+                    );
+                  }
+                }))
+              }
             </App>
           ) :
           (

@@ -57,7 +57,8 @@ api.interceptors.response.use((response) => {
         ..._.pick(response.data.auth,
           "accessToken",
           "refreshToken",
-          "userId"
+          "userId",
+          "tenantId"
         ),
         role: response.data.role.name
       }, {

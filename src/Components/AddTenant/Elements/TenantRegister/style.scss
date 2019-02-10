@@ -1,0 +1,18 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-tenant-register {
+  min-height: calc(100% - 108px);
+  .register-card {
+    box-shadow: none;
+    .success-icon {
+      color: $theme-blue;
+      font-size: 60px;
+    }
+    .card-content {
+      text-align: center;
+    }
+    .card-action {
+      justify-content: flex-end;
+    }
+  }
+}

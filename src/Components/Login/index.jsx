@@ -67,7 +67,8 @@ class Login extends Component {
         ..._.pick(nextProps.auth,
           "accessToken",
           "refreshToken",
-          "userId"
+          "userId",
+          "tenantId"
         ),
         role: nextProps.role.name
       }, {

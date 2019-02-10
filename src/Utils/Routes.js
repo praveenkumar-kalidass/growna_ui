@@ -1,3 +1,10 @@
+import React from "react";
+import Loadable from "react-loadable";
+import AddUser from "../Components/AddUser";
+import AddTenant from "../Components/AddTenant";
+import Dashboard from "../Components/Dashboard";
+import Loader from "../Components/Loader";
+
 export default {
   HOME: {
     name: "Home",
@@ -9,14 +16,22 @@ export default {
   },
   APP: {
     name: "App",
-    path: "/app"
+    path: "/app",
+    component: Dashboard
   },
-  USER_FORM: {
-    name: "User Form",
-    path: "/app/user-form"
+  ADD_TENANT: {
+    name: "Add Tenant",
+    path: "/app/add-tenant",
+    component: AddTenant
+  },
+  ADD_USER: {
+    name: "Add User",
+    path: "/app/add-user",
+    component: AddUser
   },
   INSURANCE: {
     name: "Insurance",
-    path: "/app/insurance"
+    path: "/app/insurance",
+    component: AddUser
   }
 };
