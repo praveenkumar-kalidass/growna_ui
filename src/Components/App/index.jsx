@@ -2,10 +2,12 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {
   Grid,
+  Hidden,
   IconButton,
   Paper,
   Snackbar,
-  SnackbarContent
+  SnackbarContent,
+  SwipeableDrawer
 } from "@material-ui/core";
 import {
   Close
@@ -16,8 +18,6 @@ import _ from "underscore";
 import Header from "./Elements/Header";
 import Menu from "./Elements/Menu";
 import {
-  getPrivileges,
-  getUserDetails,
   validateRoute,
   setRouteValidity
 } from "../../Actions/User";
@@ -50,14 +50,12 @@ class App extends Component {
     this.state = {
       message: "",
       error: false,
-      success: false
+      success: false,
+      menu: false
     };
   }
 
   componentDidMount() {
-    const cookies = new Cookies();
-    this.props.getUserDetails(cookies.get("gis").userId);
-    this.props.getPrivileges(cookies.get("gis").role);
     this.checkRouteValidity();
   }
 
@@ -106,22 +104,41 @@ class App extends Component {
     this.props.disableAppError();
   }
 
+  toggleMenu = () => {
+    this.setState({
+      menu: !this.state.menu
+    });
+  }
+
   render() {
     const {
       message,
       error,
-      success
+      success,
+      menu
     } = this.state;
 
     return (
       <div className="ui-app">
         <div className="app-base-background" />
         <Grid container>
-          <Grid item md={2}>
-            <Menu />
-          </Grid>
+          <Hidden smDown>
+            <Grid item md={2}>
+              <Menu />
+            </Grid>
+          </Hidden>
+          <Hidden mdUp>
+            <SwipeableDrawer open={menu}
+              onOpen={this.toggleMenu}
+              onClose={this.toggleMenu}
+              ModalProps={{
+                keepMounted: true
+              }}>
+              <Menu />
+            </SwipeableDrawer>
+          </Hidden>
           <Grid item xs={12} sm={12} md={10} className="app-item">
-            <Header />
+            <Header toggleMenu={this.toggleMenu} />
             <div className="app-container">
               {this.props.children}
             </div>

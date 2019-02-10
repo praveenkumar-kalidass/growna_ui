@@ -3,6 +3,7 @@
 .gis-app-menu {
   min-height: 100vh;
   .menu-user-content {
+    background-color: $theme-blue;
     min-height: 130px;
     .user-picture {
       height: 60px;
@@ -14,9 +15,13 @@
       }
     }
   }
-  .app-name {
-    span {
-      color: $white;
+  .app-name-container {
+    background-color: $theme-blue;
+    .app-name {
+      span {
+        color: $white;
+        white-space: nowrap;
+      }
     }
   }
   .menu-item {

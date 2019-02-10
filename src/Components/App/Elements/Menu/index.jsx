@@ -15,6 +15,10 @@ import {
 import Cookies from "universal-cookie";
 import {withRouter} from "react-router-dom";
 import _ from "underscore";
+import {
+  getPrivileges,
+  getUserDetails
+} from "../../../../Actions/User";
 import Routes from "../../../../Utils/Routes";
 import DemoAdmin from "../../../../Assets/demo-admin.jpg";
 import DemoUser from "../../../../Assets/demo-user.png";
@@ -23,6 +27,11 @@ import "./style.scss";
 const mapStateToProps = (state) => ({
   privileges: state.user.privileges,
   user: state.user.user
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getPrivileges: (role) => { dispatch(getPrivileges(role)) },
+  getUserDetails: (userId) => { dispatch(getUserDetails(userId)) }
 });
 
 class Menu extends Component {
@@ -37,8 +46,11 @@ class Menu extends Component {
 
   componentDidMount() {
     const cookies = new Cookies();
+    const gis = cookies.get("gis");
+    this.props.getUserDetails(gis.userId);
+    this.props.getPrivileges(gis.role);
     this.setState({
-      role: cookies.get("gis").role
+      role: gis.role
     });
   }
 
@@ -62,15 +74,11 @@ class Menu extends Component {
       user
     } = this.state;
     const {location} = this.props;
-    const roleName = {
-      GIS_ADMIN: "Administrator",
-      GIS_USER: "User"
-    };
 
     return (
       <div className="gis-app-menu">
         <List component="nav">
-          <ListItem>
+          <ListItem className="app-name-container">
             <ListItemText className="app-name" primary="Growna Insurance" />
           </ListItem>
           <ListItem className="menu-user-content">
@@ -78,7 +86,7 @@ class Menu extends Component {
               src={role === "GIS_ADMIN" ? DemoAdmin : DemoUser} />
             <ListItemText className="user-name"
               primary={`${user.firstName} ${user.lastName}`}
-              secondary={roleName[role]} />
+              secondary={role} />
           </ListItem>
           <ListItem className="menu-item"
             selected={location.pathname === Routes.APP.path}
@@ -106,4 +114,4 @@ class Menu extends Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Menu));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Menu));
