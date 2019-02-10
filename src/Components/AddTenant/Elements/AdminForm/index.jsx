@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import {
   Button,
   Grid,
@@ -6,14 +7,21 @@ import {
   TextField
 } from "@material-ui/core";
 import PropTypes from "prop-types";
+import Cookies from "universal-cookie";
 import Strategy from "joi-validation-strategy";
 import Validation from "react-validation-mixin";
 import Schema from "./schema";
+import {registerTenant} from "../../../../Actions/Tenant";
 import "./style.scss";
+
+const mapDispatchToProps = (dispatch) => ({
+  registerTenant: (data) => { dispatch(registerTenant(data)) }
+});
 
 class AdminForm extends Component {
   static propTypes = {
-    tenantName: PropTypes.string.isRequired
+    tenantName: PropTypes.string.isRequired,
+    handleAdminForm: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -43,9 +51,17 @@ class AdminForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const cookies = new Cookies();
+    const gis = cookies.get("gis");
     this.props.validate((error) => {
       if (!error) {
-        console.log(this.state);
+        const data = {
+          ...this.state,
+          createdBy: gis.userId,
+          parentId: gis.userId
+        };
+        this.props.registerTenant(data);
+        this.props.handleAdminForm();
       }
     });
   }
@@ -74,6 +90,7 @@ class AdminForm extends Component {
                     margin="normal"
                     fullWidth
                     required
+                    autoFocus
                     error={!this.props.isValid("firstName")}
                     helperText={this.props.getValidationMessages("firstName")[0]}
                   />
@@ -128,4 +145,4 @@ class AdminForm extends Component {
   }
 }
 
-export default Validation(Strategy)(AdminForm);
+export default connect(null, mapDispatchToProps)(Validation(Strategy)(AdminForm));

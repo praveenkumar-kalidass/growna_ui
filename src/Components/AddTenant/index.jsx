@@ -26,6 +26,12 @@ class AddTenant extends Component {
     });
   }
 
+  handleStepChange = (index) => {
+    this.setState({
+      stepIndex: index
+    });
+  }
+
   render() {
     const {
       stepIndex,
@@ -52,11 +58,14 @@ class AddTenant extends Component {
         }
         {
           stepIndex === 1 &&
-          <AdminForm tenantName={tenantName} />
+          <AdminForm
+            tenantName={tenantName}
+            handleAdminForm={() => this.handleStepChange(2)}/>
         }
         {
           stepIndex === 2 &&
-          <TenantRegister />
+          <TenantRegister
+            addMoreTenant={() => this.handleStepChange(0)}/>
         }
       </Paper>
     );

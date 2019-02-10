@@ -62,6 +62,7 @@ class TenantForm extends Component {
                 margin="normal"
                 fullWidth
                 required
+                autoFocus
                 error={!this.props.isValid("name")}
                 helperText={this.props.getValidationMessages("name")[0]}
               />
