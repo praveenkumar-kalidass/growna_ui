@@ -19,9 +19,6 @@ export default {
   getRolePrivileges: (role) => (
     axios.get(`/api/role/privileges/${role}`)
   ),
-  addUser: (user) => (
-    axios.post("/api/user/add", user)
-  ),
   getUser: (userId) => (
     axios.get(`/api/user/${userId}`)
   ),

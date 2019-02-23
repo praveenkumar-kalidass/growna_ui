@@ -2,9 +2,9 @@
 
 .gis-tenant-form {
   background-color: $grey-pale;
-  min-height: calc(100% - 108px);
   padding: 10px 0;
   .tenant-form {
+    margin: 100px 0;
     padding: 10px;
     .submit-button {
       margin-top: 10px;

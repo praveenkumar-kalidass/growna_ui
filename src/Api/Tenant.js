@@ -9,5 +9,11 @@ export default {
   ),
   getManagersByRole: (roleId) => (
     axios.get(`/api/user/all/${roleId}`)
+  ),
+  addUser: (user) => (
+    axios.post("/api/user/add", user)
+  ),
+  addRole: (role) => (
+    axios.post("/api/role/add", role)
   )
 };

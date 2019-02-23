@@ -70,7 +70,8 @@ class Login extends Component {
           "userId"
         ),
         tenantId: nextProps.role.tenantId,
-        role: nextProps.role.name
+        role: nextProps.role.name,
+        type: nextProps.role.type
       }, {
         expires: new Date(nextProps.auth.refreshTokenExpiresAt)
       });
@@ -195,7 +196,7 @@ class Login extends Component {
                                   {
                                     !login &&
                                     <Button type="submit" variant="contained"
-                                      className="login-button">
+                                      color="primary" className="login-button">
                                       Login
                                       <ArrowForward className="button-icon" />
                                     </Button>

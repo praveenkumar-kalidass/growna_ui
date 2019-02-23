@@ -1,6 +1,6 @@
 @import "../../Utils/Colors.scss";
 
-.gis-user-form {
+.gis-add-role {
   padding: 15px;
   .form-header {
     margin: 0px 15px 30px 15px;
@@ -18,7 +18,8 @@
     background-color: $grey-pale;
     border-radius: 4px;
     padding: 10px;
-    .user-form {
+    .role-form {
+      margin: 50px 0;
       padding: 10px;
       .submit-button {
         margin-top: 10px;

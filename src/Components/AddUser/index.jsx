@@ -14,8 +14,8 @@ import _ from "underscore";
 import Strategy from "joi-validation-strategy";
 import Validation from "react-validation-mixin";
 import Schema from "./schema";
-import {addUser} from "../../Actions/User";
 import {
+  addUser,
   getRoles,
   getManagersByRole
 } from "../../Actions/Tenant";

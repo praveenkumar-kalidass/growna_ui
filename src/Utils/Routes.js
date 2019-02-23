@@ -1,3 +1,4 @@
+import AddRole from "../Components/AddRole";
 import AddUser from "../Components/AddUser";
 import AddTenant from "../Components/AddTenant";
 import Dashboard from "../Components/Dashboard";
@@ -20,6 +21,11 @@ export default {
     name: "Add Tenant",
     path: "/app/add-tenant",
     component: AddTenant
+  },
+  ADD_ROLE: {
+    name: "Add Role",
+    path: "/app/add-role",
+    component: AddRole
   },
   ADD_USER: {
     name: "Add User",

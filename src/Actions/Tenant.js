@@ -1,5 +1,6 @@
 import Api from "../Api/Tenant";
 import {Tenant} from "../Constants/ActionTypes";
+import {enableAppSuccess} from "./App";
 
 const registerTenant = (data) => (dispatch) => {
   dispatch(loadingTenant());
@@ -41,8 +42,22 @@ const loadingTenant = () => ({
   type: Tenant.LOADING_TENANT
 });
 
+const addUser = (user) => (dispatch) => {
+  Api.addUser(user).then(() => {
+    dispatch(enableAppSuccess("User added successfully"));
+  });
+};
+
+const addRole = (role) => (dispatch) => {
+  Api.addRole(role).then(() => {
+    dispatch(enableAppSuccess("Role added successfully"));
+  });
+};
+
 export {
   getRoles,
   registerTenant,
-  getManagersByRole
+  getManagersByRole,
+  addUser,
+  addRole
 };

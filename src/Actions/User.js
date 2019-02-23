@@ -1,5 +1,4 @@
 import Api from "../Api/User";
-import {enableAppSuccess} from "./App";
 import {User} from "../Constants/ActionTypes";
 
 const login = (credentials) => (dispatch) => {
@@ -23,12 +22,6 @@ const loadPrivileges = (data) => ({
   type: User.LOAD_PRIVILEGES,
   data
 });
-
-const addUser = (user) => (dispatch) => {
-  Api.addUser(user).then(() => {
-    dispatch(enableAppSuccess("User added successfully"));
-  });
-};
 
 const getUserDetails = (userId) => (dispatch) => {
   Api.getUser(userId).then((response) => {
@@ -55,7 +48,6 @@ const setRouteValidity = (data) => ({
 export {
   login,
   getPrivileges,
-  addUser,
   getUserDetails,
   validateRoute,
   setRouteValidity

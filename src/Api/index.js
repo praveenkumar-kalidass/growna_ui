@@ -60,7 +60,8 @@ api.interceptors.response.use((response) => {
           "userId"
         ),
         tenantId: response.data.role.tenantId,
-        role: response.data.role.name
+        role: response.data.role.name,
+        type: response.data.role.type
       }, {
         expires: new Date(response.data.auth.refreshTokenExpiresAt)
       });
