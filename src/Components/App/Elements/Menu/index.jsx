@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {
   Avatar,
+  Collapse,
   List,
   ListItem,
   ListItemIcon,
@@ -9,8 +10,14 @@ import {
   ListItemText
 } from "@material-ui/core";
 import {
+  AccountBalance,
+  Dashboard,
+  Fingerprint,
+  ExpandLess,
+  ExpandMore,
   Inbox,
-  KeyboardArrowDown
+  KeyboardArrowDown,
+  Person
 } from "@material-ui/icons";
 import Cookies from "universal-cookie";
 import {withRouter} from "react-router-dom";
@@ -40,7 +47,21 @@ class Menu extends Component {
     this.state = {
       privileges: [],
       role: "",
-      user: {}
+      user: {},
+      categories: [{
+        name: "Tenant",
+        label: "Tenants",
+        icon: AccountBalance
+      }, {
+        name: "Role",
+        label: "Roles",
+        icon: Fingerprint
+      }, {
+        name: "User",
+        label: "Users",
+        icon: Person
+      }],
+      categoryIndex: ""
     };
   }
 
@@ -55,10 +76,17 @@ class Menu extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const privileges = _.groupBy(_.map(nextProps.privileges, (privilege) => (
+      Routes[privilege.description]
+    )), "category");
     this.setState({
-      privileges: _.map(nextProps.privileges, (privilege) => (
-        Routes[privilege.description]
-      )),
+      privileges: _.compact(_.map(this.state.categories, (category) => {
+        if (privileges[category.name]) {
+          category.routes = privileges[category.name];
+          return category;
+        }
+        return null;
+      })),
       user: nextProps.user
     });
   }
@@ -67,17 +95,27 @@ class Menu extends Component {
     this.props.history.push(path);
   }
 
+  handleIndex = (category) => {
+    if (this.state.categoryIndex === category) {
+      category = "";
+    }
+    this.setState({
+      categoryIndex: category
+    });
+  }
+
   render() {
     const {
       privileges,
       role,
-      user
+      user,
+      categoryIndex
     } = this.state;
     const {location} = this.props;
 
     return (
       <div className="gis-app-menu">
-        <List component="nav">
+        <List component="nav" disablePadding>
           <ListItem className="app-name-container">
             <ListItemText className="app-name" primary="Growna Insurance" />
           </ListItem>
@@ -92,23 +130,44 @@ class Menu extends Component {
             selected={location.pathname === Routes.APP.path}
             onClick={(event) => this.handleChange(Routes.APP.path)}>
             <ListItemIcon>
-              <Inbox />
+              <Dashboard />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItem>
+        </List>
           {
             _.map(privileges, (privilege, index) => (
-              <ListItem key={index} className="menu-item"
-                selected={location.pathname === privilege.path}
-                onClick={(event) => this.handleChange(privilege.path)}>
-                <ListItemIcon>
-                  <Inbox />
-                </ListItemIcon>
-                <ListItemText primary={privilege.name} />
-              </ListItem>
+              <List key={index} component="nav" disablePadding>
+                <ListItem className="menu-item"
+                  onClick={(event) => this.handleIndex(privilege.name)}>
+                  <ListItemIcon>
+                    <privilege.icon />
+                  </ListItemIcon>
+                  <ListItemText primary={privilege.label} />
+                  {
+                    categoryIndex === privilege.name
+                      ? <ExpandLess />
+                      : <ExpandMore />
+                  }
+                </ListItem>
+                {
+                  _.map(privilege.routes, (route, routeIndex) => (
+                    <Collapse key={routeIndex}
+                      in={categoryIndex === privilege.name}>
+                      <ListItem className="menu-item collapse-item"
+                        selected={location.pathname === route.path}
+                        onClick={(event) => this.handleChange(route.path)}>
+                        <ListItemIcon>
+                          <route.icon />
+                        </ListItemIcon>
+                        <ListItemText primary={route.name} />
+                      </ListItem>
+                    </Collapse>
+                  ))
+                }
+              </List>
             ))
           }
-        </List>
       </div>
     );
   }

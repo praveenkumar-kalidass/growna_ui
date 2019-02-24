@@ -28,7 +28,7 @@ const loadRoles = (data) => ({
 
 const getManagersByRole = (roleId) => (dispatch) => {
   dispatch(loadingTenant());
-  Api.getManagersByRole(roleId).then((response) => {
+  Api.getUsersByRole(roleId).then((response) => {
     dispatch(loadManagers(response.data));
   });
 };
@@ -54,10 +54,23 @@ const addRole = (role) => (dispatch) => {
   });
 };
 
+const getUsers = (tenantId) => (dispatch) => {
+  dispatch(loadingTenant());
+  Api.getUsersByTenant(tenantId).then((response) => {
+    dispatch(loadUsers(response.data));
+  });
+};
+
+const loadUsers = (data) => ({
+  type: Tenant.LOAD_USERS,
+  data
+});
+
 export {
   getRoles,
   registerTenant,
   getManagersByRole,
   addUser,
-  addRole
+  addRole,
+  getUsers
 };

@@ -1,0 +1,17 @@
+@import "../../Utils/Colors.scss";
+
+.gis-user-list {
+  padding: 15px;
+  .list-header {
+    margin: 0px 15px 30px 15px;
+    padding-top: 15px;
+    &:after {
+      border-bottom: 4px solid $theme-blue;
+      display: block;
+      content: "";
+      margin-top: 10px;
+      position: absolute;
+      width: 40px;
+    }
+  }
+}

@@ -26,5 +26,8 @@
   }
   .menu-item {
     cursor: pointer;
+    &.collapse-item {
+      padding-left: 35px;
+    }
   }
 }
