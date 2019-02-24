@@ -12,6 +12,17 @@ const loadAuth = (data) => ({
   data
 });
 
+const logout = (accessToken) => (dispatch) => {
+  Api.authLogout(accessToken).then(() => {
+    dispatch(logoutUser(true));
+  });
+};
+
+const logoutUser = (data) => ({
+  type: User.LOG_OUT,
+  data
+});
+
 const getPrivileges = (role) => (dispatch) => {
   Api.getRolePrivileges(role).then((response) => {
     dispatch(loadPrivileges(response.data));
@@ -47,6 +58,7 @@ const setRouteValidity = (data) => ({
 
 export {
   login,
+  logout,
   getPrivileges,
   getUserDetails,
   validateRoute,

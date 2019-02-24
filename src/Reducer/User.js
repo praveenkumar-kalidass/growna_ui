@@ -5,7 +5,8 @@ const initialState = {
   role: {},
   privileges: [],
   user: {},
-  validRoute: true
+  validRoute: true,
+  logout: false
 };
 
 export default (state = initialState, action) => {
@@ -19,6 +20,12 @@ export default (state = initialState, action) => {
       ...state,
       auth,
       role
+    };
+  }
+  case User.LOG_OUT: {
+    return {
+      ...state,
+      logout: action.data
     };
   }
   case User.LOAD_PRIVILEGES: {

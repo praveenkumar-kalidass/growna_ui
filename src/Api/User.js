@@ -16,6 +16,9 @@ export default {
     });
     return axios.post("/api/auth/login", data);
   },
+  authLogout: (data) => {
+    return axios.delete("/api/auth/logout", data);
+  },
   getRolePrivileges: (role) => (
     axios.get(`/api/role/privileges/${role}`)
   ),

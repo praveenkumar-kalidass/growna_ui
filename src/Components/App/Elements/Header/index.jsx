@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import {
   AppBar,
   Grid,
@@ -14,17 +15,43 @@ import {
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
 import Cookies from "universal-cookie";
+import {logout} from "../../../../Actions/User";
 import "./style.scss";
+
+const mapStateToProps = (state) => ({
+  logout: state.user.logout
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logout: (accessToken) => { dispatch(logout(accessToken)) }
+});
 
 class Header extends Component {
   static propTypes = {
     toggleMenu: PropTypes.func.isRequired
   };
 
+  componentWillReceiveProps(nextProps) {
+    const cookies = new Cookies();
+    if (nextProps.logout) {
+      this.props.history.push("/login");
+    }
+  }
+
   logout = () => {
     const cookies = new Cookies();
-    cookies.set("gis", {});
-    this.props.history.push("/login");
+    const gis = cookies.get("gis");
+    const data = {
+      refreshToken: gis.refreshToken,
+      user: {
+        id: gis.userId
+      },
+      client: {
+        id: "11814a7e-53fd-49db-b9e5-69a4370b5827"
+      }
+    };
+    this.props.logout({data});
+    cookies.remove("gis");
   }
 
   render() {
@@ -54,4 +81,4 @@ class Header extends Component {
   }
 }
 
-export default withRouter(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
