@@ -1,0 +1,16 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-pagecrumb {
+  padding: 0 25px;
+  .pagecrumb-link {
+    color: $white;
+    display: flex;
+  }
+  li {
+    color: $white;
+  }
+  .pagecrumb-icon {
+    height: 17px;
+    width: 20px;
+  }
+}

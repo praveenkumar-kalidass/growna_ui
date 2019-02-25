@@ -11,10 +11,10 @@ import {
 } from "@material-ui/core";
 import {
   AccountBalance,
-  Dashboard,
-  Fingerprint,
   ExpandLess,
   ExpandMore,
+  Fingerprint,
+  Home,
   Inbox,
   KeyboardArrowDown,
   Person
@@ -51,14 +51,17 @@ class Menu extends Component {
       categories: [{
         name: "Tenant",
         label: "Tenants",
+        path: Routes.ADD_TENANT.path,
         icon: AccountBalance
       }, {
         name: "Role",
         label: "Roles",
+        path: Routes.ROLE_LIST.path,
         icon: Fingerprint
       }, {
         name: "User",
         label: "Users",
+        path: Routes.USER_LIST.path,
         icon: Person
       }],
       categoryIndex: ""
@@ -95,9 +98,11 @@ class Menu extends Component {
     this.props.history.push(path);
   }
 
-  handleIndex = (category) => {
+  handleIndex = (category, path) => {
     if (this.state.categoryIndex === category) {
       category = "";
+    } else {
+      this.handleChange(path);
     }
     this.setState({
       categoryIndex: category
@@ -130,16 +135,16 @@ class Menu extends Component {
             selected={location.pathname === Routes.APP.path}
             onClick={(event) => this.handleChange(Routes.APP.path)}>
             <ListItemIcon>
-              <Dashboard />
+              <Home />
             </ListItemIcon>
-            <ListItemText primary="Dashboard" />
+            <ListItemText primary="Home" />
           </ListItem>
         </List>
           {
             _.map(privileges, (privilege, index) => (
               <List key={index} component="nav" disablePadding>
                 <ListItem className="menu-item"
-                  onClick={(event) => this.handleIndex(privilege.name)}>
+                  onClick={(event) => this.handleIndex(privilege.name, privilege.path)}>
                   <ListItemIcon>
                     <privilege.icon />
                   </ListItemIcon>

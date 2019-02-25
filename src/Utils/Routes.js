@@ -1,6 +1,7 @@
 import {
   AddAlarm,
   GroupAdd,
+  Home,
   ListAlt,
   PersonAdd,
   SupervisedUserCircle
@@ -22,9 +23,10 @@ export default {
     path: "/login"
   },
   APP: {
-    name: "App",
+    name: "Home",
     path: "/app",
-    component: Dashboard
+    component: Dashboard,
+    icon: Home
   },
   ADD_TENANT: {
     name: "Add Tenant",

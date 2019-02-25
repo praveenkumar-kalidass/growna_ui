@@ -17,6 +17,7 @@ import Cookies from "universal-cookie";
 import _ from "underscore";
 import Header from "./Elements/Header";
 import Menu from "./Elements/Menu";
+import Pagecrumb from "./Elements/Pagecrumb";
 import {
   validateRoute,
   setRouteValidity
@@ -139,6 +140,7 @@ class App extends Component {
           </Hidden>
           <Grid item xs={12} sm={12} md={10} className="app-item">
             <Header toggleMenu={this.toggleMenu} />
+            <Pagecrumb />
             <div className="app-container">
               {this.props.children}
             </div>
