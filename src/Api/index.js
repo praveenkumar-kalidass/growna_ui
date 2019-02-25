@@ -13,17 +13,29 @@ let api = axios.create({
 });
 
 /**
+ * Interceptor blocker to prevent multiple refresh token request
+ */
+let authRefresh;
+
+/**
  * Method to refresh Access Token
  * @param  {String} refreshToken
  * @return {Promise}
  */
 const refreshToken = (refreshToken) => {
-  const data = new URLSearchParams();
-  data.append("refresh_token", refreshToken);
-  data.append("client_id", "11814a7e-53fd-49db-b9e5-69a4370b5827");
-  data.append("client_secret", "gis_web_client");
-  data.append("grant_type", "refresh_token");
-  return api.post("/api/auth/authorize", data);
+  if (!authRefresh) {
+    const data = new URLSearchParams();
+    data.append("refresh_token", refreshToken);
+    data.append("client_id", "11814a7e-53fd-49db-b9e5-69a4370b5827");
+    data.append("client_secret", "gis_web_client");
+    data.append("grant_type", "refresh_token");
+    authRefresh = api.post("/api/auth/authorize", data);
+    authRefresh.then(
+      () => { authRefresh = null; },
+      () => { authRefresh = null; }
+    );
+  }
+  return authRefresh;
 };
 
 /**

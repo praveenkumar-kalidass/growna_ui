@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {
   Avatar,
+  Button,
+  CircularProgress,
   Chip,
   Grid,
   Paper,
@@ -16,19 +18,21 @@ import {
   Create,
   Person
 } from "@material-ui/icons";
+import {Link} from "react-router-dom";
 import Cookies from "universal-cookie";
 import _ from "underscore";
-import {getUsers} from "../../Actions/Tenant";
+import Routes from "../../Utils/Routes";
+import {getUsersByTenant} from "../../Actions/Tenant";
 import DemoUser from "../../Assets/demo-user.png";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
   loading: state.tenant.loading,
-  users: state.tenant.users
+  users: state.tenant.userList
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getUsers: (tenantId) => { dispatch(getUsers(tenantId)) }
+  getUsers: (tenantId) => { dispatch(getUsersByTenant(tenantId)) }
 });
 
 class UserList extends Component {
@@ -48,6 +52,7 @@ class UserList extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
+      loading: nextProps.loading,
       users: nextProps.users
     });
   }
@@ -60,9 +65,15 @@ class UserList extends Component {
 
     return (
       <Paper className="gis-user-list">
-        <Typography className="list-header" variant="h4" gutterBottom>
-          Users
-        </Typography>
+        <Grid container justify="space-between" alignItems="center">
+          <Typography className="list-header" variant="h4" gutterBottom>
+            Users
+          </Typography>
+          <Button color="primary" component={Link} to={Routes.ADD_USER.path}>
+            <Routes.ADD_USER.icon />
+            Add User
+          </Button>
+        </Grid>
         <Table>
           <TableHead>
             <TableRow>
@@ -75,7 +86,17 @@ class UserList extends Component {
           </TableHead>
           <TableBody>
             {
-              _.map(users, (user) => (
+              loading &&
+              <TableRow>
+                <TableCell colSpan={5}>
+                  <Grid container justify="center">
+                    <CircularProgress />
+                  </Grid>
+                </TableCell>
+              </TableRow>
+            }
+            {
+              !loading && _.map(users, (user) => (
                 <TableRow key={user.id}>
                   <TableCell padding="dense">
                     <Grid container alignItems="center">

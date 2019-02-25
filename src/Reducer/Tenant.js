@@ -4,8 +4,9 @@ const initialState = {
   loading: false,
   tenant: {},
   roles: [],
-  managers: [],
-  users: []
+  roleList: [],
+  users: [],
+  userList: []
 };
 
 export default (state = initialState, action) => {
@@ -31,11 +32,18 @@ export default (state = initialState, action) => {
       users: action.data
     };
   }
-  case Tenant.LOAD_MANAGERS: {
+  case Tenant.LOAD_ROLE_LIST: {
     return {
       ...state,
       loading: false,
-      managers: action.data
+      roleList: action.data
+    };
+  }
+  case Tenant.LOAD_USER_LIST: {
+    return {
+      ...state,
+      loading: false,
+      userList: action.data
     };
   }
   case Tenant.LOADING_TENANT: {

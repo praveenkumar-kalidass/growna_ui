@@ -1,6 +1,7 @@
 import {
   AddAlarm,
   GroupAdd,
+  ListAlt,
   PersonAdd,
   SupervisedUserCircle
 } from "@material-ui/icons";
@@ -9,6 +10,7 @@ import AddUser from "../Components/AddUser";
 import AddTenant from "../Components/AddTenant";
 import Dashboard from "../Components/Dashboard";
 import UserList from "../Components/UserList";
+import RoleList from "../Components/RoleList";
 
 export default {
   HOME: {
@@ -51,6 +53,13 @@ export default {
     component: UserList,
     category: "User",
     icon: SupervisedUserCircle
+  },
+  ROLE_LIST: {
+    name: "Role List",
+    path: "/app/role-list",
+    component: RoleList,
+    category: "Role",
+    icon: ListAlt
   },
   INSURANCE: {
     name: "Insurance",

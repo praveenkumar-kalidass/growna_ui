@@ -5,10 +5,13 @@ export default {
     axios.post("/api/tenant/register", data)
   ),
   getRoles: (tenantId) => (
-    axios.get(`/api/role/all/${tenantId}`)
+    axios.get(`/api/role/tenant/${tenantId}`)
+  ),
+  getRoleDetails: (tenantId) => (
+    axios.get(`/api/role/detail/${tenantId}`)
   ),
   getUsersByRole: (roleId) => (
-    axios.get(`/api/user/all/${roleId}`)
+    axios.get(`/api/user/role/${roleId}`)
   ),
   getUsersByTenant: (tenantId) => (
     axios.get(`/api/user/tenant/${tenantId}`)

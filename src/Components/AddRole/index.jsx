@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 import {
   Button,
   CircularProgress,
@@ -14,6 +15,7 @@ import _ from "underscore";
 import Strategy from "joi-validation-strategy";
 import Validation from "react-validation-mixin";
 import Schema from "./schema";
+import Routes from "../../Utils/Routes";
 import {
   addRole,
   getRoles
@@ -122,9 +124,15 @@ class AddRole extends Component {
 
     return (
       <Paper className="gis-add-role">
-        <Typography className="form-header" variant="h4" gutterBottom>
-          Add Role
-        </Typography>
+        <Grid container justify="space-between" alignItems="center">
+          <Typography className="form-header" variant="h4" gutterBottom>
+            Add Role
+          </Typography>
+          <Button color="primary" component={Link} to={Routes.ROLE_LIST.path}>
+            <Routes.ROLE_LIST.icon />
+            Role List
+          </Button>
+        </Grid>
         <Grid container justify="center" alignItems="center"
           className="form-container">
           <Grid item xs={12} sm={10} md={6}>

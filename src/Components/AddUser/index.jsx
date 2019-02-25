@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 import {
   Button,
   CircularProgress,
@@ -14,24 +15,25 @@ import _ from "underscore";
 import Strategy from "joi-validation-strategy";
 import Validation from "react-validation-mixin";
 import Schema from "./schema";
+import Routes from "../../Utils/Routes";
 import {
   addUser,
   getRoles,
-  getManagersByRole
+  getUsersByRole
 } from "../../Actions/Tenant";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
   loading: state.tenant.loading,
   roles: state.tenant.roles,
-  managers: state.tenant.managers,
+  managers: state.tenant.users,
   success: state.app.success
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addUser: (user) => { dispatch(addUser(user)) },
   getRoles: (tenantId) => { dispatch(getRoles(tenantId)) },
-  getManagers: (roleId) => { dispatch(getManagersByRole(roleId)) }
+  getManagers: (roleId) => { dispatch(getUsersByRole(roleId)) }
 });
 
 class AddUser extends Component {
@@ -165,9 +167,15 @@ class AddUser extends Component {
 
     return (
       <Paper className="gis-user-form">
-        <Typography className="form-header" variant="h4" gutterBottom>
-          Add User
-        </Typography>
+        <Grid container justify="space-between" alignItems="center">
+          <Typography className="form-header" variant="h4" gutterBottom>
+            Add User
+          </Typography>
+          <Button color="primary" component={Link} to={Routes.USER_LIST.path}>
+            <Routes.USER_LIST.icon />
+            User List
+          </Button>
+        </Grid>
         <Grid container justify="center" alignItems="center"
           className="form-container">
           <Grid item xs={12} sm={10} md={6}>

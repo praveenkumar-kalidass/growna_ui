@@ -26,15 +26,27 @@ const loadRoles = (data) => ({
   data
 });
 
-const getManagersByRole = (roleId) => (dispatch) => {
+const getRoleDetails = (tenantId) => (dispatch) => {
   dispatch(loadingTenant());
-  Api.getUsersByRole(roleId).then((response) => {
-    dispatch(loadManagers(response.data));
+  Api.getRoleDetails(tenantId).then((response) => {
+    dispatch(loadRoleList(response.data));
   });
 };
 
-const loadManagers = (data) => ({
-  type: Tenant.LOAD_MANAGERS,
+const loadRoleList = (data) => ({
+  type: Tenant.LOAD_ROLE_LIST,
+  data
+});
+
+const getUsersByRole = (roleId) => (dispatch) => {
+  dispatch(loadingTenant());
+  Api.getUsersByRole(roleId).then((response) => {
+    dispatch(loadUsers(response.data));
+  });
+};
+
+const loadUsers = (data) => ({
+  type: Tenant.LOAD_USERS,
   data
 });
 
@@ -54,23 +66,24 @@ const addRole = (role) => (dispatch) => {
   });
 };
 
-const getUsers = (tenantId) => (dispatch) => {
+const getUsersByTenant = (tenantId) => (dispatch) => {
   dispatch(loadingTenant());
   Api.getUsersByTenant(tenantId).then((response) => {
-    dispatch(loadUsers(response.data));
+    dispatch(loadUserList(response.data));
   });
 };
 
-const loadUsers = (data) => ({
-  type: Tenant.LOAD_USERS,
+const loadUserList = (data) => ({
+  type: Tenant.LOAD_USER_LIST,
   data
 });
 
 export {
   getRoles,
+  getRoleDetails,
   registerTenant,
-  getManagersByRole,
+  getUsersByRole,
+  getUsersByTenant,
   addUser,
-  addRole,
-  getUsers
+  addRole
 };
