@@ -21,5 +21,8 @@ export default {
   ),
   addRole: (role) => (
     axios.post("/api/role/add", role)
+  ),
+  getAllPrivileges: () => (
+    axios.get("/api/privilege/all")
   )
 };

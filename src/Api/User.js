@@ -19,13 +19,13 @@ export default {
   authLogout: (data) => {
     return axios.delete("/api/auth/logout", data);
   },
-  getRolePrivileges: (role) => (
-    axios.get(`/api/role/privileges/${role}`)
+  getRolePrivileges: (roleId) => (
+    axios.get(`/api/role/privileges/${roleId}`)
   ),
   getUser: (userId) => (
     axios.get(`/api/user/${userId}`)
   ),
-  validateRoute: (role, privilege) => (
-    axios.get(`/api/role/validate/${role}/${privilege}`)
+  validateRoute: (roleId, privilege) => (
+    axios.get(`/api/role/validate/${roleId}/${privilege}`)
   )
 };

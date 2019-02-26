@@ -23,8 +23,8 @@ const logoutUser = (data) => ({
   data
 });
 
-const getPrivileges = (role) => (dispatch) => {
-  Api.getRolePrivileges(role).then((response) => {
+const getPrivileges = (roleId) => (dispatch) => {
+  Api.getRolePrivileges(roleId).then((response) => {
     dispatch(loadPrivileges(response.data));
   });
 };
@@ -45,8 +45,8 @@ const loadUser = (data) => ({
   data
 });
 
-const validateRoute = (role, privilege) => (dispatch) => {
-  Api.validateRoute(role, privilege).then((response) => {
+const validateRoute = (roleId, privilege) => (dispatch) => {
+  Api.validateRoute(roleId, privilege).then((response) => {
     dispatch(setRouteValidity(response.data));
   });
 };

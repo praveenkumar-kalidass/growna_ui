@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {connect} from "react-redux";
 import {
   Button,
   Grid,
@@ -11,16 +10,10 @@ import Cookies from "universal-cookie";
 import Strategy from "joi-validation-strategy";
 import Validation from "react-validation-mixin";
 import Schema from "./schema";
-import {registerTenant} from "../../../../Actions/Tenant";
 import "./style.scss";
-
-const mapDispatchToProps = (dispatch) => ({
-  registerTenant: (data) => { dispatch(registerTenant(data)) }
-});
 
 class AdminForm extends Component {
   static propTypes = {
-    tenantName: PropTypes.string.isRequired,
     handleAdminForm: PropTypes.func.isRequired
   };
 
@@ -33,7 +26,6 @@ class AdminForm extends Component {
       password: Schema.password
     };
     this.state = {
-      tenantName: props.tenantName,
       firstName: "",
       lastName: "",
       email: "",
@@ -60,8 +52,7 @@ class AdminForm extends Component {
           createdBy: gis.userId,
           parentId: gis.userId
         };
-        this.props.registerTenant(data);
-        this.props.handleAdminForm();
+        this.props.handleAdminForm(data);
       }
     });
   }
@@ -145,4 +136,4 @@ class AdminForm extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Validation(Strategy)(AdminForm));
+export default Validation(Strategy)(AdminForm);

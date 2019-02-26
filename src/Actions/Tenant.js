@@ -78,6 +78,18 @@ const loadUserList = (data) => ({
   data
 });
 
+const getAllPrivileges = () => (dispatch) => {
+  dispatch(loadingTenant());
+  Api.getAllPrivileges().then((response) => {
+    dispatch(loadPrivileges(response.data));
+  });
+};
+
+const loadPrivileges = (data) => ({
+  type: Tenant.LOAD_PRIVILEGES_LIST,
+  data
+});
+
 export {
   getRoles,
   getRoleDetails,
@@ -85,5 +97,6 @@ export {
   getUsersByRole,
   getUsersByTenant,
   addUser,
-  addRole
+  addRole,
+  getAllPrivileges
 };

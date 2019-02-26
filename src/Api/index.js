@@ -72,6 +72,7 @@ api.interceptors.response.use((response) => {
           "userId"
         ),
         tenantId: response.data.role.tenantId,
+        roleId: response.data.role.id,
         role: response.data.role.name,
         type: response.data.role.type
       }, {

@@ -70,6 +70,7 @@ class Login extends Component {
           "userId"
         ),
         tenantId: nextProps.role.tenantId,
+        roleId: nextProps.role.id,
         role: nextProps.role.name,
         type: nextProps.role.type
       }, {

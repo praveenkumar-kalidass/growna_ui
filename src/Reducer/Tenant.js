@@ -6,7 +6,8 @@ const initialState = {
   roles: [],
   roleList: [],
   users: [],
-  userList: []
+  userList: [],
+  privileges: []
 };
 
 export default (state = initialState, action) => {
@@ -50,6 +51,13 @@ export default (state = initialState, action) => {
     return {
       ...state,
       loading: true
+    };
+  }
+  case Tenant.LOAD_PRIVILEGES_LIST: {
+    return {
+      ...state,
+      loading: false,
+      privileges: action.data
     };
   }
   default: {

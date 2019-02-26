@@ -1,0 +1,12 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-privilege-form {
+  background-color: $grey-pale;
+  padding: 10px 0;
+  .privilege-checkbox {
+    padding: 0;
+  }
+  .submit-button {
+    margin-bottom: 10px;
+  }
+}

@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 import AdminForm from "./Elements/AdminForm";
 import TenantForm from "./Elements/TenantForm";
+import PrivilegeForm from "./Elements/PrivilegeForm";
 import TenantRegister from "./Elements/TenantRegister";
 import "./style.scss";
 
@@ -15,14 +16,22 @@ class AddTenant extends Component {
     super(props);
     this.state = {
       stepIndex: 0,
-      tenantName: ""
+      tenantName: "",
+      user: {}
     };
   }
 
   handleTenantForm = (tenantName) => {
     this.setState({
       stepIndex: 1,
-      tenantName: tenantName
+      tenantName
+    });
+  }
+
+  handleAdminForm = (user) => {
+    this.setState({
+      stepIndex: 2,
+      user
     });
   }
 
@@ -35,7 +44,8 @@ class AddTenant extends Component {
   render() {
     const {
       stepIndex,
-      tenantName
+      tenantName,
+      user
     } = this.state;
 
     return (
@@ -46,6 +56,9 @@ class AddTenant extends Component {
           </Step>
           <Step>
             <StepLabel>Enter Admin details for the Tenant</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>Select Privileges for Admin</StepLabel>
           </Step>
           <Step>
             <StepLabel>Done</StepLabel>
@@ -59,11 +72,17 @@ class AddTenant extends Component {
         {
           stepIndex === 1 &&
           <AdminForm
-            tenantName={tenantName}
-            handleAdminForm={() => this.handleStepChange(2)}/>
+            handleAdminForm={this.handleAdminForm}/>
         }
         {
           stepIndex === 2 &&
+          <PrivilegeForm
+            tenantName={tenantName}
+            user={user}
+            handlePrivilegeForm={() => this.handleStepChange(3)}/>
+        }
+        {
+          stepIndex === 3 &&
           <TenantRegister
             addMoreTenant={() => this.handleStepChange(0)}/>
         }

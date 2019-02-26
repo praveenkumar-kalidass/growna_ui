@@ -30,11 +30,10 @@ import Routes from "../../Utils/Routes";
 import "./style.scss";
 
 const mapDispatchToProps = (dispatch) => ({
-  getPrivileges: (role) => { dispatch(getPrivileges(role)) },
   disableAppSuccess: () => { dispatch(disableAppSuccess()) },
   disableAppError: () => { dispatch(disableAppError()) },
   getUserDetails: (userId) => { dispatch(getUserDetails(userId)) },
-  validateRoute: (role, privilege) => { dispatch(validateRoute(role, privilege)) },
+  validateRoute: (roleId, privilege) => { dispatch(validateRoute(roleId, privilege)) },
   setRouteValidity: (data) => { dispatch(setRouteValidity(data)) }
 });
 
@@ -91,7 +90,7 @@ class App extends Component {
     if (privilege !== "APP") {
       const cookies = new Cookies();
       this.props.validateRoute(
-        cookies.get("gis").role,
+        cookies.get("gis").roleId,
         privilege
       );
     }
