@@ -3,19 +3,14 @@ import {Tenant} from "../Constants/ActionTypes";
 import {enableAppSuccess} from "./App";
 
 const registerTenant = (data) => (dispatch) => {
-  dispatch(loadingTenant());
-  Api.registerTenant(data).then((response) => {
-    dispatch(loadTenant(response.data));
+  dispatch(startLoading());
+  Api.registerTenant(data).then(() => {
+    dispatch(stopLoading());
   });
 };
 
-const loadTenant = (data) => ({
-  type: Tenant.LOAD_TENANT,
-  data
-});
-
 const getRoles = (tenantId) => (dispatch) => {
-  dispatch(loadingTenant());
+  dispatch(startLoading());
   Api.getRoles(tenantId).then((response) => {
     dispatch(loadRoles(response.data));
   });
@@ -27,7 +22,7 @@ const loadRoles = (data) => ({
 });
 
 const getRoleDetails = (tenantId) => (dispatch) => {
-  dispatch(loadingTenant());
+  dispatch(startLoading());
   Api.getRoleDetails(tenantId).then((response) => {
     dispatch(loadRoleList(response.data));
   });
@@ -39,7 +34,7 @@ const loadRoleList = (data) => ({
 });
 
 const getUsersByRole = (roleId) => (dispatch) => {
-  dispatch(loadingTenant());
+  dispatch(startLoading());
   Api.getUsersByRole(roleId).then((response) => {
     dispatch(loadUsers(response.data));
   });
@@ -50,8 +45,12 @@ const loadUsers = (data) => ({
   data
 });
 
-const loadingTenant = () => ({
-  type: Tenant.LOADING_TENANT
+const startLoading = () => ({
+  type: Tenant.START_LOADING
+});
+
+const stopLoading = () => ({
+  type: Tenant.STOP_LOADING
 });
 
 const addUser = (user) => (dispatch) => {
@@ -61,13 +60,14 @@ const addUser = (user) => (dispatch) => {
 };
 
 const addRole = (role) => (dispatch) => {
+  dispatch(startLoading());
   Api.addRole(role).then(() => {
-    dispatch(enableAppSuccess("Role added successfully"));
+    dispatch(stopLoading());
   });
 };
 
 const getUsersByTenant = (tenantId) => (dispatch) => {
-  dispatch(loadingTenant());
+  dispatch(startLoading());
   Api.getUsersByTenant(tenantId).then((response) => {
     dispatch(loadUserList(response.data));
   });
@@ -78,9 +78,9 @@ const loadUserList = (data) => ({
   data
 });
 
-const getAllPrivileges = () => (dispatch) => {
-  dispatch(loadingTenant());
-  Api.getAllPrivileges().then((response) => {
+const getAllPrivileges = (scope) => (dispatch) => {
+  dispatch(startLoading());
+  Api.getAllPrivileges(scope).then((response) => {
     dispatch(loadPrivileges(response.data));
   });
 };

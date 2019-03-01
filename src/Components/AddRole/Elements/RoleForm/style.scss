@@ -1,0 +1,22 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-role-form {
+  background-color: $grey-pale;
+  border-radius: 4px;
+  padding: 10px;
+  .role-form {
+    margin: 50px 0;
+    padding: 10px;
+    .submit-button {
+      margin-top: 10px;
+      margin-right: 10px;
+      min-width: 100px;
+    }
+    .reset-button {
+      margin-top: 10px;
+    }
+    .submit-progress {
+      color: $white;
+    }
+  }
+}

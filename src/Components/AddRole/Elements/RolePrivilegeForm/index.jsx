@@ -13,7 +13,7 @@ import _ from "underscore";
 import Routes from "../../../../Utils/Routes";
 import {
   getAllPrivileges,
-  registerTenant
+  addRole
 } from "../../../../Actions/Tenant";
 import "./style.scss";
 
@@ -22,14 +22,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  registerTenant: (data) => { dispatch(registerTenant(data)) },
+  addRole: (data) => { dispatch(addRole(data)) },
   getAllPrivileges: (scope) => { dispatch(getAllPrivileges(scope)) }
 });
 
-class PrivilegeForm extends Component {
+class RolePrivilegeForm extends Component {
   static propTypes = {
-    tenantName: PropTypes.string.isRequired,
-    user: PropTypes.object.isRequired,
+    role: PropTypes.object.isRequired,
     handlePrivilegeForm: PropTypes.func.isRequired
   };
 
@@ -42,7 +41,7 @@ class PrivilegeForm extends Component {
   }
 
   componentDidMount() {
-    this.props.getAllPrivileges("GIS_ADMIN");
+    this.props.getAllPrivileges("GIS_USER");
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,14 +53,13 @@ class PrivilegeForm extends Component {
   }
 
   handleSubmit = () => {
-    const {tenantName, user} = this.props;
+    const {role} = this.props;
     const {permissions} = this.state;
     const data = {
-      tenantName,
-      ...user,
+      ...role,
       permissions
     };
-    this.props.registerTenant(data);
+    this.props.addRole(data);
     this.props.handlePrivilegeForm();
   }
 
@@ -81,7 +79,7 @@ class PrivilegeForm extends Component {
     } = this.state;
 
     return (
-      <Grid container className="gis-privilege-form"
+      <Grid container className="gis-role-privilege-form"
         justify="center" alignItems="center">
         <Grid item xs={12} sm={11} md={11}>
           <Grid container justify="flex-end">
@@ -129,4 +127,4 @@ class PrivilegeForm extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PrivilegeForm);
+export default connect(mapStateToProps, mapDispatchToProps)(RolePrivilegeForm);
