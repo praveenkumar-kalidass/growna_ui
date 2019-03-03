@@ -36,6 +36,7 @@ class PrivilegeForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      privilegeList: [],
       privileges: [],
       permissions: []
     };
@@ -47,9 +48,13 @@ class PrivilegeForm extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      privileges: _.map(nextProps.privileges, (privilege) => (
-        _.extend(privilege, Routes[privilege.description])
-      ))
+      privilegeList: nextProps.privileges,
+      privileges: _.compact(_.map(nextProps.privileges, (privilege) => {
+        if (privilege.type === "VIEW") {
+          return _.extend(privilege, Routes[privilege.description]);
+        }
+        return null;
+      }))
     });
   }
 
@@ -65,12 +70,29 @@ class PrivilegeForm extends Component {
     this.props.handlePrivilegeForm();
   }
 
-  handleChange = (event, privilegeId) => {
+  handleChange = (event, privilege) => {
     let {permissions} = this.state;
+    const {privilegeList} = this.state;
     if (event.target.checked) {
-      permissions.push(privilegeId);
+      permissions.push(privilege.id);
+      if (privilege.children) {
+        _.each(privilege.children, (child) => {
+          permissions.push(_.findWhere(privilegeList, {
+            description: child
+          }).id);
+        });
+      }
     } else {
-      permissions = _.reject(permissions, (privilege) => (privilege === privilegeId));
+      permissions = _.reject(permissions, (permission) => (permission === privilege.id));
+      if (privilege.children) {
+        _.each(privilege.children, (child) => {
+          permissions = _.reject(permissions, (permission) => (
+            permission === _.findWhere(privilegeList, {
+              description: child
+            }).id
+          ));
+        });
+      }
     }
     this.setState({permissions});
   }
@@ -111,7 +133,7 @@ class PrivilegeForm extends Component {
                           <Checkbox
                             className="privilege-checkbox"
                             color="primary"
-                            onChange={(event) => this.handleChange(event, privilege.id)}></Checkbox>
+                            onChange={(event) => this.handleChange(event, privilege)}></Checkbox>
                         </Grid>
                       </Grid>
                       <Typography color="textSecondary">

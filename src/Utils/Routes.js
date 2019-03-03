@@ -63,7 +63,8 @@ export default {
     path: "/app/role-list",
     component: RoleList,
     category: "Role",
-    icon: ListAlt
+    icon: ListAlt,
+    children: ["EDIT_ROLE"]
   },
   EDIT_ROLE: {
     name: "Edit Role",
