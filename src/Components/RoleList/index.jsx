@@ -87,8 +87,10 @@ class RoleList extends Component {
                       <Typography variant="subtitle2" gutterBottom>
                         {new Date(role.createdAt).toDateString()}
                       </Typography>
-                      <Button variant="outlined" color="primary">
-                        Users List
+                      <Button variant="outlined" color="primary"
+                        component={Link} to={Routes.EDIT_ROLE.path.replace(":id", role.id)}
+                        disabled={role.name === "GIS_ADMIN"}>
+                        Manage role
                       </Button>
                     </Grid>
                   </CardContent>

@@ -23,14 +23,14 @@ const logoutUser = (data) => ({
   data
 });
 
-const getPrivileges = (roleId) => (dispatch) => {
-  Api.getRolePrivileges(roleId).then((response) => {
+const getPrivileges = (roleId, type) => (dispatch) => {
+  Api.getRolePrivileges(roleId, type).then((response) => {
     dispatch(loadPrivileges(response.data));
   });
 };
 
 const loadPrivileges = (data) => ({
-  type: User.LOAD_PRIVILEGES,
+  type: User.LOAD_USER_PRIVILEGES,
   data
 });
 

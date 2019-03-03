@@ -2,6 +2,7 @@ import {Tenant} from "../Constants/ActionTypes";
 
 const initialState = {
   loading: false,
+  role: {},
   roles: [],
   roleList: [],
   users: [],
@@ -11,16 +12,23 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch(action.type) {
-  case Tenant.START_LOADING: {
+  case Tenant.START_TENANT_LOADING: {
     return {
       ...state,
       loading: true
     };
   }
-  case Tenant.STOP_LOADING: {
+  case Tenant.STOP_TENANT_LOADING: {
     return {
       ...state,
       loading: false
+    };
+  }
+  case Tenant.LOAD_ROLE: {
+    return {
+      ...state,
+      loading: false,
+      role: action.data
     };
   }
   case Tenant.LOAD_ROLES: {
@@ -51,7 +59,7 @@ export default (state = initialState, action) => {
       userList: action.data
     };
   }
-  case Tenant.LOAD_PRIVILEGES_LIST: {
+  case Tenant.LOAD_PRIVILEGES: {
     return {
       ...state,
       loading: false,

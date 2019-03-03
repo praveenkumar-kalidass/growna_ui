@@ -37,7 +37,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getPrivileges: (roleId) => { dispatch(getPrivileges(roleId)) },
+  getPrivileges: (roleId, type) => { dispatch(getPrivileges(roleId, type)) },
   getUserDetails: (userId) => { dispatch(getUserDetails(userId)) }
 });
 
@@ -72,7 +72,7 @@ class Menu extends Component {
     const cookies = new Cookies();
     const gis = cookies.get("gis");
     this.props.getUserDetails(gis.userId);
-    this.props.getPrivileges(gis.roleId);
+    this.props.getPrivileges(gis.roleId, "VIEW");
     this.setState({
       role: gis.role
     });

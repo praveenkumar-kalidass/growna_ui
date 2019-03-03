@@ -12,7 +12,7 @@ import {
 import {
   Close
 } from "@material-ui/icons";
-import {withRouter} from "react-router-dom";
+import {withRouter, matchPath} from "react-router-dom";
 import Cookies from "universal-cookie";
 import _ from "underscore";
 import Header from "./Elements/Header";
@@ -85,7 +85,10 @@ class App extends Component {
 
   checkRouteValidity = () => {
     const privilege = _.findKey(Routes, (route) => {
-      return route.path === this.props.location.pathname
+      return matchPath(this.props.location.pathname, {
+        path: route.path,
+        exact: true
+      });
     });
     if (privilege !== "APP") {
       const cookies = new Cookies();

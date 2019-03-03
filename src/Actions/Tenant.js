@@ -46,11 +46,11 @@ const loadUsers = (data) => ({
 });
 
 const startLoading = () => ({
-  type: Tenant.START_LOADING
+  type: Tenant.START_TENANT_LOADING
 });
 
 const stopLoading = () => ({
-  type: Tenant.STOP_LOADING
+  type: Tenant.STOP_TENANT_LOADING
 });
 
 const addUser = (user) => (dispatch) => {
@@ -86,11 +86,31 @@ const getAllPrivileges = (scope) => (dispatch) => {
 };
 
 const loadPrivileges = (data) => ({
-  type: Tenant.LOAD_PRIVILEGES_LIST,
+  type: Tenant.LOAD_PRIVILEGES,
   data
 });
 
+const getRole = (id) => (dispatch) => {
+  dispatch(startLoading());
+  Api.getRoleById(id).then((response) => {
+    dispatch(loadRole(response.data));
+  });
+};
+
+const loadRole = (data) => ({
+  type: Tenant.LOAD_ROLE,
+  data
+});
+
+const getPrivilegesByRole = (roleId, type) => (dispatch) => {
+  dispatch(startLoading());
+  Api.getRolePrivileges(roleId, type).then((response) => {
+    dispatch(loadPrivileges(response.data));
+  });
+};
+
 export {
+  getRole,
   getRoles,
   getRoleDetails,
   registerTenant,
@@ -98,5 +118,6 @@ export {
   getUsersByTenant,
   addUser,
   addRole,
-  getAllPrivileges
+  getAllPrivileges,
+  getPrivilegesByRole
 };

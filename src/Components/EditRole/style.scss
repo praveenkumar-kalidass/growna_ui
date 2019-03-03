@@ -1,0 +1,25 @@
+@import "../../Utils/Colors.scss";
+
+.gis-edit-role {
+  padding: 15px;
+  .page-header {
+    margin: 0px 15px 30px 15px;
+    padding-top: 15px;
+    &:after {
+      border-bottom: 4px solid $theme-blue;
+      display: block;
+      content: "";
+      margin-top: 10px;
+      position: absolute;
+      width: 40px;
+    }
+  }
+  .role-detail-toolbar {
+    border-radius: 4px;
+    .role-manager-select {
+      background-color: $white;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+  }
+}

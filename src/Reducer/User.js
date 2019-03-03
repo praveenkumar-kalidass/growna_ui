@@ -28,7 +28,7 @@ export default (state = initialState, action) => {
       logout: action.data
     };
   }
-  case User.LOAD_PRIVILEGES: {
+  case User.LOAD_USER_PRIVILEGES: {
     return {
       ...state,
       privileges: action.data

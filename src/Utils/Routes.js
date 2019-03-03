@@ -1,5 +1,6 @@
 import {
   AddAlarm,
+  BorderColor,
   GroupAdd,
   Home,
   ListAlt,
@@ -12,6 +13,7 @@ import AddTenant from "../Components/AddTenant";
 import Dashboard from "../Components/Dashboard";
 import UserList from "../Components/UserList";
 import RoleList from "../Components/RoleList";
+import EditRole from "../Components/EditRole";
 
 export default {
   HOME: {
@@ -62,6 +64,13 @@ export default {
     component: RoleList,
     category: "Role",
     icon: ListAlt
+  },
+  EDIT_ROLE: {
+    name: "Edit Role",
+    path: "/app/edit-role/:id",
+    component: EditRole,
+    category: "Role",
+    icon: BorderColor
   },
   INSURANCE: {
     name: "Insurance",

@@ -17,12 +17,18 @@ export default {
     axios.get(`/api/user/tenant/${tenantId}`)
   ),
   addUser: (user) => (
-    axios.post("/api/user/add", user)
+    axios.post("/api/user", user)
   ),
   addRole: (role) => (
-    axios.post("/api/role/add", role)
+    axios.post("/api/role", role)
+  ),
+  getRoleById: (id) => (
+    axios.get(`/api/role/${id}`)
   ),
   getAllPrivileges: (scope) => (
-    axios.get(`/api/privilege/${scope}`)
+    axios.get(`/api/privilege/scope/${scope}`)
+  ),
+  getRolePrivileges: (roleId, type) => (
+    axios.get(`/api/permission/${type}/${roleId}`)
   )
 };
