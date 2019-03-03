@@ -27,7 +27,7 @@ import DemoUser from "../../Assets/demo-user.png";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
-  loading: state.tenant.loading,
+  loading: !!state.tenant.loading,
   users: state.tenant.userList
 });
 

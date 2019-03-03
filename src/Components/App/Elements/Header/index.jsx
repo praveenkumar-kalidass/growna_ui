@@ -2,14 +2,17 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {
   AppBar,
+  Avatar,
   Grid,
   Hidden,
   IconButton,
+  Menu,
+  MenuItem,
   Toolbar,
   Typography
 } from "@material-ui/core";
 import {
-  Menu,
+  Menu as MenuIcon,
   PowerSettingsNew
 } from "@material-ui/icons";
 import PropTypes from "prop-types";
@@ -19,7 +22,8 @@ import {logout} from "../../../../Actions/User";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
-  logout: state.user.logout
+  loggedOut: state.user.logout,
+  image: state.user.image
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -31,11 +35,36 @@ class Header extends Component {
     toggleMenu: PropTypes.func.isRequired
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      menu: false,
+      menuEl: null,
+      image: {}
+    };
+  }
+
   componentWillReceiveProps(nextProps) {
     const cookies = new Cookies();
-    if (nextProps.logout) {
+    if (nextProps.loggedOut) {
       this.props.history.push("/login");
     }
+    this.setState({
+      image: nextProps.image
+    });
+  }
+
+  openMenu = (event) => {
+    this.setState({
+      menuEl: event.currentTarget,
+      menu: true
+    });
+  }
+
+  closeMenu = () => {
+    this.setState({
+      menu: false
+    });
   }
 
   logout = () => {
@@ -55,6 +84,12 @@ class Header extends Component {
   }
 
   render() {
+    const {
+      menu,
+      menuEl,
+      image
+    } = this.state;
+
     return (
       <AppBar className="gis-app-header" position="sticky">
         <Toolbar variant="dense">
@@ -62,7 +97,7 @@ class Header extends Component {
             <Grid item>
               <Hidden mdUp>
                 <IconButton color="inherit" onClick={this.props.toggleMenu}>
-                  <Menu />
+                  <MenuIcon />
                 </IconButton>
               </Hidden>
               <Typography variant="h6" color="inherit">
@@ -71,9 +106,19 @@ class Header extends Component {
             </Grid>
           </Grid>
           <Grid item>
-            <IconButton color="inherit" onClick={this.logout}>
-              <PowerSettingsNew />
-            </IconButton>
+            <Avatar
+              className="user-header-image"
+              src={`http://localhost:3000${image.path}`}
+              onClick={this.openMenu}></Avatar>
+            <Menu
+              anchorEl={menuEl}
+              open={menu}
+              onClose={this.closeMenu}>
+              <MenuItem onClick={this.logout}>
+                <PowerSettingsNew />
+                Logout
+              </MenuItem>
+            </Menu>
           </Grid>
         </Toolbar>
       </AppBar>

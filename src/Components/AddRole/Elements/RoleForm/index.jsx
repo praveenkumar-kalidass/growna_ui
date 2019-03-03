@@ -20,7 +20,7 @@ import {getRoles} from "../../../../Actions/Tenant";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
-  loading: state.tenant.loading,
+  loading: !!state.tenant.loading,
   roles: state.tenant.roles
 });
 

@@ -24,6 +24,7 @@ const logoutUser = (data) => ({
 });
 
 const getPrivileges = (roleId, type) => (dispatch) => {
+  dispatch(startLoading());
   Api.getRolePrivileges(roleId, type).then((response) => {
     dispatch(loadPrivileges(response.data));
   });
@@ -35,6 +36,7 @@ const loadPrivileges = (data) => ({
 });
 
 const getUserDetails = (userId) => (dispatch) => {
+  dispatch(startLoading());
   Api.getUser(userId).then((response) => {
     dispatch(loadUser(response.data));
   });
@@ -54,6 +56,10 @@ const validateRoute = (roleId, privilege) => (dispatch) => {
 const setRouteValidity = (data) => ({
   type: User.SET_ROUTE_VALIDITY,
   data
+});
+
+const startLoading = () => ({
+  type: User.START_USER_LOADING
 });
 
 export {

@@ -16,7 +16,7 @@ import PropTypes from "prop-types";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
-  loading: state.tenant.loading
+  loading: !!state.tenant.loading
 });
 
 class TenantRegister extends Component {

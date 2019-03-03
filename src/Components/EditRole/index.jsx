@@ -30,7 +30,7 @@ import {
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
-  loading: state.tenant.loading,
+  loading: !!state.tenant.loading,
   role: state.tenant.role,
   roles: state.tenant.roles
 });

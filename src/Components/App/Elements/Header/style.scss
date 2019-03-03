@@ -3,4 +3,7 @@
 .gis-app-header {
   background-color: $theme-blue !important;
   box-shadow: 0px 0px 5px 0px $theme-blue !important;
+  .user-header-image {
+    cursor: pointer;
+  }
 }

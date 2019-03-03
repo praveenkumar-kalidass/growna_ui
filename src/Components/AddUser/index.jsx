@@ -24,7 +24,7 @@ import {
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
-  loading: state.tenant.loading,
+  loading: !!state.tenant.loading,
   roles: state.tenant.roles,
   managers: state.tenant.users,
   success: state.app.success

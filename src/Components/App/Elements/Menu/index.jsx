@@ -2,9 +2,12 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {
   Avatar,
+  CircularProgress,
   Collapse,
+  Grid,
   List,
   ListItem,
+  ListItemAvatar,
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText
@@ -27,13 +30,14 @@ import {
   getUserDetails
 } from "../../../../Actions/User";
 import Routes from "../../../../Utils/Routes";
-import DemoAdmin from "../../../../Assets/demo-admin.jpg";
-import DemoUser from "../../../../Assets/demo-user.png";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
+  loading: !!state.user.loading,
   privileges: state.user.privileges,
-  user: state.user.user
+  user: state.user.user,
+  role: state.user.role,
+  image: state.user.image
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -45,9 +49,11 @@ class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       privileges: [],
-      role: "",
       user: {},
+      role: {},
+      image: {},
       categories: [{
         name: "Tenant",
         label: "Tenants",
@@ -73,9 +79,6 @@ class Menu extends Component {
     const gis = cookies.get("gis");
     this.props.getUserDetails(gis.userId);
     this.props.getPrivileges(gis.roleId, "VIEW");
-    this.setState({
-      role: gis.role
-    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -83,6 +86,7 @@ class Menu extends Component {
       Routes[privilege.description]
     )), "category");
     this.setState({
+      loading: nextProps.loading,
       privileges: _.compact(_.map(this.state.categories, (category) => {
         if (privileges[category.name]) {
           category.routes = privileges[category.name];
@@ -90,7 +94,9 @@ class Menu extends Component {
         }
         return null;
       })),
-      user: nextProps.user
+      user: nextProps.user,
+      role: nextProps.role,
+      image: nextProps.image
     });
   }
 
@@ -111,9 +117,11 @@ class Menu extends Component {
 
   render() {
     const {
+      loading,
       privileges,
-      role,
       user,
+      role,
+      image,
       categoryIndex
     } = this.state;
     const {location} = this.props;
@@ -124,13 +132,22 @@ class Menu extends Component {
           <ListItem className="app-name-container">
             <ListItemText className="app-name" primary="Growna Insurance" />
           </ListItem>
-          <ListItem className="menu-user-content">
-            <Avatar className="user-picture"
-              src={role === "GIS_ADMIN" ? DemoAdmin : DemoUser} />
-            <ListItemText className="user-name"
-              primary={`${user.firstName} ${user.lastName}`}
-              secondary={role} />
-          </ListItem>
+          {
+            loading ?
+            <ListItem className="menu-user-content">
+              <Grid container justify="center">
+                <CircularProgress size={20} />
+              </Grid>
+            </ListItem> :
+            <ListItem className="menu-user-content">
+              <ListItemAvatar>
+                <Avatar src={`http://localhost:3000${image.path}`} />
+              </ListItemAvatar>
+              <ListItemText className="user-name"
+                primary={`${user.firstName} ${user.lastName}`}
+                secondary={role.name} />
+            </ListItem>
+          }
           <ListItem className="menu-item"
             selected={location.pathname === Routes.APP.path}
             onClick={(event) => this.handleChange(Routes.APP.path)}>
@@ -140,39 +157,47 @@ class Menu extends Component {
             <ListItemText primary="Home" />
           </ListItem>
         </List>
-          {
-            _.map(privileges, (privilege, index) => (
-              <List key={index} component="nav" disablePadding>
-                <ListItem className="menu-item"
-                  onClick={(event) => this.handleIndex(privilege.name, privilege.path)}>
-                  <ListItemIcon>
-                    <privilege.icon />
-                  </ListItemIcon>
-                  <ListItemText primary={privilege.label} />
-                  {
-                    categoryIndex === privilege.name
-                      ? <ExpandLess />
-                      : <ExpandMore />
-                  }
-                </ListItem>
+        {
+          loading ?
+          <List component="nav" disablePadding>
+            <ListItem>
+              <Grid container justify="center">
+                <CircularProgress size={30} />
+              </Grid>
+            </ListItem>
+          </List> :
+          _.map(privileges, (privilege, index) => (
+            <List key={index} component="nav" disablePadding>
+              <ListItem className="menu-item"
+                onClick={(event) => this.handleIndex(privilege.name, privilege.path)}>
+                <ListItemIcon>
+                  <privilege.icon />
+                </ListItemIcon>
+                <ListItemText primary={privilege.label} />
                 {
-                  _.map(privilege.routes, (route, routeIndex) => (
-                    <Collapse key={routeIndex}
-                      in={categoryIndex === privilege.name}>
-                      <ListItem className="menu-item collapse-item"
-                        selected={location.pathname === route.path}
-                        onClick={(event) => this.handleChange(route.path)}>
-                        <ListItemIcon>
-                          <route.icon />
-                        </ListItemIcon>
-                        <ListItemText primary={route.name} />
-                      </ListItem>
-                    </Collapse>
-                  ))
+                  categoryIndex === privilege.name
+                    ? <ExpandLess />
+                    : <ExpandMore />
                 }
-              </List>
-            ))
-          }
+              </ListItem>
+              {
+                _.map(privilege.routes, (route, routeIndex) => (
+                  <Collapse key={routeIndex}
+                    in={categoryIndex === privilege.name}>
+                    <ListItem className="menu-item collapse-item"
+                      selected={location.pathname === route.path}
+                      onClick={(event) => this.handleChange(route.path)}>
+                      <ListItemIcon>
+                        <route.icon />
+                      </ListItemIcon>
+                      <ListItemText primary={route.name} />
+                    </ListItem>
+                  </Collapse>
+                ))
+              }
+            </List>
+          ))
+        }
       </div>
     );
   }

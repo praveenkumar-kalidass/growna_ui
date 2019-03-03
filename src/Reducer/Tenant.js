@@ -1,7 +1,7 @@
 import {Tenant} from "../Constants/ActionTypes";
 
 const initialState = {
-  loading: false,
+  loading: 0,
   role: {},
   roles: [],
   roleList: [],
@@ -15,54 +15,54 @@ export default (state = initialState, action) => {
   case Tenant.START_TENANT_LOADING: {
     return {
       ...state,
-      loading: true
+      loading: state.loading + 1
     };
   }
   case Tenant.STOP_TENANT_LOADING: {
     return {
       ...state,
-      loading: false
+      loading: state.loading - 1
     };
   }
   case Tenant.LOAD_ROLE: {
     return {
       ...state,
-      loading: false,
+      loading: state.loading - 1,
       role: action.data
     };
   }
   case Tenant.LOAD_ROLES: {
     return {
       ...state,
-      loading: false,
+      loading: state.loading - 1,
       roles: action.data
     };
   }
   case Tenant.LOAD_USERS: {
     return {
       ...state,
-      loading: false,
+      loading: state.loading - 1,
       users: action.data
     };
   }
   case Tenant.LOAD_ROLE_LIST: {
     return {
       ...state,
-      loading: false,
+      loading: state.loading - 1,
       roleList: action.data
     };
   }
   case Tenant.LOAD_USER_LIST: {
     return {
       ...state,
-      loading: false,
+      loading: state.loading - 1,
       userList: action.data
     };
   }
   case Tenant.LOAD_PRIVILEGES: {
     return {
       ...state,
-      loading: false,
+      loading: state.loading - 1,
       privileges: action.data
     };
   }
