@@ -1,5 +1,6 @@
 import Api from "../Api/User";
 import {User} from "../Constants/ActionTypes";
+import {enableAppSuccess} from "./App";
 
 const login = (credentials) => (dispatch) => {
   Api.authLogin(credentials).then((response) => {
@@ -38,12 +39,12 @@ const loadPrivileges = (data) => ({
 const getUserDetails = (userId) => (dispatch) => {
   dispatch(startLoading());
   Api.getUser(userId).then((response) => {
-    dispatch(loadUser(response.data));
+    dispatch(loadUserDetails(response.data));
   });
 };
 
-const loadUser = (data) => ({
-  type: User.LOAD_USER,
+const loadUserDetails = (data) => ({
+  type: User.LOAD_USER_DETAILS,
   data
 });
 
@@ -62,11 +63,25 @@ const startLoading = () => ({
   type: User.START_USER_LOADING
 });
 
+const updateUser = (user) => (dispatch) => {
+  dispatch(startLoading());
+  Api.updateUser(user).then((response) => {
+    dispatch(enableAppSuccess("User updated successfully"));
+    dispatch(loadUser(response.data));
+  });
+};
+
+const loadUser = (data) => ({
+  type: User.LOAD_USER,
+  data
+});
+
 export {
   login,
   logout,
   getPrivileges,
   getUserDetails,
   validateRoute,
-  setRouteValidity
+  setRouteValidity,
+  updateUser
 };

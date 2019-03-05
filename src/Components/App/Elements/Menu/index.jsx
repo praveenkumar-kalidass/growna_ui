@@ -86,7 +86,8 @@ class Menu extends Component {
       Routes[privilege.description]
     )), "category");
     this.setState({
-      loading: nextProps.loading,
+      loading: this.props.location.pathname === Routes.USER_PROFILE.path ?
+        false : nextProps.loading,
       privileges: _.compact(_.map(this.state.categories, (category) => {
         if (privileges[category.name]) {
           category.routes = privileges[category.name];

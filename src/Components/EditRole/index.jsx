@@ -60,7 +60,6 @@ class EditRole extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.loading);
     this.setState({
       id: nextProps.role.id || "",
       name: nextProps.role.name || "",

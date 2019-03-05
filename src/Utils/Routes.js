@@ -4,9 +4,11 @@ import {
   GroupAdd,
   Home,
   ListAlt,
+  Person,
   PersonAdd,
   SupervisedUserCircle
 } from "@material-ui/icons";
+import UserProfile from "../Components/UserProfile";
 import AddRole from "../Components/AddRole";
 import AddUser from "../Components/AddUser";
 import AddTenant from "../Components/AddTenant";
@@ -29,6 +31,12 @@ export default {
     path: "/app",
     component: Dashboard,
     icon: Home
+  },
+  USER_PROFILE: {
+    name: "Profile",
+    path: "/app/user-profile",
+    component: UserProfile,
+    icon: Person
   },
   ADD_TENANT: {
     name: "Add Tenant",

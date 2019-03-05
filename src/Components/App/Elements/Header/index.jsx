@@ -16,9 +16,13 @@ import {
   PowerSettingsNew
 } from "@material-ui/icons";
 import PropTypes from "prop-types";
-import {withRouter} from "react-router-dom";
+import {
+  Link,
+  withRouter
+} from "react-router-dom";
 import Cookies from "universal-cookie";
 import {logout} from "../../../../Actions/User";
+import Routes from "../../../../Utils/Routes";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
@@ -114,6 +118,10 @@ class Header extends Component {
               anchorEl={menuEl}
               open={menu}
               onClose={this.closeMenu}>
+              <MenuItem component={Link} to={Routes.USER_PROFILE.path}>
+                <Routes.USER_PROFILE.icon />
+                {Routes.USER_PROFILE.name}
+              </MenuItem>
               <MenuItem onClick={this.logout}>
                 <PowerSettingsNew />
                 Logout

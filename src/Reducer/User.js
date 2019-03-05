@@ -37,7 +37,8 @@ export default (state = initialState, action) => {
       user: _.omit(action.data, ["auth", "role", "userImage"]),
       auth,
       role,
-      image: userImage
+      image: userImage,
+      logout: false
     };
   }
   case User.LOG_OUT: {
@@ -53,7 +54,7 @@ export default (state = initialState, action) => {
       privileges: action.data
     };
   }
-  case User.LOAD_USER: {
+  case User.LOAD_USER_DETAILS: {
     const {
       role,
       userImage
@@ -64,6 +65,13 @@ export default (state = initialState, action) => {
       user: _.omit(action.data, ["auth", "role", "userImage"]),
       role,
       image: userImage
+    };
+  }
+  case User.LOAD_USER: {
+    return {
+      ...state,
+      loading: state.loading - 1,
+      user: action.data
     };
   }
   case User.SET_ROUTE_VALIDITY: {
