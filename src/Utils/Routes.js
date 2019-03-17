@@ -1,6 +1,7 @@
 import {
   AddAlarm,
   BorderColor,
+  DirectionsBike,
   GroupAdd,
   Home,
   ListAlt,
@@ -16,6 +17,7 @@ import Dashboard from "../Components/Dashboard";
 import UserList from "../Components/UserList";
 import RoleList from "../Components/RoleList";
 import EditRole from "../Components/EditRole";
+import BikeInsurance from "../Components/BikeInsurance";
 
 export default {
   HOME: {
@@ -81,11 +83,11 @@ export default {
     category: "Role",
     icon: BorderColor
   },
-  INSURANCE: {
-    name: "Insurance",
-    path: "/app/insurance",
-    component: AddUser,
-    category: "User",
-    icon: PersonAdd
+  BIKE_INSURANCE: {
+    name: "Bike Insurance",
+    path: "/app/bike-insurance",
+    component: BikeInsurance,
+    category: "Insurance",
+    icon: DirectionsBike
   }
 };

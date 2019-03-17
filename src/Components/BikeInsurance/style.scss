@@ -1,0 +1,31 @@
+@import "../../Utils/Colors.scss";
+
+.gis-bike-insurance {
+  padding: 15px;
+  .page-header {
+    margin: 0px 15px 30px 15px;
+    padding-top: 15px;
+    &:after {
+      border-bottom: 4px solid $theme-blue;
+      display: block;
+      content: "";
+      margin-top: 10px;
+      position: absolute;
+      width: 40px;
+    }
+  }
+  .form-container {
+    background-color: $grey-pale;
+    border-radius: 4px;
+    padding: 10px;
+    .bike-form {
+      padding: 10px;
+    }
+  }
+}
+
+.bike-model-dialog {
+  .bike-model-group {
+    justify-content: space-between;
+  }
+}

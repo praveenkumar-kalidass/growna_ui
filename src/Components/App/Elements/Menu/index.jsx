@@ -20,6 +20,7 @@ import {
   Home,
   Inbox,
   KeyboardArrowDown,
+  Money,
   Person
 } from "@material-ui/icons";
 import Cookies from "universal-cookie";
@@ -69,6 +70,11 @@ class Menu extends Component {
         label: "Users",
         path: Routes.USER_LIST.path,
         icon: Person
+      }, {
+        name: "Insurance",
+        label: "Insurances",
+        path: Routes.BIKE_INSURANCE.path,
+        icon: Money
       }],
       categoryIndex: ""
     };
