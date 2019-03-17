@@ -1,10 +1,13 @@
 import {Insurance} from "../Constants/ActionTypes";
+import _ from "underscore";
 
 const initialState = {
   loading: false,
   brands: [],
   models: [],
-  variants: []
+  variants: [],
+  quotation: {},
+  plans: []
 };
 
 export default (state = initialState, action) => {
@@ -34,6 +37,14 @@ export default (state = initialState, action) => {
       ...state,
       loading: false,
       variants: action.data
+    };
+  }
+  case Insurance.LOAD_QUOTATION_PLANS: {
+    return {
+      ...state,
+      loading: false,
+      plans: action.data.plans,
+      quotation: _.omit(action.data, "plans")
     };
   }
   default: {

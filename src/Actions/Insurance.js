@@ -37,6 +37,22 @@ const loadVariants = (data) => ({
   data
 });
 
+const saveQuotation = (data, callback) => () => {
+  Api.saveQuotation(data).then((response) => ( callback(response.data) ));
+};
+
+const getQuotationAndPlans = (id) => (dispatch) => {
+  dispatch(startLoading());
+  Api.getQuotation(id).then((response) => {
+    dispatch(loadQuotationPlans(response.data));
+  });
+};
+
+const loadQuotationPlans = (data) => ({
+  type: Insurance.LOAD_QUOTATION_PLANS,
+  data
+});
+
 const startLoading = () => ({
   type: Insurance.START_INSURANCE_LOADING
 });
@@ -44,5 +60,7 @@ const startLoading = () => ({
 export {
   getBrands,
   getModelsByBrand,
-  getVariantsByModel
+  getVariantsByModel,
+  saveQuotation,
+  getQuotationAndPlans
 };

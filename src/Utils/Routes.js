@@ -1,6 +1,7 @@
 import {
   AddAlarm,
   BorderColor,
+  Description,
   DirectionsBike,
   GroupAdd,
   Home,
@@ -18,6 +19,7 @@ import UserList from "../Components/UserList";
 import RoleList from "../Components/RoleList";
 import EditRole from "../Components/EditRole";
 import BikeInsurance from "../Components/BikeInsurance";
+import Quotation from "../Components/Quotation";
 
 export default {
   HOME: {
@@ -88,6 +90,14 @@ export default {
     path: "/app/bike-insurance",
     component: BikeInsurance,
     category: "Insurance",
-    icon: DirectionsBike
+    icon: DirectionsBike,
+    children: ["QUOTATION"]
+  },
+  QUOTATION: {
+    name: "Quotation",
+    path: "/app/quotation/:id",
+    component: Quotation,
+    category: "Insurance",
+    icon: Description
   }
 };

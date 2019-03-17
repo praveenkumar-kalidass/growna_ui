@@ -9,5 +9,11 @@ export default {
   ),
   getVariants: (brand, model, type) => (
     axios.get(`/api/vehicle/variant/${brand}/${model}/${type}`)
+  ),
+  saveQuotation: (data) => (
+    axios.post("/api/quotation", data)
+  ),
+  getQuotation: (id) => (
+    axios.get(`/api/quotation/${id}`)
   )
 };

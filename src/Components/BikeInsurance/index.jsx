@@ -24,14 +24,17 @@ import {
   AddCircle
 } from "@material-ui/icons";
 import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 import Cookies from "universal-cookie";
 import _ from "underscore";
 import Strategy from "joi-validation-strategy";
 import Validation from "react-validation-mixin";
+import Routes from "../../Utils/Routes";
 import {
   getBrands,
   getModelsByBrand,
-  getVariantsByModel
+  getVariantsByModel,
+  saveQuotation
 } from "../../Actions/Insurance";
 import Schema from "./schema";
 import "./style.scss";
@@ -46,7 +49,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getBrands: (type) => { dispatch(getBrands(type)) },
   getModelsByBrand: (brand, type) => { dispatch(getModelsByBrand(brand, type)) },
-  getVariantsByModel: (brand, model, type) => { dispatch(getVariantsByModel(brand, model, type)) }
+  getVariantsByModel: (brand, model, type) => { dispatch(getVariantsByModel(brand, model, type)) },
+  saveQuotation: (data, callback) => { dispatch(saveQuotation(data, callback)) }
 });
 
 class BikeInsurance extends Component {
@@ -112,8 +116,21 @@ class BikeInsurance extends Component {
     event.preventDefault();
     const cookies = new Cookies();
     const gis = cookies.get("gis");
+    const {
+      brand,
+      model,
+      variant
+    } = this.state;
     this.props.validate((error) => {
       if (!error) {
+        this.props.saveQuotation({
+          brand, model, variant,
+          userId: gis.userId,
+          tenantId: gis.tenantId,
+          type: "BIKE"
+        }, (data) => {
+          this.props.history.push(Routes.QUOTATION.path.replace(":id", data.id));
+        });
       }
     });
   }
@@ -289,7 +306,7 @@ class BikeInsurance extends Component {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Validation(Strategy)(BikeInsurance));
+)(Validation(Strategy)(BikeInsurance)));
