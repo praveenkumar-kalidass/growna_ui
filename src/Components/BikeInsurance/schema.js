@@ -30,5 +30,15 @@ export default {
           empty: "!!You missed to select variant"
         }
       }
+    }),
+  vehicleYear: Joi.number()
+    .required()
+    .label("Vehicle registration year")
+    .options({
+      language: {
+        any: {
+          empty: "!!You missed to select year here"
+        }
+      }
     })
 };

@@ -13,6 +13,7 @@ import {
   Grid,
   IconButton,
   InputAdornment,
+  MenuItem,
   Paper,
   Step,
   Stepper,
@@ -59,12 +60,14 @@ class BikeInsurance extends Component {
     this.validatorTypes = {
       brand: Schema.brand,
       model: Schema.model,
-      variant: Schema.variant
+      variant: Schema.variant,
+      vehicleYear: Schema.vehicleYear
     };
     this.state = {
       brand: "",
       model: "",
       variant: "",
+      vehicleYear: "",
       modelIndex: 0,
       openBikeModal: false,
       loading: false,
@@ -119,12 +122,13 @@ class BikeInsurance extends Component {
     const {
       brand,
       model,
-      variant
+      variant,
+      vehicleYear
     } = this.state;
     this.props.validate((error) => {
       if (!error) {
         this.props.saveQuotation({
-          brand, model, variant,
+          brand, model, variant, vehicleYear,
           userId: gis.userId,
           tenantId: gis.tenantId,
           type: "BIKE"
@@ -140,6 +144,7 @@ class BikeInsurance extends Component {
       brand,
       model,
       variant,
+      vehicleYear,
       modelIndex,
       openBikeModal,
       loading,
@@ -182,6 +187,25 @@ class BikeInsurance extends Component {
                     !this.props.isValid("model") ||
                     !this.props.isValid("variant")
                   } />
+                <TextField
+                  label="Select your bike registration year"
+                  fullWidth
+                  margin="normal"
+                  value={vehicleYear}
+                  required
+                  select
+                  helperText={this.props.getValidationMessages("vehicleYear")[0]}
+                  error={!this.props.isValid("vehicleYear")}
+                  onChange={this.handleChange("vehicleYear")}
+                  onBlur={this.props.handleValidation("vehicleYear")}>
+                  {
+                    _.times(20, (index) => (
+                      <MenuItem key={index} value={new Date().getFullYear() - index}>
+                        {new Date().getFullYear() - index}
+                      </MenuItem>
+                    ))
+                  }
+                </TextField>
                 <Button type="submit" variant="contained" color="primary">
                   Get Quotes
                 </Button>

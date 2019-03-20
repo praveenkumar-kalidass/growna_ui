@@ -7,6 +7,8 @@ import {
   ExpansionPanelDetails,
   ExpansionPanelSummary,
   Grid,
+  IconButton,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -15,11 +17,13 @@ import {
   Typography
 } from "@material-ui/core";
 import {
+  Create,
   ExpandMore
 } from "@material-ui/icons";
 import {connect} from "react-redux";
 import _ from "underscore";
 import {getQuotationAndPlans} from "../../Actions/Insurance";
+import "./style.scss";
 
 const mapStateToProps = (state) => ({
   loading: state.insurance.loading,
@@ -67,23 +71,28 @@ class Quotation extends Component {
 
     return (
       <div className="gis-quotation">
+        <Paper className="quotation-head-container">
+          <Typography className="page-header" variant="h4" gutterBottom>
+            Quotation
+          </Typography>
+          <Grid container alignItems="center">
+            {
+              quotation.id &&
+              <Grid item>
+                <Typography variant="subtitle1" color="inherit" inline
+                  className="bike-label">
+                  {`(${quotation.vehicleYear}) ${quotation.brand} | ${quotation.model} | ${quotation.variant}`}
+                </Typography>
+                <IconButton color="primary"><Create /></IconButton>
+              </Grid>
+            }
+          </Grid>
+        </Paper>
         <AppBar position="static" color="primary">
           <Toolbar>
-            <Grid container justify="space-between" alignItems="center">
-              <Grid item>
-                <Typography variant="h6" color="inherit">
-                  Plans
-                </Typography>
-              </Grid>
-              <Grid item>
-                {
-                  quotation.id &&
-                  <Typography variant="caption" color="inherit">
-                    {`${quotation.brand}, ${quotation.model}, ${quotation.variant}`}
-                  </Typography>
-                }
-              </Grid>
-            </Grid>
+            <Typography variant="h6" color="inherit">
+              Plans
+            </Typography>
           </Toolbar>
         </AppBar>
         {

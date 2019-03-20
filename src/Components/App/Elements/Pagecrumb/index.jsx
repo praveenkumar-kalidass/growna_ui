@@ -34,7 +34,7 @@ class Pagecrumb extends Component {
     this.setState({
       routes: _.filter(Routes, (route) => {
         return route.path !== "/" &&
-          new RegExp(route.path).test(pathname);
+          new RegExp(route.path.replace("/:id", "")).test(pathname);
       })
     });
   }
