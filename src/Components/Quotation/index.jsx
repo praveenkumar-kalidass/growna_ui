@@ -3,6 +3,7 @@ import {
   AppBar,
   Avatar,
   Button,
+  CircularProgress,
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
@@ -21,8 +22,14 @@ import {
   ExpandMore
 } from "@material-ui/icons";
 import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 import _ from "underscore";
-import {getQuotationAndPlans} from "../../Actions/Insurance";
+import Cookies from "universal-cookie";
+import Routes from "../../Utils/Routes";
+import {
+  getQuotationAndPlans,
+  saveCart
+} from "../../Actions/Insurance";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
@@ -32,13 +39,15 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getQuotationAndPlans: (id) => { dispatch(getQuotationAndPlans(id)) }
+  getQuotationAndPlans: (id) => { dispatch(getQuotationAndPlans(id)) },
+  saveCart: (data, callback) => { dispatch(saveCart(data, callback)) }
 });
 
 class Quotation extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      addCart: false,
       loading: false,
       quotation: {},
       plans: [],
@@ -61,8 +70,27 @@ class Quotation extends Component {
     this.setState({expandIndex});
   }
 
+  addToCart = (plan) => () => {
+    const cookies = new Cookies();
+    const gis = cookies.get("gis");
+    this.setState({
+      addCart: true
+    });
+    this.props.saveCart({
+      type: plan.type,
+      status: "QUOTE",
+      userId: gis.userId,
+      tenantId: gis.tenantId,
+      quotationId: this.state.quotation.id,
+      companyId: plan.id
+    }, (cart) => {
+      this.props.history.push(Routes.CART.path.replace(":id", cart.id));
+    });
+  }
+
   render() {
     const {
+      addCart,
       loading,
       quotation,
       plans,
@@ -88,17 +116,26 @@ class Quotation extends Component {
             }
           </Grid>
         </Paper>
-        <AppBar position="static" color="primary">
-          <Toolbar>
-            <Typography variant="h6" color="inherit">
-              Plans
-            </Typography>
-          </Toolbar>
-        </AppBar>
         {
+          !loading &&
+          <AppBar position="static" color="primary">
+            <Toolbar>
+              <Typography variant="h6" color="inherit">
+                Plans
+              </Typography>
+            </Toolbar>
+          </AppBar>
+        }
+        {
+          loading ?
+          <Grid container justify="center">
+            <Grid item>
+              <CircularProgress size={40} />
+            </Grid>
+          </Grid> :
           _.map(plans, (plan, index) => (
             <ExpansionPanel key={index}
-              expanded={expandIndex === plan.id}
+              expanded={expandIndex === plan.id && !addCart}
               onChange={this.handleExpandIndex(plan.id)}>
               <ExpansionPanelSummary expandIcon={<ExpandMore />}>
                 <Grid container justify="space-between">
@@ -123,9 +160,16 @@ class Quotation extends Component {
                         </Button>
                       </Grid>
                       <Grid item>
-                        <Button variant="outlined" color="primary">
-                          {`${plan.oneYearPremium} INR`}
-                        </Button>
+                        {
+                          addCart && (expandIndex === plan.id) ?
+                          <Button variant="outlined" color="primary">
+                            <CircularProgress size={24} />
+                          </Button> :
+                          <Button variant="outlined" color="primary"
+                            onClick={this.addToCart(plan)}>
+                            {`${plan.oneYearPremium} INR`}
+                          </Button>
+                        }
                       </Grid>
                     </Grid>
                   </Grid>
@@ -165,4 +209,7 @@ class Quotation extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Quotation);
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Quotation));

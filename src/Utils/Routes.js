@@ -8,6 +8,7 @@ import {
   ListAlt,
   Person,
   PersonAdd,
+  ShoppingCart,
   SupervisedUserCircle
 } from "@material-ui/icons";
 import UserProfile from "../Components/UserProfile";
@@ -20,6 +21,7 @@ import RoleList from "../Components/RoleList";
 import EditRole from "../Components/EditRole";
 import BikeInsurance from "../Components/BikeInsurance";
 import Quotation from "../Components/Quotation";
+import Cart from "../Components/Cart";
 
 export default {
   HOME: {
@@ -41,6 +43,18 @@ export default {
     path: "/app/user-profile",
     component: UserProfile,
     icon: Person
+  },
+  QUOTATION: {
+    name: "Quotation",
+    path: "/app/quotation/:id",
+    component: Quotation,
+    icon: Description
+  },
+  CART: {
+    name: "Cart",
+    path: "/app/cart/:id",
+    component: Cart,
+    icon: ShoppingCart
   },
   ADD_TENANT: {
     name: "Add Tenant",
@@ -92,12 +106,5 @@ export default {
     category: "Insurance",
     icon: DirectionsBike,
     children: ["QUOTATION"]
-  },
-  QUOTATION: {
-    name: "Quotation",
-    path: "/app/quotation/:id",
-    component: Quotation,
-    category: "Insurance",
-    icon: Description
   }
 };

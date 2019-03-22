@@ -15,5 +15,11 @@ export default {
   ),
   getQuotation: (id) => (
     axios.get(`/api/quotation/${id}`)
+  ),
+  saveCart: (data) => (
+    axios.post("/api/cart", data)
+  ),
+  getCartDetails: (id) => (
+    axios.get(`/api/cart/${id}`)
   )
 };

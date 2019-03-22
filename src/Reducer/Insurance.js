@@ -7,7 +7,8 @@ const initialState = {
   models: [],
   variants: [],
   quotation: {},
-  plans: []
+  plans: [],
+  cart: {}
 };
 
 export default (state = initialState, action) => {
@@ -46,6 +47,14 @@ export default (state = initialState, action) => {
       plans: action.data.plans,
       quotation: _.omit(action.data, "plans")
     };
+  }
+  case Insurance.LOAD_CART_DETAILS: {
+    return {
+      ...state,
+      loading: false,
+      quotation: action.data.cartQuotation,
+      cart: _.omit(action.data, "cartQuotation")
+    }
   }
   default: {
     return state;

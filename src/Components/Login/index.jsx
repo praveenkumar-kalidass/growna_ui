@@ -191,7 +191,7 @@ class Login extends Component {
                                     login &&
                                     <Button variant="contained" color="primary"
                                       className="login-button">
-                                      <CircularProgress size={16} className="button-progress" />
+                                      <CircularProgress size={24} className="button-progress" />
                                     </Button>
                                   }
                                   {

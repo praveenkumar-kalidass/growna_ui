@@ -57,10 +57,30 @@ const startLoading = () => ({
   type: Insurance.START_INSURANCE_LOADING
 });
 
+const saveCart = (data, callback) => (dispatch) => {
+  Api.saveCart(data).then((response) => (
+    callback(response.data)
+  ));
+};
+
+const getCartDetails = (id) => (dispatch) => {
+  dispatch(startLoading());
+  Api.getCartDetails(id).then((response) => {
+    dispatch(loadCartDetails(response.data));
+  });
+};
+
+const loadCartDetails = (data) => ({
+  type: Insurance.LOAD_CART_DETAILS,
+  data
+});
+
 export {
   getBrands,
   getModelsByBrand,
   getVariantsByModel,
   saveQuotation,
-  getQuotationAndPlans
+  getQuotationAndPlans,
+  saveCart,
+  getCartDetails
 };
