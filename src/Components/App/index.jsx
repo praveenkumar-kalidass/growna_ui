@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {
+  CircularProgress,
   Grid,
   Hidden,
   IconButton,
@@ -33,15 +34,13 @@ const mapDispatchToProps = (dispatch) => ({
   disableAppSuccess: () => { dispatch(disableAppSuccess()) },
   disableAppError: () => { dispatch(disableAppError()) },
   getUserDetails: (userId) => { dispatch(getUserDetails(userId)) },
-  validateRoute: (roleId, privilege) => { dispatch(validateRoute(roleId, privilege)) },
-  setRouteValidity: (data) => { dispatch(setRouteValidity(data)) }
+  validateRoute: (roleId, privilege, callback) => { dispatch(validateRoute(roleId, privilege, callback)) },
 });
 
 const mapStateToProps = (state) => ({
   message: state.app.message,
   error: state.app.error,
-  success: state.app.success,
-  validRoute: state.user.validRoute
+  success: state.app.success
 });
 
 class App extends Component {
@@ -51,7 +50,8 @@ class App extends Component {
       message: "",
       error: false,
       success: false,
-      menu: false
+      menu: false,
+      valid: false
     };
   }
 
@@ -71,10 +71,6 @@ class App extends Component {
       error,
       success
     });
-    if (!nextProps.validRoute) {
-      this.props.setRouteValidity({valid: true});
-      this.props.history.goBack();
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -92,10 +88,18 @@ class App extends Component {
     });
     if (privilege !== "APP") {
       const cookies = new Cookies();
-      this.props.validateRoute(
-        cookies.get("gis").roleId,
-        privilege
-      );
+      this.setState({valid: false}, () => {
+        this.props.validateRoute(
+          cookies.get("gis").roleId,
+          privilege,
+          (valid) => {
+            this.setState({valid});
+            if (!valid) {
+              this.props.history.goBack();
+            }
+          }
+        );
+      });
     }
   }
 
@@ -118,7 +122,8 @@ class App extends Component {
       message,
       error,
       success,
-      menu
+      menu,
+      valid
     } = this.state;
 
     return (
@@ -144,7 +149,15 @@ class App extends Component {
             <Header toggleMenu={this.toggleMenu} />
             <Pagecrumb />
             <div className="app-container">
-              {this.props.children}
+              {
+                valid ?
+                this.props.children :
+                <Grid container justify="center">
+                  <Grid item>
+                    <CircularProgress />
+                  </Grid>
+                </Grid>
+              }
             </div>
           </Grid>
         </Grid>

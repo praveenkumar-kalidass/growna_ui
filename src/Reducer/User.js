@@ -7,9 +7,7 @@ const initialState = {
   role: {},
   privileges: [],
   user: {},
-  image: {},
-  validRoute: true,
-  logout: false
+  image: {}
 };
 
 export default (state = initialState, action) => {
@@ -41,12 +39,6 @@ export default (state = initialState, action) => {
       logout: false
     };
   }
-  case User.LOG_OUT: {
-    return {
-      ...state,
-      logout: action.data
-    };
-  }
   case User.LOAD_USER_PRIVILEGES: {
     return {
       ...state,
@@ -72,12 +64,6 @@ export default (state = initialState, action) => {
       ...state,
       loading: state.loading - 1,
       user: action.data
-    };
-  }
-  case User.SET_ROUTE_VALIDITY: {
-    return {
-      ...state,
-      validRoute: action.data.valid
     };
   }
   default: {

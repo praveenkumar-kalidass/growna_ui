@@ -26,12 +26,11 @@ import Routes from "../../../../Utils/Routes";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
-  loggedOut: state.user.logout,
   image: state.user.image
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  logout: (accessToken) => { dispatch(logout(accessToken)) }
+  logout: (accessToken, callback) => { dispatch(logout(accessToken, callback)) }
 });
 
 class Header extends Component {
@@ -49,10 +48,6 @@ class Header extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const cookies = new Cookies();
-    if (nextProps.loggedOut) {
-      this.props.history.push("/login");
-    }
     this.setState({
       image: nextProps.image
     });
@@ -83,8 +78,10 @@ class Header extends Component {
         id: "11814a7e-53fd-49db-b9e5-69a4370b5827"
       }
     };
-    this.props.logout({data});
-    cookies.remove("gis");
+    this.props.logout({data}, () => {
+      cookies.remove("gis");
+      this.props.history.push("/login");
+    });
   }
 
   render() {
