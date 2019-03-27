@@ -1,0 +1,9 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-communication-address {
+  background-color: $grey-pale;
+  padding: 15px;
+  .form-container {
+    padding: 10px;
+  }
+}

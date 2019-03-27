@@ -2,6 +2,20 @@
 
 .gis-cart {
   .cart-head-container {
+    padding: 10px;
     margin-bottom: 20px;
+  }
+  .quotation-container {
+    margin-bottom: 20px;
+    padding: 20px;
+    .quotation-details {
+      border-right: 1px solid $grey-pale;
+    }
+  }
+  .form-container {
+    padding: 10px;
+    .form-breadcrumbs {
+      margin-bottom: 10px;
+    }
   }
 }

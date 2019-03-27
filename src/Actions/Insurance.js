@@ -75,6 +75,65 @@ const loadCartDetails = (data) => ({
   data
 });
 
+const saveVehicleOwnerDetails = (data) => (dispatch) => {
+  dispatch(startLoading());
+  Api.saveVehicleOwnerDetails(data).then((response) => {
+    dispatch(loadVechicleOwner(response.data));
+  });
+};
+
+const loadVechicleOwner = (data) => ({
+  type: Insurance.LOAD_VEHICLE_OWNER,
+  data
+});
+
+const saveAddress = (data) => (dispatch) => {
+  dispatch(startLoading());
+  Api.saveAddress(data).then((response) => {
+    dispatch(loadAddress(response.data));
+  });
+};
+
+const loadAddress = (data) => ({
+  type: Insurance.LOAD_ADDRESS,
+  data
+});
+
+const saveVehicleDetail = (data) => (dispatch) => {
+  dispatch(startLoading());
+  Api.saveVehicleDetail(data).then((response) => {
+    dispatch(loadVechicleDetail(response.data));
+  });
+};
+
+const loadVechicleDetail = (data) => ({
+  type: Insurance.LOAD_VEHICLE_DETAIL,
+  data
+});
+
+const savePastPolicy = (data) => (dispatch) => {
+  dispatch(startLoading());
+  Api.savePastPolicy(data).then((response) => {
+    dispatch(loadPastPolicy(response.data));
+  });
+};
+
+const loadPastPolicy = (data) => ({
+  type: Insurance.LOAD_PAST_POLICY,
+  data
+});
+
+const getCompanyList = (type) => (dispatch) => {
+  Api.getCompanies(type).then((response) => {
+    dispatch(loadCompanies(response.data));
+  });
+};
+
+const loadCompanies = (data) => ({
+  type: Insurance.LOAD_COMPANIES,
+  data
+});
+
 export {
   getBrands,
   getModelsByBrand,
@@ -82,5 +141,10 @@ export {
   saveQuotation,
   getQuotationAndPlans,
   saveCart,
-  getCartDetails
+  getCartDetails,
+  saveVehicleOwnerDetails,
+  saveAddress,
+  saveVehicleDetail,
+  savePastPolicy,
+  getCompanyList
 };

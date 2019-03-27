@@ -51,7 +51,7 @@ class App extends Component {
       error: false,
       success: false,
       menu: false,
-      valid: false
+      valid: true
     };
   }
 

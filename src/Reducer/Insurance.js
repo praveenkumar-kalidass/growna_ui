@@ -7,8 +7,15 @@ const initialState = {
   models: [],
   variants: [],
   quotation: {},
+  company: {},
+  plan: {},
   plans: [],
-  cart: {}
+  companies: [],
+  cart: {},
+  vehicleOwner: {},
+  address: {},
+  vehicleDetail: {},
+  pastPolicy: {}
 };
 
 export default (state = initialState, action) => {
@@ -53,8 +60,57 @@ export default (state = initialState, action) => {
       ...state,
       loading: false,
       quotation: action.data.cartQuotation,
-      cart: _.omit(action.data, "cartQuotation")
+      company: action.data.insurer,
+      plan: action.data.plan,
+      vehicleOwner: action.data.vehicleOwner || {},
+      address: action.data.communicationAddress || {},
+      vehicle: action.data.vehicleDetail || {},
+      pastPolicy: action.data.pastPolicy || {},
+      cart: _.omit(
+        action.data,
+        "cartQuotation",
+        "insurer",
+        "plan",
+        "vehicleOwner",
+        "communicationAddress",
+        "vehicleDetail",
+        "pastPolicy"
+      )
     }
+  }
+  case Insurance.LOAD_VEHICLE_OWNER: {
+    return {
+      ...state,
+      loading: false,
+      vehicleOwner: action.data
+    };
+  }
+  case Insurance.LOAD_ADDRESS: {
+    return {
+      ...state,
+      loading: false,
+      address: action.data
+    };
+  }
+  case Insurance.LOAD_VEHICLE_DETAIL: {
+    return {
+      ...state,
+      loading: false,
+      vehicle: action.data
+    };
+  }
+  case Insurance.LOAD_PAST_POLICY: {
+    return {
+      ...state,
+      loading: false,
+      pastPolicy: action.data
+    };
+  }
+  case Insurance.LOAD_COMPANIES: {
+    return {
+      ...state,
+      companies: action.data
+    };
   }
   default: {
     return state;

@@ -1,18 +1,31 @@
 import React, {Component} from "react";
 import {
+  Avatar,
   Button,
   CircularProgress,
   Grid,
-  Paper
+  Paper,
+  Typography
 } from "@material-ui/core";
+import {
+  Breadcrumbs
+} from "@material-ui/lab";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
+import Routes from "../../Utils/Routes";
 import {getCartDetails} from "../../Actions/Insurance";
+import VehicleOwner from "./Elements/VehicleOwner";
+import CommunicationAddress from "./Elements/CommunicationAddress";
+import VehicleDetail from "./Elements/VehicleDetail";
+import PastPolicy from "./Elements/PastPolicy";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
   loading: state.insurance.loading,
   cart: state.insurance.cart,
-  quotation: state.insurance.quotation
+  quotation: state.insurance.quotation,
+  company: state.insurance.company,
+  plan: state.insurance.plan
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -24,8 +37,11 @@ class Cart extends Component {
     super(props);
     this.state = {
       loading: false,
+      cartIndex: 0,
       cart: {},
-      quotation: {}
+      quotation: {},
+      company: {},
+      plan: {}
     };
   }
 
@@ -37,15 +53,24 @@ class Cart extends Component {
     this.setState({
       loading: nextProps.loading,
       cart: nextProps.cart,
-      quotation: nextProps.quotation
+      quotation: nextProps.quotation,
+      company: nextProps.company,
+      plan: nextProps.plan
     });
+  }
+
+  handleCartIndex = (cartIndex) => {
+    this.setState({cartIndex});
   }
 
   render() {
     const {
       loading,
+      cartIndex,
       cart,
-      quotation
+      quotation,
+      company,
+      plan
     } = this.state;
 
     return (
@@ -54,11 +79,18 @@ class Cart extends Component {
           <Grid container justify="space-between">
             <Grid item></Grid>
             <Grid item>
-              <Button color="primary">Select Another plan</Button>
+              {
+                !loading &&
+                <Button color="primary" component={Link}
+                  to={Routes.QUOTATION.path.replace(":id", cart.quotationId)}>
+                  <Routes.QUOTATION.icon />
+                  Select Another plan
+                </Button>
+              }
             </Grid>
           </Grid>
         </Paper>
-        <Paper>
+        <Paper className="quotation-container">
           {
             loading ?
             <Grid container justify="center">
@@ -66,11 +98,83 @@ class Cart extends Component {
                 <CircularProgress />
               </Grid>
             </Grid> :
-            <Grid container justify="space-around">
-              <Grid item xs={12} sm={6} xs={4}></Grid>
-              <Grid item xs={12} sm={6} xs={4}></Grid>
-              <Grid item xs={12} sm={6} xs={4}></Grid>
+            <Grid container justify="space-around" spacing={40}>
+              <Grid item xs={12} sm={6} md={4} className="quotation-details">
+                <Grid container alignItems="center" spacing={16}>
+                  <Grid item>
+                    {
+                      company.companyImage &&
+                      <Avatar
+                        src={`http://localhost:3000${company.companyImage.path}`} />
+                    }
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="subtitle2">
+                      {company.name}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12} sm={6} md={4} className="quotation-details">
+                <Typography variant="caption">Vehicle:</Typography>
+                <Typography variant="subtitle2" gutterBottom>
+                  {`${quotation.brand} | ${quotation.model} |
+                    ${quotation.variant} | ${quotation.engineCc} CC`}
+                </Typography>
+                <Typography variant="caption">Registered Year:</Typography>
+                <Typography variant="subtitle2">
+                  {quotation.vehicleYear}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={6} md={4} className="quotation-details">
+                <Typography variant="caption">GST:</Typography>
+                <Typography variant="subtitle2" gutterBottom>
+                  {plan.gst}
+                </Typography>
+                <Typography variant="caption">One year Premium:</Typography>
+                <Typography variant="subtitle2">
+                  {`${plan.oneYearPremium} INR`}
+                </Typography>
+              </Grid>
             </Grid>
+          }
+        </Paper>
+        <Paper className="form-container">
+          <Breadcrumbs className="form-breadcrumbs">
+            <Typography variant="caption"
+              color={cartIndex === 0 ? "primary" : "textPrimary"}>
+              Vehicle Owner Details
+            </Typography>
+            <Typography variant="caption"
+              color={cartIndex === 1 ? "primary" : "textPrimary"}>
+              Communication Address
+            </Typography>
+            <Typography variant="caption"
+              color={cartIndex === 2 ? "primary" : "textPrimary"}>
+              Vehicle Details
+            </Typography>
+            <Typography variant="caption"
+              color={cartIndex === 3 ? "primary" : "textPrimary"}>
+              Past Policy Details
+            </Typography>
+          </Breadcrumbs>
+          {
+            !loading && cartIndex === 0 &&
+            <VehicleOwner handleCartIndex={this.handleCartIndex} />
+          }
+          {
+            !loading && cartIndex === 1 &&
+            <CommunicationAddress handleCartIndex={this.handleCartIndex} />
+          }
+          {
+            !loading && cartIndex === 2 &&
+            <VehicleDetail handleCartIndex={this.handleCartIndex} />
+          }
+          {
+            !loading && cartIndex === 3 &&
+            <PastPolicy
+              type={cart.type}
+              handleCartIndex={this.handleCartIndex} />
           }
         </Paper>
       </div>

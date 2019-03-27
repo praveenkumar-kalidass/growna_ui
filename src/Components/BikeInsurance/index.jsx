@@ -67,6 +67,7 @@ class BikeInsurance extends Component {
       brand: "",
       model: "",
       variant: "",
+      engineCc: "",
       vehicleYear: "",
       modelIndex: 0,
       openBikeModal: false,
@@ -94,10 +95,21 @@ class BikeInsurance extends Component {
     } else {
       this.props.validate();
     }
-    this.setState({openBikeModal});
+    this.setState({
+      openBikeModal,
+      modelIndex: 0
+    });
   }
 
   handleChange = (field) => (event) => {
+    if (field === "variant") {
+      this.setState({
+        engineCc: _.findWhere(this.state.variants,
+          {
+            variant: event.target.value
+          }).engineCc
+      });
+    }
     this.setState({
       [field]: event.target.value
     });
@@ -123,12 +135,13 @@ class BikeInsurance extends Component {
       brand,
       model,
       variant,
+      engineCc,
       vehicleYear
     } = this.state;
     this.props.validate((error) => {
       if (!error) {
         this.props.saveQuotation({
-          brand, model, variant, vehicleYear,
+          brand, model, variant, engineCc, vehicleYear,
           userId: gis.userId,
           tenantId: gis.tenantId,
           type: "BIKE"
@@ -242,11 +255,11 @@ class BikeInsurance extends Component {
                         control={
                           <Checkbox
                             color="primary"
-                            checked={brand === brandItem}
+                            checked={brand === brandItem.brand}
                             onChange={this.handleChange("brand")}
-                            value={brandItem} />
+                            value={brandItem.brand} />
                         }
-                        label={brandItem} />
+                        label={brandItem.brand} />
                     ))
                   }
                 </FormGroup>
@@ -263,11 +276,11 @@ class BikeInsurance extends Component {
                         control={
                           <Checkbox
                             color="primary"
-                            checked={model === modelItem}
+                            checked={model === modelItem.model}
                             onChange={this.handleChange("model")}
-                            value={modelItem} />
+                            value={modelItem.model} />
                         }
-                        label={modelItem} />
+                        label={modelItem.model} />
                     ))
                   }
                 </FormGroup>
@@ -284,11 +297,11 @@ class BikeInsurance extends Component {
                         control={
                           <Checkbox
                             color="primary"
-                            checked={variant === variantItem}
+                            checked={variant === variantItem.variant}
                             onChange={this.handleChange("variant")}
-                            value={variantItem} />
+                            value={variantItem.variant} />
                         }
-                        label={variantItem} />
+                        label={`${variantItem.variant} (${variantItem.engineCc} CC)`} />
                     ))
                   }
                 </FormGroup>

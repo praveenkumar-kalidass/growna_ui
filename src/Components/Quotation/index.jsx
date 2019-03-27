@@ -109,7 +109,9 @@ class Quotation extends Component {
               <Grid item>
                 <Typography variant="subtitle1" color="inherit" inline
                   className="bike-label">
-                  {`(${quotation.vehicleYear}) ${quotation.brand} | ${quotation.model} | ${quotation.variant}`}
+                  {`(${quotation.vehicleYear}) ${quotation.brand} |
+                    ${quotation.model} | ${quotation.variant} |
+                    ${quotation.engineCc} CC`}
                 </Typography>
                 <IconButton color="primary"><Create /></IconButton>
               </Grid>

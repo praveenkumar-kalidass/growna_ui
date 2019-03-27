@@ -21,5 +21,20 @@ export default {
   ),
   getCartDetails: (id) => (
     axios.get(`/api/cart/${id}`)
+  ),
+  saveVehicleOwnerDetails: (data) => (
+    axios.post("/api/vehicle-owner", data)
+  ),
+  saveAddress: (data) => (
+    axios.post("/api/address", data)
+  ),
+  saveVehicleDetail: (data) => (
+    axios.post("/api/vehicle-detail", data)
+  ),
+  savePastPolicy: (data) => (
+    axios.post("/api/past-policy", data)
+  ),
+  getCompanies: (type) => (
+    axios.get(`/api/company/${type}`)
   )
 };
