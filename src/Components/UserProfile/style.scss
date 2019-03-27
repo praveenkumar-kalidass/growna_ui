@@ -19,12 +19,15 @@
         align-items: center;
         color: $white;
         display: flex;
-        margin: 15px 0;
+        margin: 5px 0;
       }
       .upload-icon {
         color: $white;
         font-size: 14px;
       }
     }
+  }
+  .button-progress {
+    color: $white;
   }
 }

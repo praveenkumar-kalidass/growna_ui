@@ -30,5 +30,11 @@ export default {
   ),
   updateUser: (user) => (
     axios.put("/api/user", user)
-  )
+  ),
+  updateUserImage: (userId, image) => {
+    const data = new FormData();
+    data.append("image", image);
+    data.append("userId", userId);
+    return axios.put("/api/user/image", data);
+  }
 };

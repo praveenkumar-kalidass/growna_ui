@@ -66,11 +66,24 @@ const loadUser = (data) => ({
   data
 });
 
+const updateUserImage = (userId, image) => (dispatch) => {
+  dispatch(startLoading());
+  Api.updateUserImage(userId, image).then((response) => {
+    dispatch(loadUserImage(response.data));
+  });
+};
+
+const loadUserImage = (data) => ({
+  type: User.LOAD_USER_IMAGE,
+  data
+});
+
 export {
   login,
   logout,
   getPrivileges,
   getUserDetails,
   validateRoute,
-  updateUser
+  updateUser,
+  updateUserImage
 };

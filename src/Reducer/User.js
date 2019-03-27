@@ -66,6 +66,13 @@ export default (state = initialState, action) => {
       user: action.data
     };
   }
+  case User.LOAD_USER_IMAGE: {
+    return {
+      ...state,
+      loading: state.loading - 1,
+      image: action.data
+    };
+  }
   default: {
     return state;
   }

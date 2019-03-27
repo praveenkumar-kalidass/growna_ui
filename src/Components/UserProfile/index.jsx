@@ -6,16 +6,20 @@ import {
   CircularProgress,
   Grid,
   Paper,
-  TextField,
-  Typography
+  TextField
 } from "@material-ui/core";
 import {
   CameraAlt
 } from "@material-ui/icons";
 import Strategy from "joi-validation-strategy";
 import Validation from "react-validation-mixin";
+import Cookies from "universal-cookie";
 import Schema from "./schema";
-import {updateUser} from "../../Actions/User";
+import {
+  updateUser,
+  updateUserImage
+} from "../../Actions/User";
+import GifLoader from "../../Assets/loader.gif";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
@@ -25,7 +29,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateUser: (user) => { dispatch(updateUser(user)) }
+  updateUser: (user) => { dispatch(updateUser(user)) },
+  updateUserImage: (userId, image) => { dispatch(updateUserImage(userId, image)) }
 });
 
 class UserProfile extends Component {
@@ -52,9 +57,12 @@ class UserProfile extends Component {
       lastName
     } = this.state;
 
+    this.setState({
+      loading: nextProps.loading
+    });
+
     if(this.props.loading) {
       this.setState({
-        loading: nextProps.loading,
         image: nextProps.image,
         user: nextProps.user,
         firstName: nextProps.user.firstName || "",
@@ -71,6 +79,16 @@ class UserProfile extends Component {
     this.setState({
       [field]: event.target.value
     });
+  }
+
+  handleImage = (event) => {
+    const cookies = new Cookies();
+    if (event.target.files.length) {
+      this.props.updateUserImage(
+        cookies.get("gis").userId,
+        event.target.files[0]
+      );
+    }
   }
 
   handleSubmit = (event) => {
@@ -103,6 +121,7 @@ class UserProfile extends Component {
       email,
       password
     } = this.state;
+    console.log(loading);
 
     return (
       <Paper className="gis-user-profile">
@@ -113,14 +132,25 @@ class UserProfile extends Component {
               <Grid container justify="center">
                 <Grid item>
                   <div className="image-container">
-                    <Avatar
-                      className="user-image"
-                      src={`http://localhost:3000${image.path}`}></Avatar>
+                    {
+                      loading ?
+                      <Avatar className="user-image" src={GifLoader} /> :
+                      <Avatar
+                        className="user-image"
+                        src={`http://localhost:3000${image.path}?${new Date().getTime()}`}></Avatar>
+                    }
                     <Grid container justify="center" className="upload-image">
-                      <Typography variant="caption" className="upload-label">
-                        <CameraAlt className="upload-icon" />
-                        Change picture
-                      </Typography>
+                      <input id="profile-picture"
+                        accept="image/*"
+                        type="file"
+                        style={{display: "none"}}
+                        onChange={this.handleImage} />
+                      <label htmlFor="profile-picture">
+                        <Button component="span" className="upload-label">
+                          <CameraAlt className="upload-icon" />
+                          Change picture
+                        </Button>
+                      </label>
                     </Grid>
                   </div>
                 </Grid>
@@ -169,9 +199,8 @@ class UserProfile extends Component {
                 {
                   loading ?
                   <Button variant="contained" color="primary">
-                    <CircularProgress size={16} />
+                    <CircularProgress size={24} className="button-progress" />
                   </Button> :
-
                   <Button type="submit" variant="contained" color="primary">
                     Save
                   </Button>

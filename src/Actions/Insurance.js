@@ -57,7 +57,7 @@ const startLoading = () => ({
   type: Insurance.START_INSURANCE_LOADING
 });
 
-const saveCart = (data, callback) => (dispatch) => {
+const saveCart = (data, callback) => () => {
   Api.saveCart(data).then((response) => (
     callback(response.data)
   ));

@@ -23,9 +23,11 @@ import {
 import Cookies from "universal-cookie";
 import {logout} from "../../../../Actions/User";
 import Routes from "../../../../Utils/Routes";
+import GifLoader from "../../../../Assets/loader.gif";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
+  loading: !!state.user.loading,
   image: state.user.image
 });
 
@@ -49,6 +51,7 @@ class Header extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
+      loading: nextProps.loading,
       image: nextProps.image
     });
   }
@@ -88,7 +91,8 @@ class Header extends Component {
     const {
       menu,
       menuEl,
-      image
+      image,
+      loading
     } = this.state;
 
     return (
@@ -107,10 +111,14 @@ class Header extends Component {
             </Grid>
           </Grid>
           <Grid item>
-            <Avatar
-              className="user-header-image"
-              src={`http://localhost:3000${image.path}`}
-              onClick={this.openMenu}></Avatar>
+            {
+              loading ?
+              <Avatar className="user-header-image" src={GifLoader} /> :
+              <Avatar
+                className="user-header-image"
+                src={`http://localhost:3000${image.path}?${new Date().getTime()}`}
+                onClick={this.openMenu} />
+            }
             <Menu
               anchorEl={menuEl}
               open={menu}

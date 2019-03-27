@@ -31,6 +31,7 @@ import {
   getUserDetails
 } from "../../../../Actions/User";
 import Routes from "../../../../Utils/Routes";
+import GifLoader from "../../../../Assets/loader.gif";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
@@ -148,7 +149,12 @@ class Menu extends Component {
             </ListItem> :
             <ListItem className="menu-user-content">
               <ListItemAvatar>
-                <Avatar src={`http://localhost:3000${image.path}`} />
+                {
+                  loading ?
+                  <Avatar className="user-image" src={GifLoader} /> :
+                  <Avatar
+                    src={`http://localhost:3000${image.path}?${new Date().getTime()}`}></Avatar>
+                }
               </ListItemAvatar>
               <ListItemText className="user-name"
                 primary={`${user.firstName} ${user.lastName}`}

@@ -76,7 +76,7 @@ export default (state = initialState, action) => {
         "vehicleDetail",
         "pastPolicy"
       )
-    }
+    };
   }
   case Insurance.LOAD_VEHICLE_OWNER: {
     return {
