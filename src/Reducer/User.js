@@ -3,7 +3,6 @@ import {User} from "../Constants/ActionTypes";
 
 const initialState = {
   loading: 0,
-  auth: {},
   role: {},
   privileges: [],
   user: {},
@@ -22,21 +21,6 @@ export default (state = initialState, action) => {
     return {
       ...state,
       loading: state.loading - 1
-    };
-  }
-  case User.LOAD_AUTH: {
-    const {
-      auth,
-      role,
-      userImage
-    } = action.data;
-    return {
-      ...state,
-      user: _.omit(action.data, ["auth", "role", "userImage"]),
-      auth,
-      role,
-      image: userImage,
-      logout: false
     };
   }
   case User.LOAD_USER_PRIVILEGES: {

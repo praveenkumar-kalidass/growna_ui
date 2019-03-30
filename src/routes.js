@@ -9,11 +9,20 @@ import Cookies from "universal-cookie";
 import _ from "underscore";
 import Routes from "./Utils/Routes";
 import App from "./Components/App";
-import Login from "./Components/Login";
 import Loader from "./Components/Loader";
 
 const LoadableHome = Loadable({
   loader: () => import("./Components/Home"),
+  loading: Loader
+});
+
+const LoadableLogin = Loadable({
+  loader: () => import("./Components/Login"),
+  loading: Loader
+});
+
+const LoadableSignup = Loadable({
+  loader: () => import("./Components/Signup"),
   loading: Loader
 });
 
@@ -63,7 +72,7 @@ const LoginRouter = (rest) => {
       render={() => (
         !gis || !gis.accessToken ?
           (
-            <Login />
+            <LoadableLogin />
           ) :
           (
             <Redirect
@@ -82,6 +91,7 @@ const routes = () => (
     <div className="ui-route">
       <Route exact path={Routes.HOME.path} component={LoadableHome}></Route>
       <LoginRouter path={Routes.LOGIN.path}></LoginRouter>
+      <Route path={Routes.SIGNUP.path} component={LoadableSignup}></Route>
       <AppRouter path={Routes.APP.path}></AppRouter>
     </div>
   </Router>

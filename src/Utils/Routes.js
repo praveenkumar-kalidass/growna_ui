@@ -32,6 +32,10 @@ export default {
     name: "Login",
     path: "/login"
   },
+  SIGNUP: {
+    name: "Signup",
+    path: "/signup"
+  },
   APP: {
     name: "Home",
     path: "/app",

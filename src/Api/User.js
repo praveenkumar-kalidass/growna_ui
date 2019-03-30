@@ -19,6 +19,9 @@ export default {
   authLogout: (data) => {
     return axios.delete("/api/auth/logout", data);
   },
+  signupUser: (data) => (
+    axios.post("/api/auth/signup", data)
+  ),
   getRolePrivileges: (roleId, type) => (
     axios.get(`/api/permission/${type}/${roleId}`)
   ),

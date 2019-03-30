@@ -1,15 +1,15 @@
 @import "../../Utils/Colors.scss";
 
-.gis-login {
+.gis-signup {
   height: 100vh;
-  .login-container {
+  .signup-container {
     background: url("../../Assets/material_bg.svg") no-repeat left bottom;
     background-color: $theme-blue;
     background-size: cover;
     height: 100%;
-    .login-message-container {
+    .signup-message-container {
       z-index: 20;
-      .login-message-grid {
+      .signup-message-grid {
         background-color: $theme-blue-light;
         height: 80vh;
         .message-grid-container {
@@ -17,15 +17,15 @@
         }
       }
     }
-    .login-form-grid {
+    .signup-form-grid {
       height: 80vh;
-      .login-form {
+      .signup-form {
         height: calc(100% - 50px);
-        .login-form-container {
+        .signup-form-container {
           height: calc(100% - 40px);
           margin-left: -5px;
           padding: 20px 30px;
-          .login-header {
+          .signup-header {
             &:after {
               border-bottom: 4px solid $theme-blue;
               display: block;
@@ -35,12 +35,12 @@
               width: 40px;
             }
           }
-          .signup-link {
+          .login-link {
             color: $theme-blue;
             font-family: Roboto;
             text-decoration: none;
           }
-          .login-button {
+          .signup-button {
             min-width: 105px;
             .button-icon {
               font-size: 20px;
@@ -50,7 +50,7 @@
               color: $white;
             }
           }
-          .login-error-message {
+          .signup-error-message {
             background-color: transparent;
             border: 2px solid $red;
             box-shadow: none;
@@ -61,13 +61,6 @@
           }
         }
       }
-    }
-  }
-  .app-error-bar {
-    background-color: $red;
-    .message {
-      font-size: 16px;
-      text-transform: uppercase;
     }
   }
 }

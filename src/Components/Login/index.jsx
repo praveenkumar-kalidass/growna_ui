@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import {
   Button,
   CircularProgress,
@@ -8,7 +8,6 @@ import {
   Hidden,
   IconButton,
   Paper,
-  Snackbar,
   SnackbarContent,
   TextField,
   Typography
@@ -28,14 +27,11 @@ import {login} from "../../Actions/User";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
-  auth: state.user.auth,
-  role: state.user.role,
-  error: state.app.error,
-  message: state.app.message
+  error: state.app.error
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (credentials) => { dispatch(login(credentials)) },
+  login: (credentials, callback) => { dispatch(login(credentials, callback)) },
   disableAppError: () => { dispatch(disableAppError()) }
 });
 
@@ -49,35 +45,25 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      login: false,
-      error: false,
-      message: ""
+      isLogin: false,
+      error: false
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       error: nextProps.error,
-      message: nextProps.message,
-      login: false
+      isLogin: false
+    }, () => {
+      if (this.state.error) {
+        setTimeout(
+          () => {
+            this.props.disableAppError();
+          },
+          5000
+        );
+      }
     });
-    if (!_.isEmpty(nextProps.auth)) {
-      const cookies = new Cookies();
-      cookies.set("gis", {
-        ..._.pick(nextProps.auth,
-          "accessToken",
-          "refreshToken",
-          "userId"
-        ),
-        tenantId: nextProps.role.tenantId,
-        roleId: nextProps.role.id,
-        role: nextProps.role.name,
-        type: nextProps.role.type
-      }, {
-        expires: new Date(nextProps.auth.refreshTokenExpiresAt)
-      });
-      this.props.history.push(Routes.APP.path);
-    }
   }
 
   getValidatorData = () => (this.state)
@@ -87,11 +73,27 @@ class Login extends Component {
     this.props.validate((error) => {
       if (!error) {
         this.setState({
-          login: true
+          isLogin: true
         });
         this.props.login({
           username: this.state.email,
           password: this.state.password
+        }, (data) => {
+          const cookies = new Cookies();
+          cookies.set("gis", {
+            ..._.pick(data.auth,
+              "accessToken",
+              "refreshToken",
+              "userId"
+            ),
+            tenantId: data.role.tenantId,
+            roleId: data.role.id,
+            role: data.role.name,
+            type: data.role.type
+          }, {
+            expires: new Date(data.auth.refreshTokenExpiresAt)
+          });
+          this.props.history.push(Routes.APP.path);
         });
       }
     });
@@ -103,17 +105,12 @@ class Login extends Component {
     this.setState(state);
   }
 
-  handleErrorClose = () => {
-    this.props.disableAppError();
-  }
-
   render() {
     const {
       email,
       password,
-      login,
-      error,
-      message
+      isLogin,
+      error
     } = this.state;
 
     return (
@@ -159,43 +156,45 @@ class Login extends Component {
                         <form autoComplete="off" noValidate onSubmit={this.login}>
                           <Grid container direction="column">
                             <Grid item xs sm md>
-                                <TextField
-                                  required
-                                  label="Email"
-                                  type="email"
-                                  onChange={(event) => this.handleFieldChange(event, "email")}
-                                  onBlur={this.props.handleValidation("email")}
-                                  value={email}
-                                  margin="normal"
-                                  fullWidth
-                                  error={!this.props.isValid("email")}
-                                  helperText={this.props.getValidationMessages("email")[0]}
-                                  />
-                                <TextField
-                                  required
-                                  label="Password"
-                                  type="password"
-                                  onChange={(event) => this.handleFieldChange(event, "password")}
-                                  onBlur={this.props.handleValidation("password")}
-                                  value={password}
-                                  margin="normal"
-                                  fullWidth
-                                  error={!this.props.isValid("password")}
-                                  helperText={this.props.getValidationMessages("password")[0]}
-                                  />
+                              <TextField
+                                required
+                                label="Email"
+                                type="email"
+                                onChange={(event) => this.handleFieldChange(event, "email")}
+                                onBlur={this.props.handleValidation("email")}
+                                value={email}
+                                margin="normal"
+                                fullWidth
+                                error={!this.props.isValid("email")}
+                                helperText={this.props.getValidationMessages("email")[0]}
+                                />
+                              <TextField
+                                required
+                                label="Password"
+                                type="password"
+                                onChange={(event) => this.handleFieldChange(event, "password")}
+                                onBlur={this.props.handleValidation("password")}
+                                value={password}
+                                margin="normal"
+                                fullWidth
+                                error={!this.props.isValid("password")}
+                                helperText={this.props.getValidationMessages("password")[0]}
+                                />
                             </Grid>
                             <Grid item xs sm md>
-                              <Grid container justify="flex-end">
+                              <Grid container justify="space-between" alignItems="center">
+                                <Grid item>
+                                  <Link className="signup-link" to={Routes.SIGNUP.path}>
+                                    Signup as a new user
+                                  </Link>
+                                </Grid>
                                 <Grid item>
                                   {
-                                    login &&
+                                    isLogin ?
                                     <Button variant="contained" color="primary"
                                       className="login-button">
                                       <CircularProgress size={24} className="button-progress" />
-                                    </Button>
-                                  }
-                                  {
-                                    !login &&
+                                    </Button> :
                                     <Button type="submit" variant="contained"
                                       color="primary" className="login-button">
                                       Login
@@ -206,6 +205,12 @@ class Login extends Component {
                               </Grid>
                             </Grid>
                           </Grid>
+                          {
+                            error &&
+                            <SnackbarContent
+                              className="login-error-message"
+                              message={"Login Error!!! Please Check your credentials."} />
+                          }
                         </form>
                       </Paper>
                     </Grid>
@@ -214,25 +219,6 @@ class Login extends Component {
               </Grid>
             </Grid>
           </Grid>
-          <Snackbar
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right",
-            }}
-            open={error}
-            autoHideDuration={5000}
-            onClose={this.handleErrorClose}>
-            <SnackbarContent
-              className="app-error-bar"
-              message={<span className="message">{message}</span>}
-              action={
-                <IconButton
-                  color="inherit"
-                  onClick={this.handleErrorClose}>
-                  <Close />
-                </IconButton>
-              } />
-          </Snackbar>
         </Grid>
       </Grid>
     );

@@ -2,19 +2,20 @@ import Api from "../Api/User";
 import {User} from "../Constants/ActionTypes";
 import {enableAppSuccess} from "./App";
 
-const login = (credentials) => (dispatch) => {
-  Api.authLogin(credentials).then((response) => {
-    dispatch(loadAuth(response.data));
-  });
+const login = (credentials, callback) => () => {
+  Api.authLogin(credentials).then((response) => (
+    callback(response.data)
+  ));
 };
-
-const loadAuth = (data) => ({
-  type: User.LOAD_AUTH,
-  data
-});
 
 const logout = (accessToken, callback) => () => {
   Api.authLogout(accessToken).then((response) => (
+    callback(response.data)
+  ));
+};
+
+const signupUser = (data, callback) => () => {
+  Api.signupUser(data).then((response) => (
     callback(response.data)
   ));
 };
@@ -81,6 +82,7 @@ const loadUserImage = (data) => ({
 export {
   login,
   logout,
+  signupUser,
   getPrivileges,
   getUserDetails,
   validateRoute,
