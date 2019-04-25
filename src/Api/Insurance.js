@@ -36,5 +36,8 @@ export default {
   ),
   getCompanies: (type) => (
     axios.get(`/api/company/${type}`)
+  ),
+  updateQuotation: (data) => (
+    axios.put("/api/quotation", data)
   )
 };

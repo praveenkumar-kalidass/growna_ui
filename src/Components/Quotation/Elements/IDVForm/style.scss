@@ -1,0 +1,16 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-idv-form {
+  .button-progress {
+    color: $white;
+  }
+  .text-container {
+    margin-bottom: 20px;
+  }
+  .idv-slider {
+    overflow-x: hidden;
+    min-height: 20px;
+    padding: 20px 10px;
+    width: calc(100% - 20px);
+  }
+}

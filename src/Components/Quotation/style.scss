@@ -2,14 +2,11 @@
 
 .gis-quotation {
   .quotation-head-container {
+    padding: 15px;
     margin-bottom: 20px;
-    .bike-label {
-      margin-left:  15px;
-    }
   }
   .page-header {
-    margin: 0px 15px 30px 15px;
-    padding-top: 15px;
+    margin-bottom: 30px;
     &:after {
       border-bottom: 4px solid $theme-blue;
       display: block;
@@ -17,6 +14,26 @@
       margin-top: 10px;
       position: absolute;
       width: 40px;
+    }
+  }
+  .quotation-plan-card {
+    position: relative;
+    .plan-image {
+      height: 0;
+      padding-top: 60.25%;
+    }
+    .discount-button {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+    .card-content {
+      position: relative;
+      .cart-button {
+        position: absolute;
+        right: 20px;
+        top: -20px;
+      }
     }
   }
 }

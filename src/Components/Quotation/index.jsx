@@ -1,25 +1,23 @@
 import React, {Component} from "react";
 import {
-  AppBar,
   Avatar,
   Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
   CircularProgress,
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Collapse,
+  Fab,
   Grid,
   IconButton,
   Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-  Toolbar,
   Typography
 } from "@material-ui/core";
 import {
   Create,
-  ExpandMore
+  ExpandMore,
+  ShoppingCart
 } from "@material-ui/icons";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
@@ -30,6 +28,7 @@ import {
   getQuotationAndPlans,
   saveCart
 } from "../../Actions/Insurance";
+import IDVForm from "./Elements/IDVForm";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
@@ -48,10 +47,11 @@ class Quotation extends Component {
     super(props);
     this.state = {
       addCart: false,
-      loading: false,
+      loading: true,
       quotation: {},
       plans: [],
-      expandIndex: ""
+      expandIndex: "",
+      changeIDV: false
     };
   }
 
@@ -61,6 +61,7 @@ class Quotation extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
+      loading: nextProps.loading,
       quotation: nextProps.quotation,
       plans: nextProps.plans
     });
@@ -88,13 +89,20 @@ class Quotation extends Component {
     });
   }
 
+  handleDialog = (dialog, open) => () => {
+    this.setState({
+      [dialog]: open
+    });
+  }
+
   render() {
     const {
       addCart,
       loading,
       quotation,
       plans,
-      expandIndex
+      expandIndex,
+      changeIDV
     } = this.state;
 
     return (
@@ -103,12 +111,11 @@ class Quotation extends Component {
           <Typography className="page-header" variant="h4" gutterBottom>
             Quotation
           </Typography>
-          <Grid container alignItems="center">
+          <Grid container justify="space-between" alignItems="center">
             {
               quotation.id &&
               <Grid item>
-                <Typography variant="subtitle1" color="inherit" inline
-                  className="bike-label">
+                <Typography variant="subtitle1" color="inherit" inline>
                   {`(${quotation.vehicleYear}) ${quotation.brand} |
                     ${quotation.model} | ${quotation.variant} |
                     ${quotation.engineCc} CC`}
@@ -116,95 +123,104 @@ class Quotation extends Component {
                 <IconButton color="primary"><Create /></IconButton>
               </Grid>
             }
+            {
+              !!quotation.insuredDeclaredValue ?
+              <Grid item>
+                <Typography variant="subtitle1" color="inherit" inline>
+                  IDV: &#8377; {quotation.insuredDeclaredValue}
+                </Typography>
+                <IconButton color="primary"
+                  onClick={this.handleDialog("changeIDV", true)}>
+                  <Create />
+                </IconButton>
+              </Grid> :
+              <Grid item>
+                <Button color="primary"
+                  onClick={this.handleDialog("changeIDV", true)}>
+                  Set Custom IDV
+                </Button>
+              </Grid>
+            }
           </Grid>
         </Paper>
-        {
-          !loading &&
-          <AppBar position="static" color="primary">
-            <Toolbar>
-              <Typography variant="h6" color="inherit">
-                Plans
-              </Typography>
-            </Toolbar>
-          </AppBar>
-        }
-        {
-          loading ?
-          <Grid container justify="center">
+        <Grid container justify="center" spacing={16}>
+          {
+            loading ?
             <Grid item>
               <CircularProgress size={40} />
-            </Grid>
-          </Grid> :
-          _.map(plans, (plan, index) => (
-            <ExpansionPanel key={index}
-              expanded={expandIndex === plan.id && !addCart}
-              onChange={this.handleExpandIndex(plan.id)}>
-              <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <Grid container alignItems="center" spacing={16}>
+            </Grid> :
+            _.map(plans, (plan, index) => (
+              <Grid item key={plan.id} xs={12} sm={6} md={4}>
+                <Card className="quotation-plan-card">
+                  <CardMedia
+                    className="plan-image"
+                    image={`http://localhost:3000${plan.companyImage.path}`}
+                    title={plan.name} />
+                  <Fab size="small" variant="extended" color="primary"
+                    className="discount-button">
+                    {plan.discount.toFixed(2)}% OFF
+                  </Fab>
+                  <CardContent className="card-content">
+                    <Fab size="small" color="primary" className="cart-button">
+                      <ShoppingCart onClick={this.addToCart(plan)} />
+                    </Fab>
+                    <Typography gutterBottom variant="h5">
+                      {plan.name}
+                    </Typography>
+                    <Typography variant="body2">
+                      IDV : &#8377;{plan.insuredDeclaredValue}
+                    </Typography>
+                  </CardContent>
+                  <Collapse in={expandIndex === index}
+                    timeout="auto"
+                    unmountOnExit>
+                    <CardContent>
+                      <Typography variant="body2">
+                        Third party premium : &#8377;{plan.thirdPartyPremium}
+                      </Typography>
+                      <Typography variant="body2">
+                        Premium Amount : &#8377;{plan.premiumAmount}
+                      </Typography>
+                      <Typography variant="body2">
+                        GST : &#8377;{plan.gst}
+                      </Typography>
+                    </CardContent>
+                  </Collapse>
+                  <CardActions>
+                    <Grid container justify="space-between">
                       <Grid item>
-                        <Avatar alt={plan.name}
-                          src={`http://localhost:3000${plan.companyImage.path}`} />
-                      </Grid>
-                      <Grid item>
-                        <Typography variant="subtitle2">
-                          {plan.name}
+                        <Typography variant="h6">
+                          &#8377; {plan.oneYearPremium}
                         </Typography>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item>
-                    <Grid container spacing={40}>
-                      <Grid item>
-                        <Button variant="outlined" color="primary">
-                          {`${plan.discount}% OFF`}
-                        </Button>
                       </Grid>
                       <Grid item>
                         {
-                          addCart && (expandIndex === plan.id) ?
-                          <Button variant="outlined" color="primary">
-                            <CircularProgress size={24} />
+                          expandIndex === index ?
+                          <Button variant="outlined" color="primary"
+                            onClick={this.handleExpandIndex("")}>
+                            Hide Detail
                           </Button> :
                           <Button variant="outlined" color="primary"
-                            onClick={this.addToCart(plan)}>
-                            {`${plan.oneYearPremium} INR`}
+                            onClick={this.handleExpandIndex(index)}>
+                            See Detail
                           </Button>
                         }
                       </Grid>
                     </Grid>
-                  </Grid>
-                </Grid>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <Table>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>IDV</TableCell>
-                      <TableCell>{`${plan.insuredDeclaredValue} INR`}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Third Party Premium</TableCell>
-                      <TableCell>{`${plan.thirdPartyPremium} INR`}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Own Damage Premium</TableCell>
-                      <TableCell>{`${plan.ownDamagePremium} INR`}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Premium Amount</TableCell>
-                      <TableCell>{`${plan.premiumAmount} INR`}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>GST</TableCell>
-                      <TableCell>{`${plan.gst} INR`}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          ))
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))
+          }
+        </Grid>
+        {
+          changeIDV &&
+          <IDVForm
+            open={changeIDV}
+            idv={quotation.insuredDeclaredValue}
+            standardIdv={quotation.standardIdv}
+            handleDialog={this.handleDialog}
+            quotationId={quotation.id} />
         }
       </div>
     );

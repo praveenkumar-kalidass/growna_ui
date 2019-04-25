@@ -134,6 +134,14 @@ const loadCompanies = (data) => ({
   data
 });
 
+const editQuotation = (data, callback) => (dispatch) => {
+  dispatch(startLoading());
+  Api.updateQuotation(data).then((response) => {
+    dispatch(loadQuotationPlans(response.data));
+    return callback();
+  });
+};
+
 export {
   getBrands,
   getModelsByBrand,
@@ -146,5 +154,6 @@ export {
   saveAddress,
   saveVehicleDetail,
   savePastPolicy,
-  getCompanyList
+  getCompanyList,
+  editQuotation
 };
