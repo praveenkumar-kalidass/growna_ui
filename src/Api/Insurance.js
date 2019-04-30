@@ -10,6 +10,9 @@ export default {
   getVariants: (brand, model, type) => (
     axios.get(`/api/vehicle/variant/${brand}/${model}/${type}`)
   ),
+  getRegistrationCodes: () => (
+    axios.get("/api/vehicle-rta")
+  ),
   saveQuotation: (data) => (
     axios.post("/api/quotation", data)
   ),
@@ -35,7 +38,7 @@ export default {
     axios.post("/api/past-policy", data)
   ),
   getCompanies: (type) => (
-    axios.get(`/api/company/${type}`)
+    axios.get(`/api/company/type/${type}`)
   ),
   updateQuotation: (data) => (
     axios.put("/api/quotation", data)

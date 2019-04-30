@@ -5,6 +5,7 @@ import {
   FormControlLabel,
   FormGroup,
   Grid,
+  InputAdornment,
   Paper,
   TextField
 } from "@material-ui/core";
@@ -21,7 +22,8 @@ import "./style.scss";
 const mapStateToProps = (state) => ({
   loading: state.insurance.loading,
   vehicleNumber: state.insurance.vehicle.vehicleNumber,
-  onLoan: state.insurance.vehicle.onLoan
+  onLoan: state.insurance.vehicle.onLoan,
+  registrationCode: state.insurance.quotation.registrationCode
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -39,7 +41,7 @@ class VehicleDetail extends Component {
       vehicleNumber: Schema.vehicleNumber
     };
     this.state = {
-      vehicleNumber: props.vehicleNumber || "",
+      vehicleNumber: props.vehicleNumber.replace(`${props.registrationCode} `, "") || "",
       onLoan: props.onLoan || false
     };
   }
@@ -47,7 +49,7 @@ class VehicleDetail extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.state.loading) {
       this.setState({
-        vehicleNumber: nextProps.vehicleNumber || "",
+        vehicleNumber: nextProps.vehicleNumber.replace(`${this.props.registrationCode}`, "") || "",
         onLoan: nextProps.onLoan || ""
       });
     }
@@ -70,7 +72,8 @@ class VehicleDetail extends Component {
     this.props.validate((error) => {
       if (!error) {
         this.props.saveVehicleDetail({
-          ..._.pick(this.state, "vehicleNumber", "onLoan"),
+          vehicleNumber: `${this.props.registrationCode} ${this.state.vehicleNumber}`,
+          onLoan: this.state.onLoan,
           cartId: this.props.match.params.id
         });
         this.props.handleCartIndex(3);
@@ -99,7 +102,12 @@ class VehicleDetail extends Component {
                   fullWidth
                   required
                   error={!this.props.isValid("vehicleNumber")}
-                  helperText={this.props.getValidationMessages("vehicleNumber")[0]} />
+                  helperText={this.props.getValidationMessages("vehicleNumber")[0]}
+                  InputProps={{
+                    startAdornment: <InputAdornment className="input-adornment">
+                      {this.props.registrationCode}
+                    </InputAdornment>
+                  }} />
                 <FormGroup row>
                   <FormControlLabel
                     control={

@@ -6,6 +6,7 @@ const initialState = {
   brands: [],
   models: [],
   variants: [],
+  registrationCodes: [],
   quotation: {},
   company: {},
   plan: {},
@@ -45,6 +46,13 @@ export default (state = initialState, action) => {
       ...state,
       loading: false,
       variants: action.data
+    };
+  }
+  case Insurance.LOAD_REGISTRATION_CODES: {
+    return {
+      ...state,
+      loading: false,
+      registrationCodes: action.data
     };
   }
   case Insurance.LOAD_QUOTATION_PLANS: {

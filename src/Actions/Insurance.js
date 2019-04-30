@@ -37,6 +37,18 @@ const loadVariants = (data) => ({
   data
 });
 
+const getRegistrationCodes = () => (dispatch) => {
+  dispatch(startLoading());
+  Api.getRegistrationCodes().then((response) => {
+    dispatch(loadRegistrationCodes(response.data));
+  });
+};
+
+const loadRegistrationCodes = (data) => ({
+  type: Insurance.LOAD_REGISTRATION_CODES,
+  data
+});
+
 const saveQuotation = (data, callback) => () => {
   Api.saveQuotation(data).then((response) => ( callback(response.data) ));
 };
@@ -146,6 +158,7 @@ export {
   getBrands,
   getModelsByBrand,
   getVariantsByModel,
+  getRegistrationCodes,
   saveQuotation,
   getQuotationAndPlans,
   saveCart,

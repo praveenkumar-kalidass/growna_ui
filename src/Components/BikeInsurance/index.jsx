@@ -35,6 +35,7 @@ import {
   getBrands,
   getModelsByBrand,
   getVariantsByModel,
+  getRegistrationCodes,
   saveQuotation
 } from "../../Actions/Insurance";
 import Schema from "./schema";
@@ -44,13 +45,15 @@ const mapStateToProps = (state) => ({
   loading: state.insurance.loading,
   brands: state.insurance.brands,
   models: state.insurance.models,
-  variants: state.insurance.variants
+  variants: state.insurance.variants,
+  registrationCodes: state.insurance.registrationCodes
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getBrands: (type) => { dispatch(getBrands(type)) },
   getModelsByBrand: (brand, type) => { dispatch(getModelsByBrand(brand, type)) },
   getVariantsByModel: (brand, model, type) => { dispatch(getVariantsByModel(brand, model, type)) },
+  getRegistrationCodes: () => { dispatch(getRegistrationCodes()) },
   saveQuotation: (data, callback) => { dispatch(saveQuotation(data, callback)) }
 });
 
@@ -61,7 +64,8 @@ class BikeInsurance extends Component {
       brand: Schema.brand,
       model: Schema.model,
       variant: Schema.variant,
-      vehicleYear: Schema.vehicleYear
+      vehicleYear: Schema.vehicleYear,
+      registrationCode: Schema.registrationCode
     };
     this.state = {
       brand: "",
@@ -69,13 +73,20 @@ class BikeInsurance extends Component {
       variant: "",
       engineCc: "",
       vehicleYear: "",
+      registrationCode: "",
+      zoneType: "",
       modelIndex: 0,
       openBikeModal: false,
       loading: false,
       brands: [],
       models: [],
-      variants: []
+      variants: [],
+      registrationCodes: []
     };
+  }
+
+  componentDidMount() {
+    this.props.getRegistrationCodes();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -83,7 +94,8 @@ class BikeInsurance extends Component {
       loading: nextProps.loading,
       brands: nextProps.brands,
       models: nextProps.models,
-      variants: nextProps.variants
+      variants: nextProps.variants,
+      registrationCodes: nextProps.registrationCodes
     });
   }
 
@@ -108,6 +120,14 @@ class BikeInsurance extends Component {
           {
             variant: event.target.value
           }).engineCc
+      });
+    }
+    if (field === "registrationCode") {
+      this.setState({
+        zoneType: _.findWhere(this.state.registrationCodes,
+          {
+            registrationCode: event.target.value
+          }).zoneType
       });
     }
     this.setState({
@@ -136,12 +156,15 @@ class BikeInsurance extends Component {
       model,
       variant,
       engineCc,
-      vehicleYear
+      vehicleYear,
+      registrationCode,
+      zoneType
     } = this.state;
     this.props.validate((error) => {
       if (!error) {
         this.props.saveQuotation({
-          brand, model, variant, engineCc, vehicleYear,
+          brand, model, variant, engineCc,
+          vehicleYear, registrationCode, zoneType,
           userId: gis.userId,
           tenantId: gis.tenantId,
           type: "BIKE"
@@ -158,12 +181,14 @@ class BikeInsurance extends Component {
       model,
       variant,
       vehicleYear,
+      registrationCode,
       modelIndex,
       openBikeModal,
       loading,
       brands,
       models,
-      variants
+      variants,
+      registrationCodes
     } = this.state;
 
     return (
@@ -215,6 +240,25 @@ class BikeInsurance extends Component {
                     _.times(20, (index) => (
                       <MenuItem key={index} value={new Date().getFullYear() - index}>
                         {new Date().getFullYear() - index}
+                      </MenuItem>
+                    ))
+                  }
+                </TextField>
+                <TextField
+                  required
+                  select
+                  label="Select bike registration code"
+                  value={registrationCode}
+                  onChange={this.handleChange("registrationCode")}
+                  onBlur={this.props.handleValidation("registrationCode")}
+                  margin="normal"
+                  fullWidth
+                  error={!this.props.isValid("registrationCode")}
+                  helperText={this.props.getValidationMessages("registrationCode")[0]}>
+                  {
+                    _.map(registrationCodes, (code) => (
+                      <MenuItem key={code.registrationCode} value={code.registrationCode}>
+                        {code.registrationCode} ({code.displayName})
                       </MenuItem>
                     ))
                   }

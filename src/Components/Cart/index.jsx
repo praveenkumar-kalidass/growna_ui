@@ -105,6 +105,7 @@ class Cart extends Component {
                     {
                       company.companyImage &&
                       <Avatar
+                        className="company-image"
                         src={`http://localhost:3000${company.companyImage.path}`} />
                     }
                   </Grid>
@@ -129,11 +130,11 @@ class Cart extends Component {
               <Grid item xs={12} sm={6} md={4} className="quotation-details">
                 <Typography variant="caption">GST:</Typography>
                 <Typography variant="subtitle2" gutterBottom>
-                  {plan.gst}
+                  &#8377;{plan.gst}
                 </Typography>
                 <Typography variant="caption">One year Premium:</Typography>
                 <Typography variant="subtitle2">
-                  {`${plan.oneYearPremium} INR`}
+                  &#8377; {plan.oneYearPremium}
                 </Typography>
               </Grid>
             </Grid>

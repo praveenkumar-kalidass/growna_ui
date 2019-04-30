@@ -40,5 +40,15 @@ export default {
           empty: "!!You missed to select year here"
         }
       }
+    }),
+  registrationCode: Joi.string()
+    .required()
+    .label("Vehicle registration code")
+    .options({
+      language: {
+        any: {
+          empty: "!!You missed to select code here"
+        }
+      }
     })
 };
