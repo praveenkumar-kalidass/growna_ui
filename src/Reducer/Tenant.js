@@ -7,7 +7,9 @@ const initialState = {
   roleList: [],
   users: [],
   userList: [],
-  privileges: []
+  privileges: [],
+  companyList: [],
+  companyPlans: []
 };
 
 export default (state = initialState, action) => {
@@ -22,6 +24,19 @@ export default (state = initialState, action) => {
     return {
       ...state,
       loading: state.loading - 1
+    };
+  }
+  case Tenant.LOAD_COMPANY_LIST: {
+    return {
+      ...state,
+      loading: state.loading - 1,
+      companyList: action.data
+    };
+  }
+  case Tenant.LOAD_COMPANY_PLANS: {
+    return {
+      ...state,
+      companyPlans: action.data
     };
   }
   case Tenant.LOAD_ROLE: {

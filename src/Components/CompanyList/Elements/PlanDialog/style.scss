@@ -1,0 +1,39 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-plan-dialog {
+  .image-container {
+    position: relative;
+    .company-image {
+      height: 150px;
+      width: 150px;
+    }
+    .upload-image {
+      background-color: $black;
+      bottom: 0;
+      cursor: pointer;
+      opacity: 0.6;
+      position: absolute;
+      left: 0;
+      .upload-label {
+        align-items: center;
+        color: $white;
+        display: flex;
+        margin: 5px 0;
+      }
+      .upload-icon {
+        color: $white;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.plan-popper {
+  z-index: 1500;
+  ul {
+    padding: 0;
+    li {
+      display: block;
+    }
+  }
+}

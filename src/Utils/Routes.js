@@ -9,12 +9,14 @@ import {
   Person,
   PersonAdd,
   ShoppingCart,
-  SupervisedUserCircle
+  SupervisedUserCircle,
+  Work
 } from "@material-ui/icons";
 import UserProfile from "../Components/UserProfile";
 import AddRole from "../Components/AddRole";
 import AddUser from "../Components/AddUser";
 import AddTenant from "../Components/AddTenant";
+import CompanyList from "../Components/CompanyList";
 import Dashboard from "../Components/Dashboard";
 import UserList from "../Components/UserList";
 import RoleList from "../Components/RoleList";
@@ -66,6 +68,13 @@ export default {
     component: AddTenant,
     category: "Tenant",
     icon: GroupAdd
+  },
+  COMPANY_LIST: {
+    name: "Company List",
+    path: "/app/company-list",
+    component: CompanyList,
+    category: "Company",
+    icon: Work
   },
   ADD_ROLE: {
     name: "Add Role",

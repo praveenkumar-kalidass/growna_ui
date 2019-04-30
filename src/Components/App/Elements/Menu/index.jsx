@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import {
   AccountBalance,
+  BusinessCenter,
   ExpandLess,
   ExpandMore,
   Fingerprint,
@@ -61,6 +62,11 @@ class Menu extends Component {
         label: "Tenants",
         path: Routes.ADD_TENANT.path,
         icon: AccountBalance
+      }, {
+        name: "Company",
+        label: "Companies",
+        path: Routes.COMPANY_LIST.path,
+        icon: BusinessCenter
       }, {
         name: "Role",
         label: "Roles",

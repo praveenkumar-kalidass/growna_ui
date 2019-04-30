@@ -1,0 +1,30 @@
+@import "../../Utils/Colors.scss";
+
+.gis-company-list {
+  .header-container {
+    margin-bottom: 20px;
+  }
+  .page-header {
+    margin: 0px 15px 30px 15px;
+    padding-top: 15px;
+    &:after {
+      border-bottom: 4px solid $theme-blue;
+      display: block;
+      content: "";
+      margin-top: 10px;
+      position: absolute;
+      width: 40px;
+    }
+  }
+  .company-list-container {
+    background-color: $grey-pale;
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+    .company-list {
+      .list-item {
+        background-color: $white;
+      }
+    }
+  }
+}

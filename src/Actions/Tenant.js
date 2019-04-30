@@ -9,6 +9,36 @@ const registerTenant = (data) => (dispatch) => {
   });
 };
 
+const getCompanyList = () => (dispatch) => {
+  dispatch(startLoading());
+  Api.getCompanyList().then((response) => {
+    dispatch(loadCompanyList(response.data));
+  });
+};
+
+const loadCompanyList = (data) => ({
+  type: Tenant.LOAD_COMPANY_LIST,
+  data
+});
+
+const getCompanies = (name, callback) => (dispatch) => {
+  Api.getCompanies("name", name).then((response) => {
+    dispatch(loadCompanyPlans(response.data));
+    return callback();
+  });
+};
+
+const loadCompanyPlans = (data) => ({
+  type: Tenant.LOAD_COMPANY_PLANS,
+  data
+});
+
+const saveCompany = (data, callback) => () => {
+  Api.saveCompany(data).then((response) => {
+    return callback(response.data);
+  });
+};
+
 const getRoles = (tenantId) => (dispatch) => {
   dispatch(startLoading());
   Api.getRoles(tenantId).then((response) => {
@@ -119,5 +149,8 @@ export {
   addUser,
   addRole,
   getAllPrivileges,
-  getPrivilegesByRole
+  getPrivilegesByRole,
+  getCompanyList,
+  getCompanies,
+  saveCompany
 };

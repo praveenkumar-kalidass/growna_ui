@@ -1,9 +1,23 @@
 import axios from "./index";
+import _ from "underscore";
 
 export default {
   registerTenant: (data) => (
     axios.post("/api/tenant/register", data)
   ),
+  getCompanyList: () => (
+    axios.get("/api/company/list")
+  ),
+  getCompanies: (type, data) => (
+    axios.get(`/api/company/${type}/${data}`)
+  ),
+  saveCompany: (data) => {
+    const payload = new FormData();
+    _.mapObject(data, (value, key) => {
+      payload.append(key, data[key]);
+    });
+    return axios.post("/api/company", payload);
+  },
   getRoles: (tenantId) => (
     axios.get(`/api/role/tenant/${tenantId}`)
   ),

@@ -51,7 +51,7 @@ class App extends Component {
       error: false,
       success: false,
       menu: false,
-      valid: true
+      valid: false
     };
   }
 
@@ -99,6 +99,10 @@ class App extends Component {
             }
           }
         );
+      });
+    } else {
+      this.setState({
+        valid: true
       });
     }
   }

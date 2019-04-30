@@ -121,7 +121,6 @@ class UserProfile extends Component {
       email,
       password
     } = this.state;
-    console.log(loading);
 
     return (
       <Paper className="gis-user-profile">
