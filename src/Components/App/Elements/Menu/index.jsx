@@ -33,6 +33,7 @@ import {
 } from "../../../../Actions/User";
 import Routes from "../../../../Utils/Routes";
 import GifLoader from "../../../../Assets/loader.gif";
+import Config from "../../../../../config/config";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
@@ -159,7 +160,7 @@ class Menu extends Component {
                   loading ?
                   <Avatar className="user-image" src={GifLoader} /> :
                   <Avatar
-                    src={`http://localhost:3000${image.path}?${new Date().getTime()}`}></Avatar>
+                    src={`${Config.service}${image.path}?${new Date().getTime()}`}></Avatar>
                 }
               </ListItemAvatar>
               <ListItemText className="user-name"

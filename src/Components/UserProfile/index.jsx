@@ -20,6 +20,7 @@ import {
   updateUserImage
 } from "../../Actions/User";
 import GifLoader from "../../Assets/loader.gif";
+import Config from "../../../config/config";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
@@ -136,7 +137,7 @@ class UserProfile extends Component {
                       <Avatar className="user-image" src={GifLoader} /> :
                       <Avatar
                         className="user-image"
-                        src={`http://localhost:3000${image.path}?${new Date().getTime()}`}></Avatar>
+                        src={`${Config.service}${image.path}?${new Date().getTime()}`}></Avatar>
                     }
                     <Grid container justify="center" className="upload-image">
                       <input id="profile-picture"

@@ -28,6 +28,7 @@ import {
   getCompanies
 } from "../../Actions/Tenant";
 import PlanDialog from "./Elements/PlanDialog";
+import Config from "../../../config/config";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
@@ -153,7 +154,7 @@ class CompanyList extends Component {
                   <ExpansionPanelSummary expandIcon={<ExpandMore />}>
                     <Grid container spacing={16}>
                       <Grid item>
-                        <Avatar src={`http://localhost:3000${plan.companyImage.path}`} />
+                        <Avatar src={`${Config.service}${plan.companyImage.path}`} />
                       </Grid>
                       <Grid item>
                         <Typography variant="body2">

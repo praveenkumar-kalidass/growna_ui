@@ -18,6 +18,7 @@ import VehicleOwner from "./Elements/VehicleOwner";
 import CommunicationAddress from "./Elements/CommunicationAddress";
 import VehicleDetail from "./Elements/VehicleDetail";
 import PastPolicy from "./Elements/PastPolicy";
+import Config from "../../../config/config";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
@@ -106,7 +107,7 @@ class Cart extends Component {
                       company.companyImage &&
                       <Avatar
                         className="company-image"
-                        src={`http://localhost:3000${company.companyImage.path}`} />
+                        src={`${Config.service}${company.companyImage.path}`} />
                     }
                   </Grid>
                   <Grid item>

@@ -29,6 +29,7 @@ import {
   saveCart
 } from "../../Actions/Insurance";
 import IDVForm from "./Elements/IDVForm";
+import Config from "../../../config/config";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
@@ -154,7 +155,7 @@ class Quotation extends Component {
                 <Card className="quotation-plan-card">
                   <CardMedia
                     className="plan-image"
-                    image={`http://localhost:3000${plan.companyImage.path}`}
+                    image={`${Config.service}${plan.companyImage.path}`}
                     title={plan.name} />
                   <Fab size="small" variant="extended" color="primary"
                     className="discount-button">

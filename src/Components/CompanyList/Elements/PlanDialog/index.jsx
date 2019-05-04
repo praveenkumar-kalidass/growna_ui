@@ -61,7 +61,7 @@ class PlanDialog extends Component {
   componentDidMount() {
     if (this.props.plan.companyImage) {
       this.setState({
-        imageSrc: `http://localhost:3000${this.props.plan.companyImage.path}`
+        imageSrc: `${Config.service}${this.props.plan.companyImage.path}`
       });
     }
   }

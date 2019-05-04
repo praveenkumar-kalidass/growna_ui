@@ -41,7 +41,7 @@ class VehicleDetail extends Component {
       vehicleNumber: Schema.vehicleNumber
     };
     this.state = {
-      vehicleNumber: props.vehicleNumber.replace(`${props.registrationCode} `, "") || "",
+      vehicleNumber: (props.vehicleNumber || "").replace(`${props.registrationCode} `, ""),
       onLoan: props.onLoan || false
     };
   }
@@ -49,7 +49,7 @@ class VehicleDetail extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.state.loading) {
       this.setState({
-        vehicleNumber: nextProps.vehicleNumber.replace(`${this.props.registrationCode}`, "") || "",
+        vehicleNumber: (nextProps.vehicleNumber || "").replace(`${this.props.registrationCode}`, ""),
         onLoan: nextProps.onLoan || ""
       });
     }

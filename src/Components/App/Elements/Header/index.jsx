@@ -24,6 +24,7 @@ import Cookies from "universal-cookie";
 import {logout} from "../../../../Actions/User";
 import Routes from "../../../../Utils/Routes";
 import GifLoader from "../../../../Assets/loader.gif";
+import Config from "../../../../../config/config";
 import "./style.scss";
 
 const mapStateToProps = (state) => ({
@@ -116,7 +117,7 @@ class Header extends Component {
               <Avatar className="user-header-image" src={GifLoader} /> :
               <Avatar
                 className="user-header-image"
-                src={`http://localhost:3000${image.path}?${new Date().getTime()}`}
+                src={`${Config.service}${image.path}?${new Date().getTime()}`}
                 onClick={this.openMenu} />
             }
             <Menu

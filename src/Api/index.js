@@ -3,12 +3,13 @@ import _ from "underscore";
 import Cookies from "universal-cookie";
 import {enableAppError} from "../Actions/App";
 import Store from "../Store/store";
+import Config from "../../config/config";
 
 /**
  * Axios to register Base url of Service
  */
 let api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: Config.service,
   timeout: 10000
 });
 
