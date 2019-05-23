@@ -15,7 +15,7 @@ const initialState = {
   cart: {},
   vehicleOwner: {},
   address: {},
-  vehicleDetail: {},
+  vehicle: {},
   pastPolicy: {}
 };
 

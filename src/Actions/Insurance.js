@@ -154,6 +154,12 @@ const editQuotation = (data, callback) => (dispatch) => {
   });
 };
 
+const saveInvoice = (data, callback) => () => {
+  Api.saveInvoice(data).then((response) => {
+    return callback(response.data);
+  });
+};
+
 export {
   getBrands,
   getModelsByBrand,
@@ -168,5 +174,6 @@ export {
   saveVehicleDetail,
   savePastPolicy,
   getCompanyList,
-  editQuotation
+  editQuotation,
+  saveInvoice
 };

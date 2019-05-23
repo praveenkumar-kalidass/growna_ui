@@ -122,6 +122,7 @@ class PastPolicy extends Component {
           ),
           cartId: this.props.match.params.id
         });
+        this.props.handleCartIndex(4);
       }
     });
   }

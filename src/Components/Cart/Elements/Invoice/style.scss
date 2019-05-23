@@ -1,0 +1,16 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-invoice {
+  background-color: $grey-pale;
+  padding: 15px;
+  .invoice-details {
+    margin-bottom: 20px;
+    .invoice-detail-container {
+      border-right: 1px solid $grey-pale;
+      padding: 20px;
+    }
+  }
+  .payment-details {
+    padding: 20px;
+  }
+}

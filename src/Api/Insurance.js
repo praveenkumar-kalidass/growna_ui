@@ -42,5 +42,8 @@ export default {
   ),
   updateQuotation: (data) => (
     axios.put("/api/quotation", data)
+  ),
+  saveInvoice: (data) => (
+    axios.post("/api/invoice", data)
   )
 };

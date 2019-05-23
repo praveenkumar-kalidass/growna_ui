@@ -1,15 +1,18 @@
 import React, {Component} from "react";
 import {
   Avatar,
-  Button,
   CircularProgress,
   Grid,
+  IconButton,
   Paper,
   Typography
 } from "@material-ui/core";
 import {
   Breadcrumbs
 } from "@material-ui/lab";
+import {
+  Edit
+} from "@material-ui/icons";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import Routes from "../../Utils/Routes";
@@ -18,6 +21,7 @@ import VehicleOwner from "./Elements/VehicleOwner";
 import CommunicationAddress from "./Elements/CommunicationAddress";
 import VehicleDetail from "./Elements/VehicleDetail";
 import PastPolicy from "./Elements/PastPolicy";
+import Invoice from "./Elements/Invoice";
 import Config from "../../../config/config";
 import "./style.scss";
 
@@ -76,21 +80,6 @@ class Cart extends Component {
 
     return (
       <div className="gis-cart">
-        <Paper className="cart-head-container">
-          <Grid container justify="space-between">
-            <Grid item></Grid>
-            <Grid item>
-              {
-                !loading &&
-                <Button color="primary" component={Link}
-                  to={Routes.QUOTATION.path.replace(":id", cart.quotationId)}>
-                  <Routes.QUOTATION.icon />
-                  Select Another plan
-                </Button>
-              }
-            </Grid>
-          </Grid>
-        </Paper>
         <Paper className="quotation-container">
           {
             loading ?
@@ -113,6 +102,10 @@ class Cart extends Component {
                   <Grid item>
                     <Typography variant="subtitle2">
                       {company.name}
+                      <IconButton color="primary" component={Link}
+                        to={Routes.QUOTATION.path.replace(":id", cart.quotationId)}>
+                        <Edit />
+                      </IconButton>
                     </Typography>
                   </Grid>
                 </Grid>
@@ -159,6 +152,10 @@ class Cart extends Component {
               color={cartIndex === 3 ? "primary" : "textPrimary"}>
               Past Policy Details
             </Typography>
+            <Typography variant="caption"
+              color={cartIndex === 4 ? "primary" : "textPrimary"}>
+              Invoice
+            </Typography>
           </Breadcrumbs>
           {
             !loading && cartIndex === 0 &&
@@ -177,6 +174,10 @@ class Cart extends Component {
             <PastPolicy
               type={cart.type}
               handleCartIndex={this.handleCartIndex} />
+          }
+          {
+            !loading && cartIndex === 4 &&
+            <Invoice />
           }
         </Paper>
       </div>
