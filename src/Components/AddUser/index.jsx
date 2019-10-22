@@ -63,9 +63,9 @@ class AddUser extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.success) {
-      this.setState({
+  static getDerivedStateFromProps(props) {
+    if (props.success) {
+      return {
         firstName: "",
         lastName: "",
         email: "",
@@ -73,13 +73,13 @@ class AddUser extends Component {
         roleId: "",
         parentId: "",
         addUser: false
-      });
+      };
     }
-    this.setState({
-      loading: nextProps.loading,
-      roles: nextProps.roles,
-      managers: nextProps.managers
-    });
+    return {
+      loading: props.loading,
+      roles: props.roles,
+      managers: props.managers
+    };
   }
 
   getValidatorData = () => (this.state)

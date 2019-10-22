@@ -27,6 +27,8 @@ import GifLoader from "../../../../Assets/loader.gif";
 import Config from "../../../../../config/config";
 import "./style.scss";
 
+const environment = process.env.NODE_ENV || "development";
+
 const mapStateToProps = (state) => ({
   loading: !!state.user.loading,
   image: state.user.image
@@ -50,11 +52,11 @@ class Header extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loading: nextProps.loading,
-      image: nextProps.image
-    });
+  static getDerivedStateFromProps(props) {
+    return {
+      loading: props.loading,
+      image: props.image
+    };
   }
 
   openMenu = (event) => {
@@ -117,7 +119,7 @@ class Header extends Component {
               <Avatar className="user-header-image" src={GifLoader} /> :
               <Avatar
                 className="user-header-image"
-                src={`${Config.service}${image.path}?${new Date().getTime()}`}
+                src={`${Config[environment].service}${image.path}?${new Date().getTime()}`}
                 onClick={this.openMenu} />
             }
             <Menu

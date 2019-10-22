@@ -32,6 +32,8 @@ import IDVForm from "./Elements/IDVForm";
 import Config from "../../../config/config";
 import "./style.scss";
 
+const environment = process.env.NODE_ENV || "development";
+
 const mapStateToProps = (state) => ({
   loading: state.insurance.loading,
   quotation: state.insurance.quotation,
@@ -60,12 +62,12 @@ class Quotation extends Component {
     this.props.getQuotationAndPlans(this.props.match.params.id);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loading: nextProps.loading,
-      quotation: nextProps.quotation,
-      plans: nextProps.plans
-    });
+  static getDerivedStateFromProps(props) {
+    return {
+      loading: props.loading,
+      quotation: props.quotation,
+      plans: props.plans
+    };
   }
 
   handleExpandIndex = (expandIndex) => () => {
@@ -155,7 +157,7 @@ class Quotation extends Component {
                 <Card className="quotation-plan-card">
                   <CardMedia
                     className="plan-image"
-                    image={`${Config.service}${plan.companyImage.path}`}
+                    image={`${Config[environment].service}${plan.companyImage.path}`}
                     title={plan.name} />
                   <Fab size="small" variant="extended" color="primary"
                     className="discount-button">

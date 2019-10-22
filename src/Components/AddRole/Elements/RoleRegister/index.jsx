@@ -31,10 +31,10 @@ class RoleRegister extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loading: nextProps.loading
-    });
+  static getDerivedStateFromProps(props) {
+    return {
+      loading: props.loading
+    };
   }
 
   render() {

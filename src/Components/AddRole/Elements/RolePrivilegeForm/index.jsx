@@ -44,12 +44,12 @@ class RolePrivilegeForm extends Component {
     this.props.getAllPrivileges("GIS_USER");
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      privileges: _.map(nextProps.privileges, (privilege) => (
+  static getDerivedStateFromProps(props) {
+    return {
+      privileges: _.map(props.privileges, (privilege) => (
         _.extend(privilege, Routes[privilege.description])
       ))
-    });
+    };
   }
 
   handleSubmit = () => {

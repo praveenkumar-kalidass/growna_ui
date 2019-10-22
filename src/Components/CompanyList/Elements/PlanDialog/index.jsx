@@ -25,6 +25,8 @@ import {$} from "jquery";
 import {saveCompany} from "../../../../Actions/Tenant";
 import "./style.scss";
 
+const environment = process.env.NODE_ENV || "development";
+
 const mapStateToProps = (state) => ({
   companyList: state.tenant.companyList
 });
@@ -61,7 +63,7 @@ class PlanDialog extends Component {
   componentDidMount() {
     if (this.props.plan.companyImage) {
       this.setState({
-        imageSrc: `${Config.service}${this.props.plan.companyImage.path}`
+        imageSrc: `${Config[environment].service}${this.props.plan.companyImage.path}`
       });
     }
   }

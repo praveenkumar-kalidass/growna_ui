@@ -46,12 +46,12 @@ class VehicleDetail extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.state.loading) {
-      this.setState({
-        vehicleNumber: (nextProps.vehicleNumber || "").replace(`${this.props.registrationCode}`, ""),
-        onLoan: nextProps.onLoan || ""
-      });
+  static getDerivedStateFromProps(props, state) {
+    if (state.loading) {
+      return {
+        vehicleNumber: (props.vehicleNumber || "").replace(`${props.registrationCode}`, ""),
+        onLoan: props.onLoan || ""
+      };
     }
   }
 

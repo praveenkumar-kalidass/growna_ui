@@ -59,18 +59,18 @@ class App extends Component {
     this.checkRouteValidity();
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(props) {
     const {
       message,
       error,
       success
-    } = nextProps;
+    } = props;
 
-    this.setState({
+    return {
       message,
       error,
       success
-    });
+    };
   }
 
   componentDidUpdate(prevProps) {

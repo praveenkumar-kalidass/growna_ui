@@ -50,20 +50,14 @@ class Login extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      error: nextProps.error,
+  static getDerivedStateFromProps(props) {
+    if (props.error) {
+      setTimeout(props.disableAppError, 5000);
+    }
+    return {
+      error: props.error,
       isLogin: false
-    }, () => {
-      if (this.state.error) {
-        setTimeout(
-          () => {
-            this.props.disableAppError();
-          },
-          5000
-        );
-      }
-    });
+    };
   }
 
   getValidatorData = () => (this.state)

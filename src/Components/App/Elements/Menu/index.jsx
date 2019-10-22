@@ -36,6 +36,8 @@ import GifLoader from "../../../../Assets/loader.gif";
 import Config from "../../../../../config/config";
 import "./style.scss";
 
+const environment = process.env.NODE_ENV || "development";
+
 const mapStateToProps = (state) => ({
   loading: !!state.user.loading,
   privileges: state.user.privileges,
@@ -95,24 +97,24 @@ class Menu extends Component {
     this.props.getPrivileges(gis.roleId, "VIEW");
   }
 
-  componentWillReceiveProps(nextProps) {
-    const privileges = _.groupBy(_.map(nextProps.privileges, (privilege) => (
+  static getDerivedStateFromProps(props, state) {
+    const privileges = _.groupBy(_.map(props.privileges, (privilege) => (
       Routes[privilege.description]
     )), "category");
-    this.setState({
-      loading: this.props.location.pathname === Routes.USER_PROFILE.path ?
-        false : nextProps.loading,
-      privileges: _.compact(_.map(this.state.categories, (category) => {
+    return {
+      loading: props.location.pathname === Routes.USER_PROFILE.path ?
+        false : props.loading,
+      privileges: _.compact(_.map(state.categories, (category) => {
         if (privileges[category.name]) {
           category.routes = privileges[category.name];
           return category;
         }
         return null;
       })),
-      user: nextProps.user,
-      role: nextProps.role,
-      image: nextProps.image
-    });
+      user: props.user,
+      role: props.role,
+      image: props.image
+    };
   }
 
   handleChange = (path) => {
@@ -160,7 +162,7 @@ class Menu extends Component {
                   loading ?
                   <Avatar className="user-image" src={GifLoader} /> :
                   <Avatar
-                    src={`${Config.service}${image.path}?${new Date().getTime()}`}></Avatar>
+                    src={`${Config[environment].service}${image.path}?${new Date().getTime()}`}></Avatar>
                 }
               </ListItemAvatar>
               <ListItemText className="user-name"

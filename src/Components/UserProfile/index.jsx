@@ -23,6 +23,8 @@ import GifLoader from "../../Assets/loader.gif";
 import Config from "../../../config/config";
 import "./style.scss";
 
+const environment = process.env.NODE_ENV || "development";
+
 const mapStateToProps = (state) => ({
   loading: !!state.user.loading,
   image: state.user.image,
@@ -52,26 +54,20 @@ class UserProfile extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {
-      firstName,
-      lastName
-    } = this.state;
-
-    this.setState({
-      loading: nextProps.loading
-    });
-
+  static getDerivedStateFromProps(props) {
     if(this.props.loading) {
-      this.setState({
-        image: nextProps.image,
-        user: nextProps.user,
-        firstName: nextProps.user.firstName || "",
-        lastName: nextProps.user.lastName || "",
-        email: nextProps.user.email || "",
+      return {
+        image: props.image,
+        user: props.user,
+        firstName: props.user.firstName || "",
+        lastName: props.user.lastName || "",
+        email: props.user.email || "",
         password: ""
-      });
+      };
     }
+    return {
+      loading: props.loading
+    };
   }
 
   getValidatorData = () => (this.state)
@@ -137,7 +133,7 @@ class UserProfile extends Component {
                       <Avatar className="user-image" src={GifLoader} /> :
                       <Avatar
                         className="user-image"
-                        src={`${Config.service}${image.path}?${new Date().getTime()}`}></Avatar>
+                        src={`${Config[environment].service}${image.path}?${new Date().getTime()}`}></Avatar>
                     }
                     <Grid container justify="center" className="upload-image">
                       <input id="profile-picture"

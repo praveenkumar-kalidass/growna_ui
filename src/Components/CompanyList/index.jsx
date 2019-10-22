@@ -31,6 +31,8 @@ import PlanDialog from "./Elements/PlanDialog";
 import Config from "../../../config/config";
 import "./style.scss";
 
+const environment = process.env.NODE_ENV || "development";
+
 const mapStateToProps = (state) => ({
   loading: !!state.tenant.loading,
   companyList: state.tenant.companyList,
@@ -60,12 +62,12 @@ class CompanyList extends Component {
     this.props.getCompanyList();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loading: nextProps.loading,
-      companyList: nextProps.companyList,
-      companyPlans: nextProps.companyPlans
-    });
+  static getDerivedStateFromProps(props) {
+    return {
+      loading: props.loading,
+      companyList: props.companyList,
+      companyPlans: props.companyPlans
+    };
   }
 
   loadCompanyPlans = (name) => () => {
@@ -154,7 +156,7 @@ class CompanyList extends Component {
                   <ExpansionPanelSummary expandIcon={<ExpandMore />}>
                     <Grid container spacing={16}>
                       <Grid item>
-                        <Avatar src={`${Config.service}${plan.companyImage.path}`} />
+                        <Avatar src={`${Config[environment].service}${plan.companyImage.path}`} />
                       </Grid>
                       <Grid item>
                         <Typography variant="body2">

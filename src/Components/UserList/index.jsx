@@ -50,11 +50,11 @@ class UserList extends Component {
     this.props.getUsers(tenantId);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loading: nextProps.loading,
-      users: nextProps.users
-    });
+  static getDerivedStateFromProps(props) {
+    return {
+      loading: props.loading,
+      users: props.users
+    };
   }
 
   render() {

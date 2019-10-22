@@ -70,19 +70,19 @@ class PastPolicy extends Component {
     this.props.getCompanyList(this.props.type);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      companies: nextProps.companies
-    });
-    if (this.state.loading) {
-      this.setState({
-        policyNumber: nextProps.policyNumber || "",
-        expiryDate: nextProps.expiryDate || new Date(),
-        claimed: nextProps.claimed || false,
-        noClaimBonus: nextProps.noClaimBonus || 0,
-        companyId: nextProps.companyId || ""
-      });
+  static getDerivedStateFromProps(props, state) {
+    if (state.loading) {
+      return {
+        policyNumber: props.policyNumber || "",
+        expiryDate: props.expiryDate || new Date(),
+        claimed: props.claimed || false,
+        noClaimBonus: props.noClaimBonus || 0,
+        companyId: props.companyId || ""
+      };
     }
+    return {
+      companies: props.companies
+    };
   }
 
   getValidatorData = () => (this.state)

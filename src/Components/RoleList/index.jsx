@@ -42,11 +42,11 @@ class RoleList extends Component {
     this.props.getRoles(cookies.get("gis").tenantId);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loading: nextProps.loading,
-      roles: nextProps.roles
-    });
+  static getDerivedStateFromProps(props) {
+    return {
+      loading: props.loading,
+      roles: props.roles
+    };
   }
 
   render() {

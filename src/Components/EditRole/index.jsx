@@ -59,17 +59,17 @@ class EditRole extends Component {
     this.props.getRole(this.props.match.params.id);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      id: nextProps.role.id || "",
-      name: nextProps.role.name || "",
-      parentId: nextProps.role.parentId || "",
-      loading: nextProps.loading,
-      roles: nextProps.roles,
-      privileges: _.map(nextProps.role.privileges || [], (privilege) => (
+  static getDerivedStateFromProps(props) {
+    return {
+      id: props.role.id || "",
+      name: props.role.name || "",
+      parentId: props.role.parentId || "",
+      loading: props.loading,
+      roles: props.roles,
+      privileges: _.map(props.role.privileges || [], (privilege) => (
         Routes[privilege.description]
       ))
-    });
+    };
   }
 
   handleChange = (event, field) => {

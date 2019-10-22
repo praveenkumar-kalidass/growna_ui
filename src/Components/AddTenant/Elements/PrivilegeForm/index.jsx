@@ -46,16 +46,16 @@ class PrivilegeForm extends Component {
     this.props.getAllPrivileges("GIS_ADMIN");
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      privilegeList: nextProps.privileges,
-      privileges: _.compact(_.map(nextProps.privileges, (privilege) => {
+  static getDerivedStateFromProps(props) {
+    return {
+      privilegeList: props.privileges,
+      privileges: _.compact(_.map(props.privileges, (privilege) => {
         if (privilege.type === "VIEW") {
           return _.extend(privilege, Routes[privilege.description]);
         }
         return null;
       }))
-    });
+    };
   }
 
   handleSubmit = () => {

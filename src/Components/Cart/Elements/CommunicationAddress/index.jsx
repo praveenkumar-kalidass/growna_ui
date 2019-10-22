@@ -45,13 +45,13 @@ class CommunicationAddress extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.state.loading) {
-      this.setState({
-        houseNumber: nextProps.houseNumber || "",
-        address: nextProps.address || "",
-        pincode: nextProps.pincode || ""
-      });
+  static getDerivedStateFromProps(props, state) {
+    if (state.loading) {
+      return {
+        houseNumber: props.houseNumber || "",
+        address: props.address || "",
+        pincode: props.pincode || ""
+      };
     }
   }
 

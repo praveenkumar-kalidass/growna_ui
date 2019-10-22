@@ -44,10 +44,10 @@ class IDVForm extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      open: nextProps.open
-    });
+  static getDerivedStateFromProps(props) {
+    return {
+      open: props.open
+    };
   }
 
   handleIDV = (event, insuredDeclaredValue) => {

@@ -54,14 +54,14 @@ class Cart extends Component {
     this.props.getCartDetails(this.props.match.params.id);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loading: nextProps.loading,
-      cart: nextProps.cart,
-      quotation: nextProps.quotation,
-      company: nextProps.company,
-      plan: nextProps.plan
-    });
+  static getDerivedStateFromProps(props) {
+    return {
+      loading: props.loading,
+      cart: props.cart,
+      quotation: props.quotation,
+      company: props.company,
+      plan: props.plan
+    };
   }
 
   handleCartIndex = (cartIndex) => {
@@ -96,7 +96,7 @@ class Cart extends Component {
                       company.companyImage &&
                       <Avatar
                         className="company-image"
-                        src={`${Config.service}${company.companyImage.path}`} />
+                        src={`${Config[environment].service}${company.companyImage.path}`} />
                     }
                   </Grid>
                   <Grid item>

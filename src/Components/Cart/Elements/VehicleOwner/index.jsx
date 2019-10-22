@@ -64,16 +64,16 @@ class VehicleOwner extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(this.props.loading) {
-      this.setState({
-        firstName: nextProps.firstName || "",
-        lastName: nextProps.lastName || "",
-        gender: nextProps.gender || "",
-        dateOfBirth: nextProps.dateOfBirth || new Date(),
-        mobileNumber: nextProps.mobileNumber || "",
-        email: nextProps.email || ""
-      });
+  static getDerivedStateFromProps(props) {
+    if(state.loading) {
+      return {
+        firstName: props.firstName || "",
+        lastName: props.lastName || "",
+        gender: props.gender || "",
+        dateOfBirth: props.dateOfBirth || new Date(),
+        mobileNumber: props.mobileNumber || "",
+        email: props.email || ""
+      };
     }
   }
 

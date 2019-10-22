@@ -48,11 +48,11 @@ class RoleForm extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loading: nextProps.loading,
-      roles: nextProps.roles
-    });
+  static getDerivedStateFromProps(props) {
+    return {
+      loading: props.loading,
+      roles: props.roles
+    };
   }
 
   getValidatorData = () => (this.state)

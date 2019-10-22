@@ -89,14 +89,14 @@ class BikeInsurance extends Component {
     this.props.getRegistrationCodes();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      loading: nextProps.loading,
-      brands: nextProps.brands,
-      models: nextProps.models,
-      variants: nextProps.variants,
-      registrationCodes: nextProps.registrationCodes
-    });
+  static getDerivedStateFromProps(props) {
+    return {
+      loading: props.loading,
+      brands: props.brands,
+      models: props.models,
+      variants: props.variants,
+      registrationCodes: props.registrationCodes
+    };
   }
 
   getValidatorData = () => (this.state)

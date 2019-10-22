@@ -5,11 +5,13 @@ import {enableAppError} from "../Actions/App";
 import Store from "../Store/store";
 import Config from "../../config/config";
 
+const environment = process.env.NODE_ENV || "development";
+
 /**
  * Axios to register Base url of Service
  */
 let api = axios.create({
-  baseURL: Config.service,
+  baseURL: Config[environment].service,
   timeout: 10000
 });
 

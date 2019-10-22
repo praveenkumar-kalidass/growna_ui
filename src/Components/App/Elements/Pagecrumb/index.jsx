@@ -26,8 +26,13 @@ class Pagecrumb extends Component {
     this.updateCrumbs(this.props.location.pathname);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.updateCrumbs(nextProps.location.pathname);
+  static getDerivedStateFromProps(props) {
+    return {
+      routes: _.filter(Routes, (route) => {
+        return route.path !== "/" &&
+          new RegExp(route.path.replace("/:id", "")).test(props.location.pathname);
+      })
+    };
   }
 
   updateCrumbs = (pathname) => {
