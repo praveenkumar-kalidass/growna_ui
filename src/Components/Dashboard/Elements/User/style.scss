@@ -1,0 +1,11 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-user-dashboard {
+  .performance-paper {
+    min-height: 215px;
+    padding: 15px;
+  }
+  .performance-chart {
+    height: 500px;
+  }
+}

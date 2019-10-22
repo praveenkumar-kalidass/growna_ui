@@ -1,0 +1,36 @@
+@import "../../../../Utils/Colors.scss";
+
+.gis-feed {
+  margin-bottom: 20px !important;
+  .feed-card {
+    height: 120px;
+    &.pink {
+      background-color: $pink;
+    }
+    &.purple {
+      background-color: $purple;
+    }
+    &.yellow {
+      background-color: $yellow;
+    }
+    &.green {
+      background-color: $green-dark;
+    }
+    .card-container {
+      min-height: 100%;
+    }
+    .stats-label {
+      color: $white;
+      font-weight: 400;
+    }
+    .stats-info {
+      color: $white;
+      font-weight: 600;
+    }
+    .stats-icon {
+      color: $white;
+      height: 50px;
+      width: 50px;
+    }
+  }
+}

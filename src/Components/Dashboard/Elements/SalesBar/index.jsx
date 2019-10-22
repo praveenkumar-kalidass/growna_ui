@@ -97,18 +97,18 @@ class SalesBar extends Component {
           }
         </Grid>
         <ResponsiveContainer width="100%" height={350}>
-        <ComposedChart data={barChart}
-          margin={{top: 50, right: 20, left: 20, bottom: 10}}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Area type="monotone" dataKey="amt" fill="#b9db92" stroke="#b9db92"/>
-          <Bar dataKey="pv" barSize={20} fill="#009688" />
-          <Line type="monotone" dataKey="uv" stroke="#ec407a" />
-        </ComposedChart>
-      </ResponsiveContainer>
+          <ComposedChart data={barChart}
+            margin={{top: 50, right: 20, left: 20, bottom: 10}}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Area type="monotone" dataKey="amt" fill="#b9db92" stroke="#b9db92"/>
+            <Bar dataKey="pv" barSize={20} fill="#009688" />
+            <Line type="monotone" dataKey="uv" stroke="#ec407a" />
+          </ComposedChart>
+        </ResponsiveContainer>
       </div>
     );
   }
