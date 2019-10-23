@@ -23,7 +23,7 @@ class Dashboard extends Component {
 
     return (
       <div className="gis-dashboard">
-        {role === "GIS_ADMIN" && <Admin />}
+        {(role === "GIS_ADMIN" || role === "GIS_SUPER_ADMIN") && <Admin />}
         {role === "GIS_USER" && <User />}
       </div>
     );

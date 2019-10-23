@@ -108,33 +108,30 @@ class Header extends Component {
                   <MenuIcon />
                 </IconButton>
               </Hidden>
-              <Typography variant="h6" color="inherit">
-                GIS
-              </Typography>
             </Grid>
-          </Grid>
-          <Grid item>
-            {
-              loading ?
-              <Avatar className="user-header-image" src={GifLoader} /> :
-              <Avatar
-                className="user-header-image"
-                src={`${Config[environment].service}${image.path}?${new Date().getTime()}`}
-                onClick={this.openMenu} />
-            }
-            <Menu
-              anchorEl={menuEl}
-              open={menu}
-              onClose={this.closeMenu}>
-              <MenuItem component={Link} to={Routes.USER_PROFILE.path}>
-                <Routes.USER_PROFILE.icon />
-                {Routes.USER_PROFILE.name}
-              </MenuItem>
-              <MenuItem onClick={this.logout}>
-                <PowerSettingsNew />
-                Logout
-              </MenuItem>
-            </Menu>
+            <Grid item>
+              {
+                loading ?
+                <Avatar className="user-header-image" src={GifLoader} /> :
+                <Avatar
+                  className="user-header-image"
+                  src={`${Config[environment].service}${image.path}?${new Date().getTime()}`}
+                  onClick={this.openMenu} />
+              }
+              <Menu
+                anchorEl={menuEl}
+                open={menu}
+                onClose={this.closeMenu}>
+                <MenuItem component={Link} to={Routes.USER_PROFILE.path}>
+                  <Routes.USER_PROFILE.icon />
+                  {Routes.USER_PROFILE.name}
+                </MenuItem>
+                <MenuItem onClick={this.logout}>
+                  <PowerSettingsNew />
+                  Logout
+                </MenuItem>
+              </Menu>
+            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>

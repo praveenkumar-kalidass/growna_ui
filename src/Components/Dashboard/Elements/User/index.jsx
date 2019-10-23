@@ -8,10 +8,7 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  Cell,
   Legend,
-  Pie,
-  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -70,24 +67,12 @@ class User extends Component {
                   </Typography>
                 </Grid>
                 <Grid item xs sm md>
-                  <PieChart width={250} height={200}>
-                    <Pie
-                      data={[
-                        { name: 'Best performance', value: 450 },
-                        { name: 'Worst performance', value: 270 }
-                      ]}
-                      cx={125}
-                      cy={100}
-                      innerRadius={60}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      paddingAngle={5}
-                      dataKey="value"
-                    >
-                      <Cell fill="#ec407a" />
-                      <Cell fill="#ff9800" />
-                    </Pie>
-                  </PieChart>
+                  <ResponsiveContainer>
+                    <BarChart width={150} height={40} data={data}>
+                      <Bar dataKey="pv" fill="#4caf4f" />
+                      <Bar dataKey="uv" fill="#8884d8" />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </Grid>
               </Grid>
             </Paper>

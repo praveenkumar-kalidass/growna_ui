@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import {
   Button,
   Checkbox,
@@ -75,6 +75,7 @@ class BikeInsurance extends Component {
       vehicleYear: "",
       registrationCode: "",
       zoneType: "",
+      search: {brand: "", model: "", variant: ""},
       modelIndex: 0,
       openBikeModal: false,
       loading: false,
@@ -135,6 +136,15 @@ class BikeInsurance extends Component {
     });
   }
 
+  handleSearch = (type) => ({target}) => {
+    this.setState(({search}) => ({
+      search: {
+        ...search,
+        [type]: target.value
+      }
+    }));
+  }
+
   handleModalIndex = () => {
     this.setState((state) => ({
       modelIndex: state.modelIndex + 1
@@ -182,6 +192,7 @@ class BikeInsurance extends Component {
       variant,
       vehicleYear,
       registrationCode,
+      search,
       modelIndex,
       openBikeModal,
       loading,
@@ -190,6 +201,7 @@ class BikeInsurance extends Component {
       variants,
       registrationCodes
     } = this.state;
+    console.log(search);
 
     return (
       <Paper className="gis-bike-insurance">
@@ -270,7 +282,7 @@ class BikeInsurance extends Component {
             </Paper>
           </Grid>
         </Grid>
-        <Dialog fullWidth open={openBikeModal} className="bike-model-dialog">
+        <Dialog fullWidth open={openBikeModal}>
           <DialogTitle>
             Select your bike model
             <Stepper activeStep={modelIndex} alternativeLabel>
@@ -286,69 +298,114 @@ class BikeInsurance extends Component {
             </Stepper>
           </DialogTitle>
           <DialogContent>
-            <FormControl component="fieldset">
+            <FormControl component="fieldset" fullWidth>
               {
                 modelIndex === 0 &&
-                <FormGroup row className="bike-model-group">
-                  {
-                    loading ?
-                    <CircularProgress /> :
-                    _.map(brands, (brandItem, index) => (
-                      <FormControlLabel
-                        key={index}
-                        control={
-                          <Checkbox
-                            color="primary"
-                            checked={brand === brandItem.brand}
-                            onChange={this.handleChange("brand")}
-                            value={brandItem.brand} />
-                        }
-                        label={brandItem.brand} />
-                    ))
-                  }
-                </FormGroup>
+                <Fragment>
+                  <Grid container justify="flex-end">
+                    <Grid item xs={6} sm={6} md={6}>
+                      <TextField
+                        label="Search a bike brand"
+                        value={search.brand}
+                        onChange={this.handleSearch("brand")}
+                        margin="normal"
+                        fullWidth />
+                    </Grid>
+                  </Grid>
+                  <FormGroup row>
+                    {
+                      loading ?
+                      <CircularProgress /> :
+                      _.map(
+                        _.filter(brands, (item) => new RegExp(search.brand).test(item.brand.toLowerCase())),
+                        (brandItem, index) => (
+                        <Grid key={index} item xs={4} sm={4} md={4}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                color="primary"
+                                checked={brand === brandItem.brand}
+                                onChange={this.handleChange("brand")}
+                                value={brandItem.brand} />
+                            }
+                            label={brandItem.brand} />
+                        </Grid>
+                      ))
+                    }
+                  </FormGroup>
+                </Fragment>
               }
               {
                 modelIndex === 1 &&
-                <FormGroup row className="bike-model-group">
-                  {
-                    loading ?
-                    <CircularProgress /> :
-                    _.map(models, (modelItem, index) => (
-                      <FormControlLabel
-                        key={index}
-                        control={
-                          <Checkbox
-                            color="primary"
-                            checked={model === modelItem.model}
-                            onChange={this.handleChange("model")}
-                            value={modelItem.model} />
-                        }
-                        label={modelItem.model} />
-                    ))
-                  }
-                </FormGroup>
+                <Fragment>
+                  <Grid container justify="flex-end">
+                    <Grid item xs={6} sm={6} md={6}>
+                      <TextField
+                        label="Search a bike model"
+                        value={search.model}
+                        onChange={this.handleSearch("model")}
+                        margin="normal"
+                        fullWidth />
+                    </Grid>
+                  </Grid>
+                  <FormGroup row>
+                    {
+                      loading ?
+                      <CircularProgress /> :
+                      _.map(
+                        _.filter(models, (item) => new RegExp(search.model).test(item.model.toLowerCase())),
+                        (modelItem, index) => (
+                        <Grid key={index} item xs={4} sm={4} md={4}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                color="primary"
+                                checked={model === modelItem.model}
+                                onChange={this.handleChange("model")}
+                                value={modelItem.model} />
+                            }
+                            label={modelItem.model} />
+                        </Grid>
+                      ))
+                    }
+                  </FormGroup>
+                </Fragment>
               }
               {
                 modelIndex === 2 &&
-                <FormGroup row className="bike-model-group">
-                  {
-                    loading ?
-                    <CircularProgress /> :
-                    _.map(variants, (variantItem, index) => (
-                      <FormControlLabel
-                        key={index}
-                        control={
-                          <Checkbox
-                            color="primary"
-                            checked={variant === variantItem.variant}
-                            onChange={this.handleChange("variant")}
-                            value={variantItem.variant} />
-                        }
-                        label={`${variantItem.variant} (${variantItem.engineCc} CC)`} />
-                    ))
-                  }
-                </FormGroup>
+                <Fragment>
+                  <Grid container justify="flex-end">
+                    <Grid item xs={6} sm={6} md={6}>
+                      <TextField
+                        label="Search a bike variant"
+                        value={search.variant}
+                        onChange={this.handleSearch("variant")}
+                        margin="normal"
+                        fullWidth />
+                    </Grid>
+                  </Grid>
+                  <FormGroup row>
+                    {
+                      loading ?
+                      <CircularProgress /> :
+                      _.map(
+                        _.filter(variants, (item) => new RegExp(search.variant).test(item.variant.toLowerCase())),
+                        (variantItem, index) => (
+                        <Grid key={index} item xs={6} sm={6} md={6}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                color="primary"
+                                checked={variant === variantItem.variant}
+                                onChange={this.handleChange("variant")}
+                                value={variantItem.variant} />
+                            }
+                            label={`${variantItem.variant} (${variantItem.engineCc} CC)`} />
+                        </Grid>
+                      ))
+                    }
+                  </FormGroup>
+                </Fragment>
               }
             </FormControl>
           </DialogContent>
