@@ -1,15 +1,13 @@
 import React, {Component} from "react";
 import {
   Avatar,
+  Breadcrumbs,
   CircularProgress,
   Grid,
   IconButton,
   Paper,
   Typography
 } from "@material-ui/core";
-import {
-  Breadcrumbs
-} from "@material-ui/lab";
 import {
   Edit
 } from "@material-ui/icons";

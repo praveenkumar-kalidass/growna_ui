@@ -10,12 +10,10 @@ import {
   DialogTitle,
   Grid,
   InputAdornment,
+  Slider,
   TextField,
   Typography
 } from "@material-ui/core";
-import {
-  Slider
-} from "@material-ui/lab";
 import {connect} from "react-redux";
 import {editQuotation} from "../../../../Actions/Insurance";
 import "./style.scss";

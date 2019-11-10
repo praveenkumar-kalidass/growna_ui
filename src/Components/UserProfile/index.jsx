@@ -55,7 +55,7 @@ class UserProfile extends Component {
   }
 
   static getDerivedStateFromProps(props) {
-    if(this.props.loading) {
+    if(props.loading) {
       return {
         image: props.image,
         user: props.user,

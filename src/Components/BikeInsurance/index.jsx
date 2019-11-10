@@ -1,4 +1,5 @@
-import React, {Component, Fragment} from "react";
+import React, {Component, Fragment, createRef} from "react";
+import ReactDOM from 'react-dom';
 import {
   Button,
   Checkbox,
@@ -21,6 +22,9 @@ import {
   TextField,
   Typography
 } from "@material-ui/core";
+import {
+  Autocomplete
+} from '@material-ui/lab';
 import {
   AddCircle
 } from "@material-ui/icons";
@@ -84,13 +88,14 @@ class BikeInsurance extends Component {
       variants: [],
       registrationCodes: []
     };
+    this.autocompleteRef = createRef();
   }
 
   componentDidMount() {
     this.props.getRegistrationCodes();
   }
 
-  static getDerivedStateFromProps(props) {
+  static getDerivedStateFromProps(props, state) {
     return {
       loading: props.loading,
       brands: props.brands,
@@ -114,26 +119,25 @@ class BikeInsurance extends Component {
     });
   }
 
-  handleChange = (field) => (event) => {
+  handleChange = (field) => (event, value) => {
     if (field === "variant") {
       this.setState({
         engineCc: _.findWhere(this.state.variants,
           {
             variant: event.target.value
-          }).engineCc
+          }).engineCc,
+        variant: event.target.value
       });
-    }
-    if (field === "registrationCode") {
+    } else if (field === "registrationCode") {
       this.setState({
-        zoneType: _.findWhere(this.state.registrationCodes,
-          {
-            registrationCode: event.target.value
-          }).zoneType
+        zoneType: value.zoneType,
+        registrationCode: value.registrationCode
+      });
+    } else {
+      this.setState({
+        [field]: event.target.value
       });
     }
-    this.setState({
-      [field]: event.target.value
-    });
   }
 
   handleSearch = (type) => ({target}) => {
@@ -191,7 +195,6 @@ class BikeInsurance extends Component {
       model,
       variant,
       vehicleYear,
-      registrationCode,
       search,
       modelIndex,
       openBikeModal,
@@ -201,7 +204,6 @@ class BikeInsurance extends Component {
       variants,
       registrationCodes
     } = this.state;
-    console.log(search);
 
     return (
       <Paper className="gis-bike-insurance">
@@ -256,25 +258,22 @@ class BikeInsurance extends Component {
                     ))
                   }
                 </TextField>
-                <TextField
-                  required
-                  select
-                  label="Select bike registration code"
-                  value={registrationCode}
+                <Autocomplete
+                  options={registrationCodes}
                   onChange={this.handleChange("registrationCode")}
-                  onBlur={this.props.handleValidation("registrationCode")}
-                  margin="normal"
-                  fullWidth
-                  error={!this.props.isValid("registrationCode")}
-                  helperText={this.props.getValidationMessages("registrationCode")[0]}>
-                  {
-                    _.map(registrationCodes, (code) => (
-                      <MenuItem key={code.registrationCode} value={code.registrationCode}>
-                        {code.registrationCode} ({code.displayName})
-                      </MenuItem>
-                    ))
-                  }
-                </TextField>
+                  getOptionLabel={code => `${code.registrationCode} (${code.displayName})`}
+                  renderOption={(code) => `${code.registrationCode} (${code.displayName})`}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Search vehicle registration code"
+                      margin="normal"
+                      fullWidth
+                      onBlur={this.props.handleValidation("registrationCode")}
+                      error={!this.props.isValid("registrationCode")}
+                      helperText={this.props.getValidationMessages("registrationCode")[0]}
+                    />
+                  )} />
                 <Button type="submit" variant="contained" color="primary">
                   Get Quotes
                 </Button>
