@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {AppBar, Button, Divider, Grid, Modal, Paper, TextField, Toolbar, Typography} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import Routes from "../../../../Utils/Routes";
-import GisLogo from "../../../../Assets/growna-logo.png";
+import GisLogo from "../../../../Assets/no1insurance.jpg";
 import "./style.scss";
 
 class Header extends Component {
@@ -39,7 +39,7 @@ class Header extends Component {
           <Grid container justify="center">
             <Grid item md={8} sm={10} xs={12}>
               <Grid container justify="space-between" alignItems="center">
-                <Grid item>
+                <Grid item className="logo-bg-white">
                   <img onClick={() => this.props.handleRoute(0)}
                     src={GisLogo} className="gis-logo" />
                 </Grid>

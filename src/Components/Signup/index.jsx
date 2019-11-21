@@ -130,7 +130,7 @@ class Signup extends Component {
                             Hello there,
                           </Typography>
                           <Typography variant="subtitle1" gutterBottom>
-                            Welcome to Growna Insurance Service
+                            Welcome to No.1 Insurance Service
                           </Typography>
                         </Grid>
                       </Grid>
@@ -237,7 +237,7 @@ class Signup extends Component {
           <Dialog open={login}>
             <DialogContent>
               <DialogContentText>
-                Signup Complete. Login to use Growna Insurance.
+                Signup Complete. Login to use No.1 Insurance.
               </DialogContentText>
             </DialogContent>
             <DialogActions>

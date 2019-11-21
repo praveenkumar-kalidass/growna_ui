@@ -147,7 +147,7 @@ class Menu extends Component {
       <div className="gis-app-menu">
         <List component="nav" disablePadding>
           <ListItem className="app-name-container">
-            <ListItemText className="app-name" primary="Growna Insurance" />
+            <ListItemText className="app-name" primary="No.1 Insurance" />
           </ListItem>
           {
             loading ?

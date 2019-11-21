@@ -121,13 +121,13 @@ class Login extends Component {
                         className="message-grid-container">
                         <Grid item>
                           <Typography variant="h6" gutterBottom>
-                            GIS
+                            No.1 Insurance
                           </Typography>
                           <Typography variant="h3" gutterBottom>
                             Hello there,
                           </Typography>
                           <Typography variant="subtitle1" gutterBottom>
-                            Welcome to Growna Insurance Service
+                            Welcome to No.1 Insurance 1 crore policy service
                           </Typography>
                         </Grid>
                       </Grid>
