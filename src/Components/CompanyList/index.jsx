@@ -127,7 +127,7 @@ class CompanyList extends Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Grid container spacing={16}
+        <Grid container spacing={4}
           className="company-list-container">
           <Grid item>
             <List component="nav" className="company-list">
@@ -154,7 +154,7 @@ class CompanyList extends Component {
               _.map(companyPlans, (plan) => (
                 <ExpansionPanel key={plan.id}>
                   <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-                    <Grid container spacing={16}>
+                    <Grid container spacing={4}>
                       <Grid item>
                         <Avatar src={`${Config[environment].service}${plan.companyImage.path}`} />
                       </Grid>

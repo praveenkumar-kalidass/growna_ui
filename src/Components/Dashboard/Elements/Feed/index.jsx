@@ -45,7 +45,7 @@ class Feed extends Component {
     const {feed} = this.state;
 
     return (
-      <Grid container className="gis-feed" spacing={16} wrap>
+      <Grid container className="gis-feed" spacing={4} wrap>
         {
           _.map(feed, (stats, index) => (
             <Grid key={index} item xs={6} sm={6} md={6}>
@@ -53,7 +53,7 @@ class Feed extends Component {
                 <Grid container className="card-container"
                   justify="space-around"
                   alignItems="flex-end"
-                  spacing={8}>
+                  spacing={2}>
                   <Grid item>
                     <Typography className="stats-info" variant="h5">
                       {stats.value}

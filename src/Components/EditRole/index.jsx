@@ -111,7 +111,7 @@ class EditRole extends Component {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Grid container alignItems="center" spacing={16}>
+                  <Grid container alignItems="center" spacing={4}>
                     <Grid item>
                       <Typography variant="caption" color="inherit">
                         Reporting to:

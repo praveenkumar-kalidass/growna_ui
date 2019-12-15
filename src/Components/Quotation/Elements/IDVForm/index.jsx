@@ -81,7 +81,7 @@ class IDVForm extends Component {
         <form onSubmit={this.handleSubmit} autoComplete="off">
           <DialogTitle>Set Custom IDV</DialogTitle>
           <DialogContent>
-            <Grid container alignItems="flex-end" spacing={16}
+            <Grid container alignItems="flex-end" spacing={4}
               className="text-container">
               <Grid item>
                 <DialogContentText>

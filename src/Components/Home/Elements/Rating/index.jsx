@@ -15,7 +15,7 @@ class Rating extends Component {
           <Grid container justify="space-between">
             <Grid item md={4} xs={12}>
               <Grid className="gis-rating-container" container
-                justify="center" alignItems="center" spacing={16}>
+                justify="center" alignItems="center" spacing={4}>
                 <Grid item>
                   <Paper className="rating-logo-paper" elevation={1}>
                     <Avatar className="rating-logo" src={Certified} />
@@ -36,7 +36,7 @@ class Rating extends Component {
             </Grid>
             <Grid item md={4} xs={12}>
               <Grid className="gis-rating-container" container
-                justify="center" alignItems="center" spacing={16}>
+                justify="center" alignItems="center" spacing={4}>
                 <Grid item>
                   <Paper className="rating-logo-paper" elevation={1}>
                     <Avatar className="rating-logo" src={Trust} />
@@ -57,7 +57,7 @@ class Rating extends Component {
             </Grid>
             <Grid item md={4} xs={12}>
               <Grid className="gis-rating-container" container
-                justify="center" alignItems="center" spacing={16}>
+                justify="center" alignItems="center" spacing={4}>
                 <Grid item>
                   <Paper className="social-logo-paper" elevation={1}>
                     <Grid className="logo-container" container

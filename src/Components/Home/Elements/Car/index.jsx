@@ -28,7 +28,7 @@ class Car extends Component {
         container
         justify="center"
         alignItems="center"
-        spacing={16}>
+        spacing={4}>
         <Grid item md={5} sm={6} xs={10}>
           <TextField
             fullWidth

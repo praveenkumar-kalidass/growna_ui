@@ -146,7 +146,7 @@ class Quotation extends Component {
             }
           </Grid>
         </Paper>
-        <Grid container justify="center" spacing={16}>
+        <Grid container justify="center" spacing={4}>
           {
             loading ?
             <Grid item>

@@ -44,7 +44,7 @@ class Header extends Component {
                     src={GisLogo} className="gis-logo" />
                 </Grid>
                 <Grid item>
-                  <Grid container justify="flex-end" spacing={16}>
+                  <Grid container justify="flex-end" spacing={4}>
                     <Button onClick={() => this.props.handleRoute(0)}
                       className="home-link-button">
                       Insurance

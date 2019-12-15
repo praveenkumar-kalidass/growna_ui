@@ -48,7 +48,7 @@ class Partner extends Component {
           </Grid>
         </Grid>
         <Grid item md={10} sm={11} xs={11}>
-          <Grid container className="partner-logo-container" justify="flex-start" spacing={8}>
+          <Grid container className="partner-logo-container" justify="flex-start" spacing={2}>
             {
               _.map(partners, (partner, index) => (
                 <Grid key={index} item>

@@ -212,7 +212,7 @@ class PastPolicy extends Component {
                       ))
                     }
                   </TextField>
-                  <Grid container justify="flex-end" spacing={16}>
+                  <Grid container justify="flex-end" spacing={4}>
                     <Grid item>
                       <Button variant="contained" color="primary"
                         onClick={() => this.props.handleCartIndex(2)}>

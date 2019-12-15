@@ -155,7 +155,7 @@ class UserProfile extends Component {
           </Grid>
           <Grid item xs={12} sm={10} md={8}>
             <form onSubmit={this.handleSubmit}>
-              <Grid container spacing={16}>
+              <Grid container spacing={4}>
                 <Grid item xs sm md>
                   <TextField
                     value={firstName}

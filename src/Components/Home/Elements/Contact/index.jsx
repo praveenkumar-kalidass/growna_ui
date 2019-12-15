@@ -21,7 +21,7 @@ class Contact extends Component {
               </Typography>
             </Grid>
             <Grid item md={8}>
-              <Grid container justify="center" spacing={32}>
+              <Grid container justify="center" spacing={8}>
                 <Grid item md={4}>
                   <img src={ContactUs} className="contact-us-image" />
                 </Grid>
@@ -33,7 +33,7 @@ class Contact extends Component {
                     Call: <Chip className="contact-chip" label="xxx_xxx_xxxxxx" />
                   </Typography>
                   <Divider className="contact-divider" />
-                  <Grid className="logo-container" container justify="center" spacing={8}>
+                  <Grid className="logo-container" container justify="center" spacing={2}>
                     <Grid item>
                       <Avatar src={Google} />
                     </Grid>

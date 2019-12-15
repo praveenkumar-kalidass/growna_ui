@@ -45,7 +45,7 @@ class Statistics extends Component {
     const {statistics} = this.state;
 
     return (
-      <Grid container className="gis-statistics" spacing={16}>
+      <Grid container className="gis-statistics" spacing={4}>
         {
           _.map(statistics, (stats, index) => (
             <Grid key={index} item
@@ -54,7 +54,7 @@ class Statistics extends Component {
                 <Grid container className="card-container"
                   justify="space-around"
                   alignItems="flex-end"
-                  spacing={8}>
+                  spacing={2}>
                   <Grid item>
                     <Typography className="stats-info" variant="h5">
                       {stats.value}

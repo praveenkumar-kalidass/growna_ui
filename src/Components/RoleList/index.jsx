@@ -72,7 +72,7 @@ class RoleList extends Component {
             <CircularProgress />
           </Grid>
         }
-        <Grid container justify="space-around" spacing={16}
+        <Grid container justify="space-around" spacing={4}
           className="role-container">
           {
             !loading && _.map(roles, (role, index) => (

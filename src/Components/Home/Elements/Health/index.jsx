@@ -30,7 +30,7 @@ class Health extends Component {
         container
         justify="center"
         alignItems="center"
-        spacing={16}>
+        spacing={4}>
         <Grid item md={3} sm={5} xs={11}>
           <FormControl fullWidth>
             <InputLabel>

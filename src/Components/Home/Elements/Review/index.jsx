@@ -88,13 +88,13 @@ class Review extends Component {
         </Grid>
         <Grid item md={10} sm={11} xs={11}>
           <Grid className="review-navigation-container" container
-            justify="center" alignItems="center" spacing={8}>
+            justify="center" alignItems="center" spacing={2}>
             <Grid item md={1} sm={1} xs={1} className="navigation-item">
               <KeyboardArrowLeft onClick={() => this.handleIndexChange(37)}
                 className="review-navigation-icon" />
             </Grid>
             <Grid item md={10} sm={10} xs={10}>
-              <Grid container justify="center" spacing={16}>
+              <Grid container justify="center" spacing={4}>
                 {
                   _.map(reviews, (review, index) => (
                     _.map(review, (comment, key) => (
@@ -102,7 +102,7 @@ class Review extends Component {
                       ? <Grid key={key} item md={6}
                           className="review-container animated fadeIn">
                           <Paper elevation={1} className="review-paper">
-                            <Grid container justify="center" spacing={16}>
+                            <Grid container justify="center" spacing={4}>
                               <Grid item>
                                 <Avatar src={comment.avatar}
                                   className="review-avatar" />

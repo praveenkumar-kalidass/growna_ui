@@ -77,7 +77,7 @@ class SalesBar extends Component {
               <Grid key={index} item xs={6} sm={3} md={3}>
                 <Grid className="sales-badge" container
                   justify="center" alignItems="center"
-                  spacing={8}>
+                  spacing={2}>
                   <Grid item>
                     <Avatar className={`badge-icon ${badge.color}`}>
                       <badge.icon />

@@ -89,7 +89,7 @@ class CommunicationAddress extends Component {
           <Grid item xs={12} sm={10} md={8}>
             <Paper className="form-container">
               <form onSubmit={this.handleSubmit} noValidate autoComplete="off">
-                <Grid container spacing={16}>
+                <Grid container spacing={4}>
                   <Grid item xs={12} sm={3} md={3}>
                     <TextField
                       label="House number"
@@ -128,7 +128,7 @@ class CommunicationAddress extends Component {
                   error={!this.props.isValid("pincode")}
                   helperText={this.props.getValidationMessages("pincode")[0]}
                 />
-                <Grid container justify="flex-end" spacing={16}>
+                <Grid container justify="flex-end" spacing={4}>
                   <Grid item>
                     <Button variant="contained" color="primary"
                       onClick={() => this.props.handleCartIndex(0)}>

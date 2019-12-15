@@ -229,7 +229,7 @@ class PlanDialog extends Component {
                 % of IDV
               </InputAdornment>
             }} />
-            <Grid container spacing={16}>
+            <Grid container spacing={4}>
               <Grid item xs={12} sm={6} md={6}>
                 <TextField
                   required
@@ -257,7 +257,7 @@ class PlanDialog extends Component {
                 }}/>
               </Grid>
             </Grid>
-            <Grid container spacing={16}>
+            <Grid container spacing={4}>
               <Grid item xs={12} sm={6} md={6}>
                 <TextField
                   required

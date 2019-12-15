@@ -8,11 +8,14 @@
   .quotation-container {
     margin-bottom: 20px;
     padding: 20px;
-    .quotation-details {
-      border-right: 1px solid $grey-pale;
-      .company-image {
-        img {
-          object-fit: contain;
+    .quotation-details-container {
+      margin: -20px;
+      .quotation-details {
+        border-right: 1px solid $grey-pale;
+        .company-image {
+          img {
+            object-fit: contain;
+          }
         }
       }
     }

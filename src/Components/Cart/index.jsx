@@ -23,6 +23,8 @@ import Invoice from "./Elements/Invoice";
 import Config from "../../../config/config";
 import "./style.scss";
 
+const environment = process.env.NODE_ENV || "development";
+
 const mapStateToProps = (state) => ({
   loading: state.insurance.loading,
   cart: state.insurance.cart,
@@ -86,9 +88,9 @@ class Cart extends Component {
                 <CircularProgress />
               </Grid>
             </Grid> :
-            <Grid container justify="space-around" spacing={40}>
+            <Grid container justify="space-around" spacing={10} className="quotation-details-container">
               <Grid item xs={12} sm={6} md={4} className="quotation-details">
-                <Grid container alignItems="center" spacing={16}>
+                <Grid container alignItems="center" spacing={4}>
                   <Grid item>
                     {
                       company.companyImage &&

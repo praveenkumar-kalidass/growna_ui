@@ -89,7 +89,7 @@ class RolePrivilegeForm extends Component {
               Submit
             </Button>
           </Grid>
-          <Grid container justify="space-around" spacing={16}>
+          <Grid container justify="space-around" spacing={4}>
             {
               _.map(privileges, (privilege, index) => (
                 <Grid key={index} item xs={12} sm={6} md={4}>

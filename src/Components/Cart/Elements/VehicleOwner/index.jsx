@@ -64,7 +64,7 @@ class VehicleOwner extends Component {
     };
   }
 
-  static getDerivedStateFromProps(props) {
+  static getDerivedStateFromProps(props, state) {
     if(state.loading) {
       return {
         firstName: props.firstName || "",
@@ -126,7 +126,7 @@ class VehicleOwner extends Component {
           <Grid item xs={12} sm={10} md={8}>
             <Paper className="form-container">
               <form onSubmit={this.handleSubmit} noValidate autoComplete="off">
-                <Grid container spacing={16}>
+                <Grid container spacing={4}>
                   <Grid item xs={12} sm={12} md={6}>
                     <TextField
                       label="First Name"
@@ -154,7 +154,7 @@ class VehicleOwner extends Component {
                     />
                   </Grid>
                 </Grid>
-                <Grid container spacing={16} alignItems="flex-end">
+                <Grid container spacing={4} alignItems="flex-end">
                   <Grid item xs={12} sm={12} md={6}>
                     <FormControl
                       error={!this.props.isValid("gender")}

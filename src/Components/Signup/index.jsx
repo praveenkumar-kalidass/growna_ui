@@ -151,7 +151,7 @@ class Signup extends Component {
                           </Grid>
                         </Grid>
                         <form onSubmit={this.handleSubmit} noValidate autoComplete="off">
-                          <Grid container spacing={16}>
+                          <Grid container spacing={4}>
                             <Grid item xs={12} sm={12} md={6}>
                               <TextField
                                 label="First Name"

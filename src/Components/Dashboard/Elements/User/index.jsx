@@ -45,7 +45,7 @@ class User extends Component {
   render() {
     return (
       <div className="gis-user-dashboard">
-        <Grid container spacing={16} wrap>
+        <Grid container spacing={4} wrap>
           <Grid item xs={12} sm={12} md={6}>
             <Paper className="performance-paper">
               <Grid container>

@@ -58,7 +58,7 @@ class Service extends Component {
           </Grid>
         </Grid>
         <Grid item md={10} sm={11} xs={11}>
-          <Grid container className="service-container" justify="space-around" spacing={16}>
+          <Grid container className="service-container" justify="space-around" spacing={4}>
           {
             _.map(services, (service, index) => (
               <Grid key={index} item md={4} sm={5} xs={12}>
